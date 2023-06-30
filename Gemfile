@@ -17,8 +17,7 @@ gem 'rubystats'
 
 gem "ml-forest", git: "https://github.com/forest-implementation/ml-forest"
 
-# gem "ml-service-isolation", git: "https://github.com/forest-implementation/ml-service-isolation"
+gem "ml-service-isolation", git: "https://github.com/forest-implementation/ml-service-isolation"
 
-# TODO: FOR local dev only
-gem 'ml-service-isolation', path: '/home/adamo/scripts/rubyforest/ml-service-isolation'
+
 
