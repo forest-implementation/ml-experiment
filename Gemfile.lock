@@ -1,0 +1,68 @@
+GIT
+  remote: https://github.com/forest-implementation/ml-forest
+  revision: 83a5abd28fc3c734e534037a9afde49637223fa5
+  specs:
+    ml-forest (0.1.0)
+
+GIT
+  remote: https://github.com/forest-implementation/ml-service-isolation
+  revision: 618c217cb0e8a5fdcf89590cc37a5ac76cd32536
+  specs:
+    ml-service-isolation (0.1.0)
+
+PATH
+  remote: .
+  specs:
+    ml-experiment (0.1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ast (2.4.2)
+    json (2.6.3)
+    language_server-protocol (3.17.0.3)
+    matrix (0.4.2)
+    minitest (5.19.0)
+    parallel (1.23.0)
+    parser (3.2.2.3)
+      ast (~> 2.4.1)
+      racc
+    racc (1.7.1)
+    rainbow (3.1.1)
+    rake (13.0.6)
+    regexp_parser (2.8.1)
+    rexml (3.2.6)
+    rubocop (1.55.1)
+      json (~> 2.3)
+      language_server-protocol (>= 3.17.0)
+      parallel (~> 1.10)
+      parser (>= 3.2.2.3)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8, < 3.0)
+      rexml (>= 3.2.5, < 4.0)
+      rubocop-ast (>= 1.28.1, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 2.4.0, < 3.0)
+    rubocop-ast (1.29.0)
+      parser (>= 3.2.1.0)
+    ruby-progressbar (1.13.0)
+    rubystats (0.4.1)
+      matrix
+    svg-graph (2.2.2)
+    unicode-display_width (2.4.2)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  minitest (~> 5.0)
+  ml-experiment!
+  ml-forest!
+  ml-service-isolation!
+  rake (~> 13.0)
+  rubocop (~> 1.21)
+  rubystats
+  svg-graph
+
+BUNDLED WITH
+   2.4.10

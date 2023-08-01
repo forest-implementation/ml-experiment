@@ -90,12 +90,12 @@ module Plotting
       graph_immutable = SVG::Graph::Plot.new(config)
       graph_immutable.add_data({
                                  :data => x,
-                                 :title => 'x'
+                                 :title => 'regular'
                                })
 
       graph_immutable.add_data({
                                  :data => y,
-                                 :title => 'y'
+                                   :title => 'novelty'
                                })
       return graph_immutable
     end

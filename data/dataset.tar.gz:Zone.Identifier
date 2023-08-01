@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://ieee-dataport.org/
+HostUrl=https://ieee-dataport.s3.amazonaws.com/open/27974/dataset.tar.gz?response-content-disposition=attachment%3B%20filename%3D%22dataset.tar.gz%22&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJOHYI4KJCE6Q7MIQ%2F20230731%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230731T133309Z&X-Amz-SignedHeaders=Host&X-Amz-Expires=3600&X-Amz-Signature=607bdac96f846d4f45d5fb442f4143eee7569f02da2975c0baa44b6c0b985426
