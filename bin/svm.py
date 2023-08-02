@@ -2,9 +2,6 @@ from sklearn.svm import OneClassSVM
 import csv
 from random import sample
 
-X = [[0], [0.44], [0.45], [0.46], [1]]
-
-data = []
 with open('../data/anomalies/shuttle.csv', newline='') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=',')
     next(spamreader)
