@@ -28,4 +28,4 @@ outlier = grouped[false].map{ |hash| hash.values_at(:x)[0]}
 pp regular.count
 pp outlier.count
 
-Plotting::Plotter.save_svg_figure(input,novelties , path="figures/literature.svg")
+Plotting::Plotter.save_svg_figure(regular + novelties, outlier, path="figures/literature.svg")
