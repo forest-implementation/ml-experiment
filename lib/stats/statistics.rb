@@ -1,5 +1,8 @@
 require 'enumerable/statistics'
 
+require "matrix"
+require "rinruby"
+
 module Stats
   module Statistics
     
@@ -103,12 +106,22 @@ module Stats
       medcouple_index = (r_total / 2)
     end
 
+    def r_medcouple(arr)
+    
+      R.arr = arr
+      R.eval <<EOF
+          library(robustbase)
+          res <- mc(arr)
+EOF
+      R.res
+    end
+
     def adjusted_box(input, index)
       s = input.map { |x| x[index] }
       sorted = s.sort
       fqr, tqr = quantil(sorted, 0.25), quantil(sorted, 0.75)
       iqr = tqr - fqr
-      med = naive_medcouple(sorted)
+      med = r_medcouple(sorted)
       pp "medoucple #{med}"
       return  (fqr - 1.5*iqr* Math::E ** (-4*med))..(tqr + 1.5*iqr*Math::E ** (3*med)) if med >= 0
       return (fqr - 1.5*iqr* Math::E ** (-3*med))..(tqr + 1.5*iqr*Math::E ** (4*med)) if med <= 0

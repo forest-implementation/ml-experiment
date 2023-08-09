@@ -1,6 +1,13 @@
 GIT
+  remote: https://github.com/clbustos/rinruby.git
+  revision: fa04e5fd5048445b0aa49786b6cba41724251673
+  ref: fa04e5fd5048445b0aa49786b6cba41724251673
+  specs:
+    rinruby (2.1.0)
+
+GIT
   remote: https://github.com/forest-implementation/ml-forest
-  revision: 83a5abd28fc3c734e534037a9afde49637223fa5
+  revision: 252a5d6a7e7ef31dd955c6956b24254b40573c32
   specs:
     ml-forest (0.1.0)
 
@@ -19,6 +26,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
+    base64 (0.1.1)
     enumerable-statistics (2.0.7)
     json (2.6.3)
     language_server-protocol (3.17.0.3)
@@ -33,7 +41,8 @@ GEM
     rake (13.0.6)
     regexp_parser (2.8.1)
     rexml (3.2.6)
-    rubocop (1.55.1)
+    rubocop (1.56.0)
+      base64 (~> 0.1.1)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
@@ -62,6 +71,7 @@ DEPENDENCIES
   ml-forest!
   ml-service-isolation!
   rake (~> 13.0)
+  rinruby!
   rubocop (~> 1.21)
   rubystats
   svg-graph

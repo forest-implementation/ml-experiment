@@ -12,8 +12,8 @@ require 'stats/statistics'
 include Stats::Statistics
 
 # file = File.readlines('data/clicked/data.csv')
-# file = File.readlines('data/anomalies/http.csv')
-file = File.readlines('data/donors/donors_norm.csv')
+file = File.readlines('data/anomalies/http.csv')
+# file = File.readlines('data/donors/donors_norm.csv')
 # file = File.readlines('data/anomalies/shuttle.csv')
 
 data = file.drop_while { |v| !v.start_with? '@DATA' }[1..-1].map { |line| line.chomp.split(',') }
@@ -45,7 +45,7 @@ forest = Ml::Forest::Tree.new(input_sample, trees_count: 100, forest_helper: ser
 
 pp "novelties out of regular sample (#{input_sample.count})"
 pp input_sample.map { |x| forest.fit_predict(x, forest_helper: service) }.count{ |x| x.novelty? }
-pp "novelites out of regular semple"
+pp "novelites out of regular semple (#{input_semple.count})"
 pp input_semple.map { |x| forest.fit_predict(x, forest_helper: service) }.count{ |x| x.novelty? }
 pp "novelites out of mocked outliers (#{outliers.count})"
 pp outliers.map { |x| forest.fit_predict(x, forest_helper: service) }.count{ |x| x.novelty? }

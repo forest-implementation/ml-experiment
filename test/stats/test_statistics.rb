@@ -64,5 +64,20 @@ class Stats::TestStatistics < Minitest::Test
     assert_equal scanl(arr) {|x,y| x + y}.to_a, [1,3,6,10]
     
   end
+
+  def test_r_medcouple_16
+    arr = [4,3,2,2,1]
+    assert_in_delta 1/6.0, r_medcouple(arr)
+  end
+
+  def test_r_medocouple_zero
+    arr = [1,2,3,4,5]
+    assert_equal 0, r_medcouple(arr)
+  end
+
+  def test_r_medcouple_another
+    arr = [4,3,2,2,1,4,2]
+    assert_in_delta 2/3.0, r_medcouple(arr)
+  end
   
 end
