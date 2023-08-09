@@ -1,5 +1,9 @@
 # Ml::Experiment
 
+```
+time parallel --group bundle exec ruby bin/literature_novelty.rb > out.txt ::: {1..10}
+```
+
 TODO: Delete this and the text below, and describe your gem
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ml/experiment`. To experiment with that code, run `bin/console` for an interactive prompt.
