@@ -123,8 +123,10 @@ EOF
       iqr = tqr - fqr
       med = r_medcouple(sorted)
       pp "medoucple #{med}"
-      return  (fqr - 1.5*iqr* Math::E ** (-4*med))..(tqr + 1.5*iqr*Math::E ** (3*med)) if med >= 0
-      return (fqr - 1.5*iqr* Math::E ** (-3*med))..(tqr + 1.5*iqr*Math::E ** (4*med)) if med <= 0
+      
+      tolerance = -> ( par ) { 1.5*iqr* Math::E ** (par*med) }
+      
+      (fqr - tolerance.call(med >= 0 ? -4 : -3))..(tqr + tolerance.call(med >= 0 ? 3 : 4)) 
     end
 
   end

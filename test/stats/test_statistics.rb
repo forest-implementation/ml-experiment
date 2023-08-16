@@ -29,12 +29,18 @@ class Stats::TestStatistics < Minitest::Test
     assert_equal median([1,2,3,4,5,6,7]), 4 
   end
   
-  def test_fast_medcouple
-    assert_in_delta 0.286, fast_medcouple([1,2,3,4,7,8])
-    assert_equal 0.0, fast_medcouple([1,2,3,4,5,6])
-    assert_equal 0.0, fast_medcouple([1,2,3,4,5])
+  # def test_fast_medcouple
+  #   assert_in_delta 0.286, fast_medcouple([1,2,3,4,7,8])
+  #   assert_equal 0.0, fast_medcouple([1,2,3,4,5,6])
+  #   assert_equal 0.0, fast_medcouple([1,2,3,4,5])
+  # end
+   
+  def test_r_medcouple
+    assert_in_delta 0.286, r_medcouple([1,2,3,4,7,8])
+    assert_equal 0.0, r_medcouple([1,2,3,4,5,6])
+    assert_equal 0.0, r_medcouple([1,2,3,4,5])
   end
-  
+
   def test_naive_medcouple
     assert_in_delta 0.286, naive_medcouple([1,2,3,4,7,8])
     assert_equal 0.0, naive_medcouple([1,2,3,4,5,6])
@@ -43,7 +49,7 @@ class Stats::TestStatistics < Minitest::Test
   end
 
   def test_sgn
-    assert_equal -1, sgn(-12)
+    assert_equal (-1), sgn( -12)
     assert_equal 0, sgn(0)
     assert_equal 1, sgn(0.1)
   end
