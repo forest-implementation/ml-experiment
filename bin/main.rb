@@ -2,11 +2,11 @@
 
 require "bundler/setup"
 
-require 'rubystats'
+require "rubystats"
 require "matrix"
 require "rinruby"
 
-R.arr = [4,3,2,2,1]
+R.arr = [4, 3, 2, 2, 1]
 R.eval <<EOF
     library(robustbase)
     res <- mc(arr)

@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
-require 'svggraph' # https://github.com/lumean/svg-graph2
-require 'SVG/Graph/Plot'
+require "svggraph" # https://github.com/lumean/svg-graph2
+require "SVG/Graph/Plot"
 require "ml/forest"
-require 'ml/service/isolation/outlier'
+require "ml/service/isolation/outlier"
 
-require 'ml/experiment/preprocessor'
+require "ml/experiment/preprocessor"
 
-file = File.readlines('data/anomalies/http.csv')
+file = File.readlines("data/anomalies/http.csv")
 
-data = file.drop_while { |v| !v.start_with? '@DATA' }[1..-1].map { |line| line.chomp.split(',') }
+data = file.drop_while { |v| !v.start_with? "@DATA" }[1..-1].map { |line| line.chomp.split(",") }
 pp data[0]
 
 # get normal data for learning
@@ -19,7 +19,7 @@ outliers = Ml::Experiment::Preprocessor.filter_outliers(data)
 
 # learning input
 
-service = Ml::Service::Isolation::Outlier.new(batch_size: 128, )
+service = Ml::Service::Isolation::Outlier.new(batch_size: 128)
 forest = Ml::Forest::Tree.new(input, trees_count: 100, forest_helper: service)
 
 evaluated_data = outliers.map { |x| forest.fit_predict(x, forest_helper: service) }

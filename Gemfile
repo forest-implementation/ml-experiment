@@ -11,9 +11,9 @@ gem "minitest", "~> 5.0"
 
 gem "rubocop", "~> 1.21"
 
-gem 'svg-graph'
+gem "svg-graph"
 
-gem 'rubystats'
+gem "rubystats"
 
 gem "ml-forest", git: "https://github.com/forest-implementation/ml-forest"
 
