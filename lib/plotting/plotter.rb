@@ -30,7 +30,9 @@ DataPoint.configure_shape_criteria(
 
 # monkey patch init
 class SVG::Graph::Plot < SVG::Graph::Graph
-  attr_accessor :graph
+  attr_accessor :elements
+  attr_accessor :x_min_max
+  attr_accessor :y_min_max
 
   def initialize(config)
     @add_popups = false
@@ -40,62 +42,6 @@ class SVG::Graph::Plot < SVG::Graph::Graph
     @data = []
     # self.top_align = self.top_font = 0
     # self.right_align = self.right_font = 0
-
-    def draw_legend
-      return unless key
-
-      group = @root.add_element("g")
-
-      key_count = 0
-      for key_name in keys
-        y_offset = (key_box_size * key_count) + (key_count * key_spacing)
-        if key_count == 0
-          group.add_element("circle", {
-                              "cx" => 0.to_s,
-                              "cy" => y_offset.to_s,
-                              "r" => key_box_size / 2.0,
-                              # "width" => key_box_size.to_s,
-                              # "height" => key_box_size.to_s,
-                              # "class" => "key#{key_count+1}"
-
-                              # "r" => "2.5",
-                              "stroke" => "black"
-                            })
-        else
-          # y_offset = (key_box_size * key_count) + (key_count * key_spacing)
-          group.add_element("circle", {
-                              "cx" => 0.to_s,
-                              "cy" => y_offset.to_s,
-                              "r" => key_box_size / 2.0,
-                              # "width" => key_box_size.to_s,
-                              # "height" => key_box_size.to_s,
-                              # "class" => "key#{key_count+1}"
-                              "stroke-width" => "1",
-                              "fill" => "none",
-                              # "r" => "2.5",
-                              "stroke" => "black"
-                            })
-        end
-        group.add_element("text", {
-                            "x" => (key_box_size + key_spacing).to_s,
-                            "y" => (y_offset + key_box_size / 4.0).to_s,
-                            "class" => "keyText"
-                          }).text = key_name.to_s
-        key_count += 1
-      end
-
-      case key_position
-      when :right
-        x_offset = @graph_width + @border_left + (key_spacing * 2)
-        y_offset = @border_top + (key_spacing * 2)
-      when :bottom
-        x_offset = @border_left + (key_spacing * 2)
-        y_offset = @border_top + @graph_height + key_spacing
-        y_offset += max_x_label_height_px if show_x_labels
-        y_offset += x_title_font_size + key_spacing if show_x_title
-      end
-      group.attributes["transform"] = "translate(#{x_offset} #{y_offset})"
-    end
 
     init_with({
                 width: 500,
@@ -159,30 +105,87 @@ class SVG::Graph::Plot < SVG::Graph::Graph
     init_with config
   end
 
+  def draw_legend
+    return unless key
 
+    group = @root.add_element("g")
+
+    key_count = 0
+    for key_name in keys
+      y_offset = (key_box_size * key_count) + (key_count * key_spacing)
+      if key_count == 0
+        group.add_element("circle", {
+                            "cx" => 0.to_s,
+                            "cy" => y_offset.to_s,
+                            "r" => key_box_size / 2.0,
+                            # "width" => key_box_size.to_s,
+                            # "height" => key_box_size.to_s,
+                            # "class" => "key#{key_count+1}"
+
+                            # "r" => "2.5",
+                            "stroke" => "black"
+                          })
+      else
+        # y_offset = (key_box_size * key_count) + (key_count * key_spacing)
+        group.add_element("circle", {
+                            "cx" => 0.to_s,
+                            "cy" => y_offset.to_s,
+                            "r" => key_box_size / 2.0,
+                            # "width" => key_box_size.to_s,
+                            # "height" => key_box_size.to_s,
+                            # "class" => "key#{key_count+1}"
+                            "stroke-width" => "1",
+                            "fill" => "none",
+                            # "r" => "2.5",
+                            "stroke" => "black"
+                          })
+      end
+      group.add_element("text", {
+                          "x" => (key_box_size + key_spacing).to_s,
+                          "y" => (y_offset + key_box_size / 4.0).to_s,
+                          "class" => "keyText"
+                        }).text = key_name.to_s
+      key_count += 1
+    end
+
+    case key_position
+    when :right
+      x_offset = @graph_width + @border_left + (key_spacing * 2)
+      y_offset = @border_top + (key_spacing * 2)
+    when :bottom
+      x_offset = @border_left + (key_spacing * 2)
+      y_offset = @border_top + @graph_height + key_spacing
+      y_offset += max_x_label_height_px if show_x_labels
+      y_offset += x_title_font_size + key_spacing if show_x_title
+    end
+    group.attributes["transform"] = "translate(#{x_offset} #{y_offset})"
+  end
+
+  # for adding UFO elements to graph
+  # example:
+  # graph_immutable.elements = [Data.define(:name, :attributes).new("rect", {
+  #       "x" => "5",
+  #       "y" => "5",
+  #       "width" => 10,
+  #       "height" => 10,
+  #     })]
   def add_other_elements(graph)
-    graph.add_element("rect", {
-      "x" => "5",
-      "y" => "5",
-      "width" => 5,
-      "height" => 5,
-      
-    })
+    @elements.each {|element| graph.add_element(element.name, element.attributes) }
   end
 
   def draw_graph
-    @graph = @root.add_element( "g", {
-      "transform" => "translate( #@border_left #@border_top )"
-    })
+    @graph = @root.add_element("g", {
+                                 "transform" => "translate( #{@border_left} #{@border_top} )"
+                               })
 
     # Background
-    @graph.add_element( "rect", {
-      "x" => "0",
-      "y" => "0",
-      "width" => @graph_width.to_s,
-      "height" => @graph_height.to_s,
-      "class" => "graphBackground"
-    })
+    @graph.add_element("rect", {
+                         "x" => "0",
+                         "y" => "0",
+                         "width" => @graph_width.to_s,
+                         "height" => @graph_height.to_s,
+                         "class" => "graphBackground"
+                       })
 
     add_other_elements(@graph)
 
@@ -260,6 +263,32 @@ class SVG::Graph::Plot < SVG::Graph::Graph
     @max_y_cache = max_y_value
     @max_y_cache
   end
+
+
+  # take new min and max and rescale coords accordingly
+
+  def calc_coords_pub(x,y, x_min, x_max, y_min, y_max)
+    coords = {:x => 0, :y => 0}
+    # scale the coordinates, use float division / multiplication
+    # otherwise the point will be place inaccurate
+    # x - start: 0... end: 365
+    # y - start: 0... end: 250
+    #coords[:x] = (x + 365)
+    maxAllowed = 365
+    minAllowed = 0
+    unscaledNum = x
+    min = x_min
+    max = x_max
+    coords[:x] = (maxAllowed - minAllowed) * (unscaledNum - min) / (max - min) + minAllowed
+    maxAllowed = 250
+    minAllowed = 0
+    unscaledNum = y
+    min = y_min
+    max = y_max
+    coords[:y] = maxAllowed - ((maxAllowed - minAllowed) * (unscaledNum - min) / (max - min) + minAllowed)
+    return coords
+  end
+
 end
 
 module Plotting
@@ -287,7 +316,35 @@ module Plotting
       graph_immutable.add_data({
                                  data: y,
                                  title: "novelty"
-                               })
+                              })
+
+
+      x_min = config[:min_x_value]
+      x_max = config[:max_x_value]
+
+      y_min = config[:min_y_value]
+      y_max = config[:max_y_value]
+
+      @x_offset = 0
+
+      pp graph_immutable.scale_x_divisions
+      pp firstcoords = graph_immutable.calc_coords_pub(10,3, x_min, x_max, y_min, y_max)
+      ##pp secondcoords = graph_immutable.calc_coords_pub(10,10)
+
+
+
+      graph_immutable.elements = [Data.define(:name, :attributes).new("rect", {
+        "x" => firstcoords[:x],
+        "y" => firstcoords[:y],
+        "width" => 30,
+        "height" => 10,
+      }), Data.define(:name, :attributes).new("line", {
+        "x1" => 0,
+        "y1" => 0,
+        "x2" => 0,
+        "y2" => 0,
+        "style" => "stroke:rgb(255,0,0);stroke-width:2"
+      })]
 
       graph_immutable
     end

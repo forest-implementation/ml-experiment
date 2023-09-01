@@ -303,7 +303,8 @@
 <rect width='500' height='300' x='0' y='0' class='svgBackground'/>
 <g transform='translate( 65.0 10 )'>
 <rect x='0' y='0' width='364.0' height='249' class='graphBackground'/>
-<rect x='5' y='5' width='5' height='5'/>
+<rect x='201.94434380360613' y='153.644984195395' width='30' height='10'/>
+<line x1='0' y1='0' x2='0' y2='0' style='stroke:rgb(255,0,0);stroke-width:2'/>
 <path d='M 0 249 h364.0' class='axis' id='yAxis'/>
 <path d='M 0.0 0 v249' class='axis' id='xAxis'/>
 <text class='xAxisLabels' x='0.0' y='264' style='text-anchor: middle'>-5.82</text>
