@@ -1,0 +1,472 @@
+<svg width='500' height='300' viewBox='0 0 500 300' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:a3='http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/' a3:scriptImplementation='Adobe'>
+<!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
+<!-- Created with SVG::Graph -->
+<!-- SVG::Graph by Sean E. Russell -->
+<!-- Losely based on SVG::TT::Graph for Perl by Leo Lapworth & Stephan Morgan -->
+<!-- //////////////////////////////////////////////////////////////////-->
+<defs>
+<style type='text/css'>
+<![CDATA[/* Copy from here for external style sheet */
+.svgBackground{
+  fill:#ffffff;
+}
+.graphBackground{
+  fill:#f0f0f0;
+}
+
+/* graphs titles */
+.mainTitle{
+  text-anchor: middle;
+  fill: #000000;
+  font-size: 16px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+.subTitle{
+  text-anchor: middle;
+  fill: #999999;
+  font-size: 14px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.axis{
+  stroke: #000000;
+  stroke-width: 1px;
+}
+
+.guideLines{
+  stroke: #666666;
+  stroke-width: 1px;
+  stroke-dasharray: 5 5;
+}
+
+.xAxisLabels{
+  text-anchor: middle;
+  fill: #000000;
+  font-size: 12px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.yAxisLabels{
+  text-anchor: end;
+  fill: #000000;
+  font-size: 12px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.xAxisTitle{
+  text-anchor: middle;
+  fill: #ff0000;
+  font-size: 14px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.yAxisTitle{
+  fill: #ff0000;
+  text-anchor: middle;
+  font-size: 14px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.dataPointLabel, .dataPointLabelBackground, .dataPointPopup, .dataPointPopupMask{
+  fill: #000000;
+  text-anchor:middle;
+  font-size: 10px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.dataPointLabelBackground{
+  stroke: #ffffff;
+  stroke-width: 2;
+}
+
+.dataPointPopupMask{
+  stroke: white;
+  stroke-width: 7;
+}
+
+.dataPointPopup{
+  fill: black;
+  stroke-width: 2;
+}
+
+.staggerGuideLine{
+  fill: none;
+  stroke: #000000;
+  stroke-width: 0.5px;
+}
+
+/* default line styles */
+.line1{
+	fill: none;
+	stroke: #ff0000;
+	stroke-width: 1px;
+}
+.line2{
+	fill: none;
+	stroke: #0000ff;
+	stroke-width: 1px;
+}
+.line3{
+	fill: none;
+	stroke: #00ff00;
+	stroke-width: 1px;
+}
+.line4{
+	fill: none;
+	stroke: #ffcc00;
+	stroke-width: 1px;
+}
+.line5{
+	fill: none;
+	stroke: #00ccff;
+	stroke-width: 1px;
+}
+.line6{
+	fill: none;
+	stroke: #ff00ff;
+	stroke-width: 1px;
+}
+.line7{
+	fill: none;
+	stroke: #00ffff;
+	stroke-width: 1px;
+}
+.line8{
+	fill: none;
+	stroke: #ffff00;
+	stroke-width: 1px;
+}
+.line9{
+	fill: none;
+	stroke: #cc6666;
+	stroke-width: 1px;
+}
+.line10{
+	fill: none;
+	stroke: #663399;
+	stroke-width: 1px;
+}
+.line11{
+	fill: none;
+	stroke: #339900;
+	stroke-width: 1px;
+}
+.line12{
+	fill: none;
+	stroke: #9966FF;
+	stroke-width: 1px;
+}
+/* default fill styles */
+.fill1{
+	fill: #cc0000;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill2{
+	fill: #0000cc;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill3{
+	fill: #00cc00;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill4{
+	fill: #ffcc00;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill5{
+	fill: #00ccff;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill6{
+	fill: #ff00ff;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill7{
+	fill: #00ffff;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill8{
+	fill: #ffff00;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill9{
+	fill: #cc6666;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill10{
+	fill: #663399;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill11{
+	fill: #339900;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill12{
+	fill: #9966FF;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+/* default line styles */
+.key1,.dataPoint1{
+	fill: #ff0000;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key2,.dataPoint2{
+	fill: #0000ff;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key3,.dataPoint3{
+	fill: #00ff00;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key4,.dataPoint4{
+	fill: #ffcc00;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key5,.dataPoint5{
+	fill: #00ccff;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key6,.dataPoint6{
+	fill: #ff00ff;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key7,.dataPoint7{
+	fill: #00ffff;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key8,.dataPoint8{
+	fill: #ffff00;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key9,.dataPoint9{
+	fill: #cc6666;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key10,.dataPoint10{
+	fill: #663399;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key11,.dataPoint11{
+	fill: #339900;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key12,.dataPoint12{
+	fill: #9966FF;
+	stroke: none;
+	stroke-width: 1px;
+}
+
+
+.keyText{
+  fill: #000000;
+  text-anchor:start;
+  font-size: 10px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+/* End copy for external style sheet */
+]]>
+</style>
+</defs>
+<!-- include default stylesheet if none specified -->
+<!--SVG Background-->
+<rect width='500' height='300' x='0' y='0' class='svgBackground'/>
+<g transform='translate( 65.0 10 )'>
+<rect x='0' y='0' width='364.0' height='249' class='graphBackground'/>
+<path d='M 0 249 h364.0' class='axis' id='yAxis'/>
+<path d='M 0.0 0 v249' class='axis' id='xAxis'/>
+<text class='xAxisLabels' x='0.0' y='264' style='text-anchor: middle'>2.71</text>
+<text class='xAxisLabels' x='40.44444444444444' y='264' style='text-anchor: middle'>5.13</text>
+<text class='xAxisLabels' x='80.88888888888889' y='264' style='text-anchor: middle'>7.55</text>
+<text class='xAxisLabels' x='121.33333333333333' y='264' style='text-anchor: middle'>9.97</text>
+<text class='xAxisLabels' x='161.77777777777777' y='264' style='text-anchor: middle'>12.40</text>
+<text class='xAxisLabels' x='202.22222222222223' y='264' style='text-anchor: middle'>14.82</text>
+<text class='xAxisLabels' x='242.66666666666666' y='264' style='text-anchor: middle'>17.24</text>
+<text class='xAxisLabels' x='283.1111111111111' y='264' style='text-anchor: middle'>19.66</text>
+<text class='xAxisLabels' x='323.55555555555554' y='264' style='text-anchor: middle'>22.08</text>
+<text class='xAxisLabels' x='364.0' y='264' style='text-anchor: middle'>24.50</text>
+<text x='3' y='253.0' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 253.0 ) '>1.08</text>
+<text x='3' y='225.33333333333334' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 225.33333333333334 ) '>1.96</text>
+<path d='M0 221.33333333333334 h364.0' class='guideLines'/>
+<text x='3' y='197.66666666666666' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 197.66666666666666 ) '>2.84</text>
+<path d='M0 193.66666666666666 h364.0' class='guideLines'/>
+<text x='3' y='170.0' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 170.0 ) '>3.72</text>
+<path d='M0 166.0 h364.0' class='guideLines'/>
+<text x='3' y='142.33333333333331' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 142.33333333333331 ) '>4.60</text>
+<path d='M0 138.33333333333331 h364.0' class='guideLines'/>
+<text x='3' y='114.66666666666666' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 114.66666666666666 ) '>5.49</text>
+<path d='M0 110.66666666666666 h364.0' class='guideLines'/>
+<text x='3' y='87.0' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 87.0 ) '>6.37</text>
+<path d='M0 83.0 h364.0' class='guideLines'/>
+<text x='3' y='59.333333333333314' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 59.333333333333314 ) '>7.25</text>
+<path d='M0 55.333333333333314 h364.0' class='guideLines'/>
+<text x='3' y='31.666666666666657' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 31.666666666666657 ) '>8.13</text>
+<path d='M0 27.666666666666657 h364.0' class='guideLines'/>
+<text x='3' y='4.0' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 4.0 ) '>9.02</text>
+<path d='M0 0.0 h364.0' class='guideLines'/>
+<circle cx='165.19925636953343' cy='182.37783469026576' r='2.5' stroke='black'/>
+<circle cx='172.7169315488368' cy='174.53986618522114' r='2.5' stroke='black'/>
+<circle cx='174.38752603312645' cy='135.3500236599981' r='2.5' stroke='black'/>
+<circle cx='194.43465984460207' cy='141.6203984640338' r='2.5' stroke='black'/>
+<circle cx='209.4700102032088' cy='143.18799216504271' r='2.5' stroke='black'/>
+<circle cx='210.3053074453536' cy='108.70093074284645' r='2.5' stroke='black'/>
+<circle cx='217.82298262465693' cy='53.83515120753418' r='2.5' stroke='black'/>
+<circle cx='233.69363022540847' cy='179.24264728824792' r='2.5' stroke='black'/>
+<circle cx='240.37600816256705' cy='105.56574334082859' r='2.5' stroke='black'/>
+<circle cx='243.71719713114632' cy='147.8907732680695' r='2.5' stroke='black'/>
+<circle cx='249.56427782615998' cy='77.34905672266802' r='2.5' stroke='black'/>
+<circle cx='259.5878447318978' cy='193.3509905973282' r='2.5' stroke='black'/>
+<circle cx='262.0937364583323' cy='165.1343039791676' r='2.5' stroke='black'/>
+<circle cx='262.9290337004771' cy='107.1333370418375' r='2.5' stroke='black'/>
+<circle cx='277.12908681693904' cy='183.94542839127467' r='2.5' stroke='black'/>
+<circle cx='279.63497854337345' cy='157.296335474123' r='2.5' stroke='black'/>
+<circle cx='282.1408702698079' cy='157.296335474123' r='2.5' stroke='black'/>
+<circle cx='282.97616751195267' cy='94.59258743376614' r='2.5' stroke='black'/>
+<circle cx='283.8114647540975' cy='177.675053587239' r='2.5' stroke='black'/>
+<circle cx='287.98795096482166' cy='201.18895910237282' r='2.5' stroke='black'/>
+<circle cx='287.98795096482166' cy='118.10649294889996' r='2.5' stroke='black'/>
+<circle cx='289.6585454491113' cy='71.07868191863233' r='2.5' stroke='black'/>
+<circle cx='292.9997344176905' cy='130.64724255697138' r='2.5' stroke='black'/>
+<circle cx='307.19978753415245' cy='180.81024098925684' r='2.5' stroke='black'/>
+<circle cx='317.2233544398903' cy='160.43152287614086' r='2.5' stroke='black'/>
+<circle cx='329.7528130720625' cy='111.83611814486429' r='2.5' stroke='black'/>
+<circle cx='339.77637997780033' cy='161.99911657714978' r='2.5' stroke='black'/>
+<circle cx='346.4587579149589' cy='108.70093074284645' r='2.5' stroke='black'/>
+<circle cx='358.15291930498626' cy='135.3500236599981' r='2.5' stroke='black'/>
+<circle cx='364.0' cy='113.4037118458732' r='2.5' stroke='black'/>
+<circle cx='105.05785493510656' cy='63.24071341358771' r='2.5' stroke='black' stroke-width='1' fill='none'/>
+<g>
+<a xlink:href=''>
+<circle cx='165.19925636953343' cy='182.37783469026576' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='172.7169315488368' cy='174.53986618522114' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='174.38752603312645' cy='135.3500236599981' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='194.43465984460207' cy='141.6203984640338' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='209.4700102032088' cy='143.18799216504271' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='210.3053074453536' cy='108.70093074284645' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='217.82298262465693' cy='53.83515120753418' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='233.69363022540847' cy='179.24264728824792' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='240.37600816256705' cy='105.56574334082859' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='243.71719713114632' cy='147.8907732680695' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='249.56427782615998' cy='77.34905672266802' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='259.5878447318978' cy='193.3509905973282' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='262.0937364583323' cy='165.1343039791676' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='262.9290337004771' cy='107.1333370418375' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='277.12908681693904' cy='183.94542839127467' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='279.63497854337345' cy='157.296335474123' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='282.1408702698079' cy='157.296335474123' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='282.97616751195267' cy='94.59258743376614' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='283.8114647540975' cy='177.675053587239' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='287.98795096482166' cy='201.18895910237282' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='287.98795096482166' cy='118.10649294889996' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='289.6585454491113' cy='71.07868191863233' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='292.9997344176905' cy='130.64724255697138' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='307.19978753415245' cy='180.81024098925684' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='317.2233544398903' cy='160.43152287614086' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='329.7528130720625' cy='111.83611814486429' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='339.77637997780033' cy='161.99911657714978' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='346.4587579149589' cy='108.70093074284645' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='358.15291930498626' cy='135.3500236599981' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='364.0' cy='113.4037118458732' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='105.05785493510656' cy='63.24071341358771' r='10' style='opacity: 0'/>
+</a>
+</g>
+</g>
+<text x='247.0' y='288' class='xAxisTitle'>X</text>
+<text x='17' y='134' class='yAxisTitle' transform='rotate( -90, 17, 134 )'>Y</text>
+<g transform='translate(439.0 20)'>
+<circle cx='0' cy='0' r='6.0' stroke='black'/>
+<text x='17' y='3.0' class='keyText'>regular</text>
+<circle cx='0' cy='17' r='6.0' stroke-width='1' fill='none' stroke='black'/>
+<text x='17' y='20.0' class='keyText'>novelty</text>
+</g>
+</svg>

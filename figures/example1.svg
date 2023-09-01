@@ -1,0 +1,485 @@
+<svg width='500' height='300' viewBox='0 0 500 300' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:a3='http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/' a3:scriptImplementation='Adobe'>
+<!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
+<!-- Created with SVG::Graph -->
+<!-- SVG::Graph by Sean E. Russell -->
+<!-- Losely based on SVG::TT::Graph for Perl by Leo Lapworth & Stephan Morgan -->
+<!-- //////////////////////////////////////////////////////////////////-->
+<defs>
+<style type='text/css'>
+<![CDATA[/* Copy from here for external style sheet */
+.svgBackground{
+  fill:#ffffff;
+}
+.graphBackground{
+  fill:#f0f0f0;
+}
+
+/* graphs titles */
+.mainTitle{
+  text-anchor: middle;
+  fill: #000000;
+  font-size: 16px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+.subTitle{
+  text-anchor: middle;
+  fill: #999999;
+  font-size: 14px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.axis{
+  stroke: #000000;
+  stroke-width: 1px;
+}
+
+.guideLines{
+  stroke: #666666;
+  stroke-width: 1px;
+  stroke-dasharray: 5 5;
+}
+
+.xAxisLabels{
+  text-anchor: middle;
+  fill: #000000;
+  font-size: 12px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.yAxisLabels{
+  text-anchor: end;
+  fill: #000000;
+  font-size: 12px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.xAxisTitle{
+  text-anchor: middle;
+  fill: #ff0000;
+  font-size: 14px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.yAxisTitle{
+  fill: #ff0000;
+  text-anchor: middle;
+  font-size: 14px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.dataPointLabel, .dataPointLabelBackground, .dataPointPopup, .dataPointPopupMask{
+  fill: #000000;
+  text-anchor:middle;
+  font-size: 10px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.dataPointLabelBackground{
+  stroke: #ffffff;
+  stroke-width: 2;
+}
+
+.dataPointPopupMask{
+  stroke: white;
+  stroke-width: 7;
+}
+
+.dataPointPopup{
+  fill: black;
+  stroke-width: 2;
+}
+
+.staggerGuideLine{
+  fill: none;
+  stroke: #000000;
+  stroke-width: 0.5px;
+}
+
+/* default line styles */
+.line1{
+	fill: none;
+	stroke: #ff0000;
+	stroke-width: 1px;
+}
+.line2{
+	fill: none;
+	stroke: #0000ff;
+	stroke-width: 1px;
+}
+.line3{
+	fill: none;
+	stroke: #00ff00;
+	stroke-width: 1px;
+}
+.line4{
+	fill: none;
+	stroke: #ffcc00;
+	stroke-width: 1px;
+}
+.line5{
+	fill: none;
+	stroke: #00ccff;
+	stroke-width: 1px;
+}
+.line6{
+	fill: none;
+	stroke: #ff00ff;
+	stroke-width: 1px;
+}
+.line7{
+	fill: none;
+	stroke: #00ffff;
+	stroke-width: 1px;
+}
+.line8{
+	fill: none;
+	stroke: #ffff00;
+	stroke-width: 1px;
+}
+.line9{
+	fill: none;
+	stroke: #cc6666;
+	stroke-width: 1px;
+}
+.line10{
+	fill: none;
+	stroke: #663399;
+	stroke-width: 1px;
+}
+.line11{
+	fill: none;
+	stroke: #339900;
+	stroke-width: 1px;
+}
+.line12{
+	fill: none;
+	stroke: #9966FF;
+	stroke-width: 1px;
+}
+/* default fill styles */
+.fill1{
+	fill: #cc0000;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill2{
+	fill: #0000cc;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill3{
+	fill: #00cc00;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill4{
+	fill: #ffcc00;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill5{
+	fill: #00ccff;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill6{
+	fill: #ff00ff;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill7{
+	fill: #00ffff;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill8{
+	fill: #ffff00;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill9{
+	fill: #cc6666;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill10{
+	fill: #663399;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill11{
+	fill: #339900;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill12{
+	fill: #9966FF;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+/* default line styles */
+.key1,.dataPoint1{
+	fill: #ff0000;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key2,.dataPoint2{
+	fill: #0000ff;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key3,.dataPoint3{
+	fill: #00ff00;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key4,.dataPoint4{
+	fill: #ffcc00;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key5,.dataPoint5{
+	fill: #00ccff;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key6,.dataPoint6{
+	fill: #ff00ff;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key7,.dataPoint7{
+	fill: #00ffff;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key8,.dataPoint8{
+	fill: #ffff00;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key9,.dataPoint9{
+	fill: #cc6666;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key10,.dataPoint10{
+	fill: #663399;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key11,.dataPoint11{
+	fill: #339900;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key12,.dataPoint12{
+	fill: #9966FF;
+	stroke: none;
+	stroke-width: 1px;
+}
+
+
+.keyText{
+  fill: #000000;
+  text-anchor:start;
+  font-size: 10px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+/* End copy for external style sheet */
+]]>
+</style>
+</defs>
+<!-- include default stylesheet if none specified -->
+<!--SVG Background-->
+<rect width='500' height='300' x='0' y='0' class='svgBackground'/>
+<g transform='translate( 65.0 10 )'>
+<rect x='0' y='0' width='364.0' height='249' class='graphBackground'/>
+<rect x='5' y='5' width='5' height='5'/>
+<path d='M 0 249 h364.0' class='axis' id='yAxis'/>
+<path d='M 0.0 0 v249' class='axis' id='xAxis'/>
+<text class='xAxisLabels' x='0.0' y='264' style='text-anchor: middle'>-5.82</text>
+<text class='xAxisLabels' x='40.44444444444444' y='264' style='text-anchor: middle'>-2.55</text>
+<text class='xAxisLabels' x='80.88888888888889' y='264' style='text-anchor: middle'>0.71</text>
+<text class='xAxisLabels' x='121.33333333333333' y='264' style='text-anchor: middle'>3.97</text>
+<text class='xAxisLabels' x='161.77777777777777' y='264' style='text-anchor: middle'>7.24</text>
+<text class='xAxisLabels' x='202.22222222222223' y='264' style='text-anchor: middle'>10.50</text>
+<text class='xAxisLabels' x='242.66666666666666' y='264' style='text-anchor: middle'>13.76</text>
+<text class='xAxisLabels' x='283.1111111111111' y='264' style='text-anchor: middle'>17.02</text>
+<text class='xAxisLabels' x='323.55555555555554' y='264' style='text-anchor: middle'>20.29</text>
+<text class='xAxisLabels' x='364.0' y='264' style='text-anchor: middle'>23.55</text>
+<text x='3' y='253.0' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 253.0 ) '>0.22</text>
+<text x='3' y='225.33333333333334' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 225.33333333333334 ) '>1.02</text>
+<path d='M0 221.33333333333334 h364.0' class='guideLines'/>
+<text x='3' y='197.66666666666666' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 197.66666666666666 ) '>1.82</text>
+<path d='M0 193.66666666666666 h364.0' class='guideLines'/>
+<text x='3' y='170.0' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 170.0 ) '>2.62</text>
+<path d='M0 166.0 h364.0' class='guideLines'/>
+<text x='3' y='142.33333333333331' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 142.33333333333331 ) '>3.43</text>
+<path d='M0 138.33333333333331 h364.0' class='guideLines'/>
+<text x='3' y='114.66666666666666' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 114.66666666666666 ) '>4.23</text>
+<path d='M0 110.66666666666666 h364.0' class='guideLines'/>
+<text x='3' y='87.0' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 87.0 ) '>5.03</text>
+<path d='M0 83.0 h364.0' class='guideLines'/>
+<text x='3' y='59.333333333333314' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 59.333333333333314 ) '>5.83</text>
+<path d='M0 55.333333333333314 h364.0' class='guideLines'/>
+<text x='3' y='31.666666666666657' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 31.666666666666657 ) '>6.64</text>
+<path d='M0 27.666666666666657 h364.0' class='guideLines'/>
+<text x='3' y='4.0' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 4.0 ) '>7.44</text>
+<path d='M0 0.0 h364.0' class='guideLines'/>
+<circle cx='215.87559412848776' cy='113.3886921920647' r='2.5' stroke='black'/>
+<circle cx='228.2709419001624' cy='146.13619346443105' r='2.5' stroke='black'/>
+<circle cx='233.84884839741608' cy='137.51842997170306' r='2.5' stroke='black'/>
+<circle cx='251.20233527776054' cy='77.1940855226072' r='2.5' stroke='black'/>
+<circle cx='251.82210266634428' cy='127.1771137804295' r='2.5' stroke='black'/>
+<circle cx='266.07675260377016' cy='56.51145314006004' r='2.5' stroke='black'/>
+<circle cx='268.55582215810506' cy='120.28290298624711' r='2.5' stroke='black'/>
+<circle cx='269.79535693527254' cy='39.275926154604065' r='2.5' stroke='black'/>
+<circle cx='275.37326343252613' cy='127.1771137804295' r='2.5' stroke='black'/>
+<circle cx='276.6127982096936' cy='82.364743618244' r='2.5' stroke='black'/>
+<circle cx='279.7116351526123' cy='80.6411909196984' r='2.5' stroke='black'/>
+<circle cx='291.4872155357032' cy='125.45356108188392' r='2.5' stroke='black'/>
+<circle cx='292.7267503128707' cy='56.51145314006004' r='2.5' stroke='black'/>
+<circle cx='300.7837263644592' cy='63.405663934242426' r='2.5' stroke='black'/>
+<circle cx='308.84070241604775' cy='96.15316520660875' r='2.5' stroke='black'/>
+<circle cx='315.65814369046876' cy='49.61724234587763' r='2.5' stroke='black'/>
+<circle cx='318.75698063338746' cy='151.30685156006786' r='2.5' stroke='black'/>
+<circle cx='319.3767480219712' cy='75.47053282406159' r='2.5' stroke='black'/>
+<circle cx='320.6162827991387' cy='23.76395186769369' r='2.5' stroke='black'/>
+<circle cx='323.0953523534736' cy='89.25895441242639' r='2.5' stroke='black'/>
+<circle cx='326.19418929639227' cy='122.0064556847927' r='2.5' stroke='black'/>
+<circle cx='331.1523284050621' cy='47.89368964733205' r='2.5' stroke='black'/>
+<circle cx='333.0116305708133' cy='99.60027060369995' r='2.5' stroke='black'/>
+<circle cx='333.6313979593971' cy='144.41264076588544' r='2.5' stroke='black'/>
+<circle cx='334.8709327365645' cy='103.04737600079113' r='2.5' stroke='black'/>
+<circle cx='337.35000229089945' cy='175.4365893397062' r='2.5' stroke='black'/>
+<circle cx='348.5058152854067' cy='30.658162661876077' r='2.5' stroke='black'/>
+<circle cx='349.1255826739904' cy='137.51842997170306' r='2.5' stroke='black'/>
+<circle cx='350.36511745115786' cy='68.57632202987921' r='2.5' stroke='black'/>
+<circle cx='364.0' cy='87.53540171388076' r='2.5' stroke='black'/>
+<circle cx='127.8686249495977' cy='180.60724743534297' r='2.5' stroke='black' stroke-width='1' fill='none'/>
+<circle cx='131.58722928110012' cy='187.50145822952538' r='2.5' stroke='black' stroke-width='1' fill='none'/>
+<circle cx='134.06629883543505' cy='184.05435283243418' r='2.5' stroke='black' stroke-width='1' fill='none'/>
+<circle cx='183.64768992213368' cy='15.146188374965703' r='2.5' stroke='black' stroke-width='1' fill='none'/>
+<g>
+<a xlink:href=''>
+<circle cx='215.87559412848776' cy='113.3886921920647' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='228.2709419001624' cy='146.13619346443105' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='233.84884839741608' cy='137.51842997170306' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='251.20233527776054' cy='77.1940855226072' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='251.82210266634428' cy='127.1771137804295' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='266.07675260377016' cy='56.51145314006004' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='268.55582215810506' cy='120.28290298624711' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='269.79535693527254' cy='39.275926154604065' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='275.37326343252613' cy='127.1771137804295' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='276.6127982096936' cy='82.364743618244' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='279.7116351526123' cy='80.6411909196984' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='291.4872155357032' cy='125.45356108188392' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='292.7267503128707' cy='56.51145314006004' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='300.7837263644592' cy='63.405663934242426' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='308.84070241604775' cy='96.15316520660875' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='315.65814369046876' cy='49.61724234587763' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='318.75698063338746' cy='151.30685156006786' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='319.3767480219712' cy='75.47053282406159' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='320.6162827991387' cy='23.76395186769369' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='323.0953523534736' cy='89.25895441242639' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='326.19418929639227' cy='122.0064556847927' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='331.1523284050621' cy='47.89368964733205' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='333.0116305708133' cy='99.60027060369995' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='333.6313979593971' cy='144.41264076588544' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='334.8709327365645' cy='103.04737600079113' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='337.35000229089945' cy='175.4365893397062' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='348.5058152854067' cy='30.658162661876077' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='349.1255826739904' cy='137.51842997170306' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='350.36511745115786' cy='68.57632202987921' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='364.0' cy='87.53540171388076' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='127.8686249495977' cy='180.60724743534297' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='131.58722928110012' cy='187.50145822952538' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='134.06629883543505' cy='184.05435283243418' r='10' style='opacity: 0'/>
+</a>
+<a xlink:href=''>
+<circle cx='183.64768992213368' cy='15.146188374965703' r='10' style='opacity: 0'/>
+</a>
+</g>
+</g>
+<text x='247.0' y='288' class='xAxisTitle'>X</text>
+<text x='17' y='134' class='yAxisTitle' transform='rotate( -90, 17, 134 )'>Y</text>
+<g transform='translate(439.0 20)'>
+<circle cx='0' cy='0' r='6.0' stroke='black'/>
+<text x='17' y='3.0' class='keyText'>regular</text>
+<circle cx='0' cy='17' r='6.0' stroke-width='1' fill='none' stroke='black'/>
+<text x='17' y='20.0' class='keyText'>novelty</text>
+</g>
+</svg>

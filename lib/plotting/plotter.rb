@@ -30,6 +30,8 @@ DataPoint.configure_shape_criteria(
 
 # monkey patch init
 class SVG::Graph::Plot < SVG::Graph::Graph
+  attr_accessor :graph
+
   def initialize(config)
     @add_popups = false
 
@@ -154,8 +156,41 @@ class SVG::Graph::Plot < SVG::Graph::Graph
                 inline_style_sheet: ""
               })
 
-    # override default values with user supplied values
     init_with config
+  end
+
+
+  def add_other_elements(graph)
+    graph.add_element("rect", {
+      "x" => "5",
+      "y" => "5",
+      "width" => 5,
+      "height" => 5,
+      
+    })
+  end
+
+  def draw_graph
+    @graph = @root.add_element( "g", {
+      "transform" => "translate( #@border_left #@border_top )"
+    })
+
+    # Background
+    @graph.add_element( "rect", {
+      "x" => "0",
+      "y" => "0",
+      "width" => @graph_width.to_s,
+      "height" => @graph_height.to_s,
+      "class" => "graphBackground"
+    })
+
+    add_other_elements(@graph)
+
+    draw_x_axis
+    draw_y_axis
+
+    draw_x_labels
+    draw_y_labels
   end
 
   def x_label_range
@@ -253,6 +288,7 @@ module Plotting
                                  data: y,
                                  title: "novelty"
                                })
+
       graph_immutable
     end
 

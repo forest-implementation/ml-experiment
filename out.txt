@@ -1,0 +1,104 @@
+"regular length 565287"
+"medoucple -1.0"
+"medoucple 0.15677761698022497"
+"medoucple 0.04539042403120132"
+[-2.3026..-2.3026,
+ 5.1108295477032595..6.548750427706511,
+ 4.176142914577753..11.517036767357283]
+"novelties out of regular sample (10000)"
+133
+"novelites out of regular semple (1000)"
+13
+"novelites out of mocked outliers (2211)"
+2203
+"regular length 565287"
+"medoucple -1.0"
+"medoucple 0.1670336583831413"
+"medoucple 0.05723324705205317"
+[-2.3026..-2.3026,
+ 5.124387259346023..6.562950723616687,
+ 4.2758808226132246..11.702693525356095]
+"novelties out of regular sample (10000)"
+99
+"novelites out of regular semple (1000)"
+7
+"novelites out of mocked outliers (2211)"
+2203
+"regular length 565287"
+"medoucple -1.0"
+"medoucple 0.17942535664054593"
+"medoucple 0.047504921681075334"
+[-2.3026..-2.3026,
+ 5.136990076330945..6.594729544378707,
+ 4.120202679964531..11.579059265145123]
+"novelties out of regular sample (10000)"
+262
+"novelites out of regular semple (1000)"
+28
+"novelites out of mocked outliers (2211)"
+2203
+"regular length 565287"
+"medoucple -1.0"
+"medoucple 0.18416206261510004"
+"medoucple 0.07104536856141654"
+[-2.3026..-2.3026,
+ 5.141644840929862..6.607192475036284,
+ 4.405671179337322..11.824957439141718]
+"novelties out of regular sample (10000)"
+294
+"novelites out of regular semple (1000)"
+27
+"novelites out of mocked outliers (2211)"
+2203
+"regular length 565287"
+"medoucple -1.0"
+"medoucple 0.16055045871559873"
+"medoucple 0.07984135195723419"
+[-2.3026..-2.3026,
+ 5.109310131250484..6.5579585434825525,
+ 4.470810370721145..11.9030498103308]
+"novelties out of regular sample (10000)"
+174
+"novelites out of regular semple (1000)"
+20
+"novelites out of mocked outliers (2211)"
+2203
+"regular length 565287"
+"medoucple -1.0"
+"medoucple 0.2011952191235032"
+"medoucple 0.05523809523809489"
+[-2.3026..-2.3026,
+ 5.144348372168492..6.6666593315461435,
+ 4.22703491662458..11.705883185999705]
+"novelties out of regular sample (10000)"
+171
+"novelites out of regular semple (1000)"
+25
+"novelites out of mocked outliers (2211)"
+2203
+"regular length 565287"
+"medoucple -1.0"
+"medoucple 0.1960732289732003"
+"medoucple 0.037771636048339094"
+[-2.3026..-2.3026,
+ 5.15296754112397..6.639326313936796,
+ 4.073456502012553..11.450827985296268]
+"novelties out of regular sample (10000)"
+213
+"novelites out of regular semple (1000)"
+23
+"novelites out of mocked outliers (2211)"
+2203
+"regular length 565287"
+"medoucple -1.0"
+"medoucple 0.16131191432396708"
+"medoucple 0.04679340591829112"
+[-2.3026..-2.3026,
+ 5.118353841764546..6.54867113002289,
+ 4.167042792432014..11.548196648117486]
+"novelties out of regular sample (10000)"
+110
+"novelites out of regular semple (1000)"
+5
+"novelites out of mocked outliers (2211)"
+2203
