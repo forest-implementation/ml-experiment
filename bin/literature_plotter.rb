@@ -24,17 +24,8 @@ novelties = Ml::Experiment::Preprocessor.filter_outliers(data, normal_class: "1"
 
 pp ranges = input[0].length.times.map { |x| adjusted_box(input, x) }
 
-service = Ml::Service::Isolation::Outlier.new(batch_size: 128)
-forest = Ml::Forest::Tree.new(input, trees_count: 100, forest_helper: service)
-
-evaluated_data = input.map { |x| { x: x, prediction?: forest.fit_predict(x, forest_helper: service).outlier? } }
-grouped = evaluated_data.group_by { |datahash| datahash[:prediction?] == false }
-regular = grouped[true].map { |hash| hash.values_at(:x)[0] }
-outlier = grouped[false].map { |hash| hash.values_at(:x)[0] }
-pp regular.count
-pp outlier.count
-
 novelty_service = Ml::Service::Isolation::Novelty.new(batch_size: 30, max_depth: 4, ranges: ranges)
+forest = Ml::Forest::Tree.new(input, trees_count: 100, forest_helper: novelty_service)
 
 points_to_predict = [[9, 7], [5, 2.1], [4.5, 2.2], [4.8, 2.0]]
 pp(points_to_predict.map { |point| forest.fit_predict(point, forest_helper: novelty_service) })

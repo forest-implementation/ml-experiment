@@ -4,11 +4,10 @@ require "SVG/Graph/Plot"
 DataPoint.configure_shape_criteria(
   [/.*/, lambda { |x, y, line|
     if line == 1
-
       ["circle", {
         "cx" => x,
         "cy" => y,
-        "r" => "2.5",
+        "r" => "2",
         "stroke" => "black"
         # "class" => "dataPoint#{line}"
       }]
@@ -18,9 +17,9 @@ DataPoint.configure_shape_criteria(
       ["circle", {
         "cx" => x,
         "cy" => y,
-        "r" => "2.5",
+        "r" => "2",
         "stroke" => "black",
-        "stroke-width" => "1",
+        "stroke-width" => "0.5",
         "fill" => "none"
         # "class" => "dataPoint#{line}"
       }]
@@ -28,11 +27,43 @@ DataPoint.configure_shape_criteria(
   }]
 )
 
+class SVG::Graph::Graph
+  def burn
+    add_data({
+               data: [[5, 5], [5, 5]],
+               title: "Regular"
+             })
+    start_svg
+    calculate_graph_dimensions
+    @foreground = Element.new("g")
+    draw_graph
+    # draw_titles
+    # draw_legend
+    @graph.add_element(@foreground)
+    style
+
+    data = ""
+    @doc.write(data, 0)
+
+    if @config[:compress]
+      if defined?(Zlib)
+        inp, out = IO.pipe
+        gz = Zlib::GzipWriter.new(out)
+        gz.write data
+        gz.close
+        data = inp.read
+      else
+        data << "<!-- Ruby Zlib not available for SVGZ -->"
+      end
+    end
+
+    data
+  end
+end
+
 # monkey patch init
 class SVG::Graph::Plot < SVG::Graph::Graph
-  attr_accessor :elements
-  attr_accessor :x_min_max
-  attr_accessor :y_min_max
+  attr_accessor :elements, :x_min_max, :y_min_max
 
   def initialize(config)
     @add_popups = false
@@ -47,7 +78,7 @@ class SVG::Graph::Plot < SVG::Graph::Graph
                 width: 500,
                 height: 300,
                 show_x_guidelines: false,
-                show_y_guidelines: true,
+                show_y_guidelines: false,
                 show_data_values: false,
 
                 x_axis_position: nil,
@@ -170,7 +201,15 @@ class SVG::Graph::Plot < SVG::Graph::Graph
   #       "height" => 10,
   #     })]
   def add_other_elements(graph)
-    @elements.each {|element| graph.add_element(element.name, element.attributes) }
+    @elements.each do |element|
+      if element.name == "text"
+        text = graph.add_element(element.name, element.attributes)
+        text.text = element.attributes["text"]
+        # text.text = "hovnajs"
+      else
+        graph.add_element(element.name, element.attributes)
+      end
+    end
   end
 
   def draw_graph
@@ -264,31 +303,29 @@ class SVG::Graph::Plot < SVG::Graph::Graph
     @max_y_cache
   end
 
-
   # take new min and max and rescale coords accordingly
 
-  def calc_coords_pub(x,y, x_min, x_max, y_min, y_max)
-    coords = {:x => 0, :y => 0}
+  def calc_coords_pub(xy, x_min, x_max, y_min, y_max)
+    coords = { x: 0, y: 0 }
     # scale the coordinates, use float division / multiplication
     # otherwise the point will be place inaccurate
     # x - start: 0... end: 365
     # y - start: 0... end: 250
-    #coords[:x] = (x + 365)
+    # coords[:x] = (x + 365)
     maxAllowed = 365
     minAllowed = 0
-    unscaledNum = x
+    unscaledNum = xy[0]
     min = x_min
     max = x_max
     coords[:x] = (maxAllowed - minAllowed) * (unscaledNum - min) / (max - min) + minAllowed
     maxAllowed = 250
     minAllowed = 0
-    unscaledNum = y
+    unscaledNum = xy[1]
     min = y_min
     max = y_max
     coords[:y] = maxAllowed - ((maxAllowed - minAllowed) * (unscaledNum - min) / (max - min) + minAllowed)
-    return coords
+    coords
   end
-
 end
 
 module Plotting
@@ -308,16 +345,6 @@ module Plotting
       max_y_value: 39
     })
       graph_immutable = SVG::Graph::Plot.new(config)
-      graph_immutable.add_data({
-                                 data: x,
-                                 title: "regular"
-                               })
-
-      graph_immutable.add_data({
-                                 data: y,
-                                 title: "novelty"
-                              })
-
 
       x_min = config[:min_x_value]
       x_max = config[:max_x_value]
@@ -327,24 +354,143 @@ module Plotting
 
       @x_offset = 0
 
-      pp graph_immutable.scale_x_divisions
-      pp firstcoords = graph_immutable.calc_coords_pub(10,3, x_min, x_max, y_min, y_max)
-      ##pp secondcoords = graph_immutable.calc_coords_pub(10,10)
+      regular_points = x.map do |x|
+        a = graph_immutable.calc_coords_pub(x, x_min, x_max, y_min, y_max)
+        Data.define(:name, :attributes).new(
+          "circle", {
+            "cx" => a[:x],
+            "cy" => a[:y],
+            "r" => "2",
+            "stroke" => "black"
+          }
+        )
+      end
 
+      # regular_legend = [Data.define(:name, :attributes).new(
+      #   "circle", {
+      #     "cx" => 0.to_s,
+      #     "cy" => y_offset.to_s,
+      #     "r" => key_box_size / 2.0,
+      #     "stroke-width" => "1",
+      #     "fill" => "none",
+      #     "stroke" => "black"
+      #   }
+      # ), Data.define(:name, :attributes).new(
+      #   "text", {
+      #     "x" => a[:x],
+      #     "y" => a[:y],
+      #     "font-size" => "small",
+      #     "text" => "Regular"
+      #   }
+      # )]
 
+      regular_legend = [Data.define(:name, :attributes).new(
+        "circle", {
+          "cx" => 365 + 5,
+          "cy" => 10,
+          "r" => 20 / 5.0,
+          "stroke" => "black"
+          # "class" => "dataPoint#{line}"
+        }
+      ), Data.define(:name, :attributes).new(
+        "text", {
+          "x" => 365 + 13,
+          "y" => 13,
+          "font-size" => "small",
+          "text" => "Regular"
+        }
+      )]
 
-      graph_immutable.elements = [Data.define(:name, :attributes).new("rect", {
-        "x" => firstcoords[:x],
-        "y" => firstcoords[:y],
-        "width" => 30,
-        "height" => 10,
-      }), Data.define(:name, :attributes).new("line", {
-        "x1" => 0,
-        "y1" => 0,
-        "x2" => 0,
-        "y2" => 0,
-        "style" => "stroke:rgb(255,0,0);stroke-width:2"
-      })]
+      novelty_legend = [Data.define(:name, :attributes).new(
+        "circle", {
+          "cx" => 365 + 5,
+          "cy" => 20,
+          "r" => 20 / 5.0,
+          "stroke-width" => "1",
+          "fill" => "none",
+          "stroke" => "black"
+        }
+      ), Data.define(:name, :attributes).new(
+        "text", {
+          "x" => 365 + 13,
+          "y" => 23,
+          "font-size" => "small",
+          "text" => "Novelty"
+        }
+      )]
+
+      novelty_points = y.map do |y|
+        b = graph_immutable.calc_coords_pub(y, x_min, x_max, y_min, y_max)
+        Data.define(:name, :attributes).new(
+          "circle", {
+            "cx" => b[:x],
+            "cy" => b[:y],
+            "r" => "2",
+            "stroke" => "black",
+            "stroke-width" => "0.5",
+            "fill" => "none"
+          }
+        )
+      end
+
+      lines = config[:lines_coords].map do |x, y|
+        a = graph_immutable.calc_coords_pub(x, x_min, x_max, y_min, y_max)
+        b = graph_immutable.calc_coords_pub(y, x_min, x_max, y_min, y_max)
+        random = rand(0..155)
+        Data.define(:name, :attributes).new(
+          "line", {
+            "x1" => a[:x],
+            "y1" => a[:y],
+            "x2" => b[:x],
+            "y2" => b[:y],
+            "stroke-dasharray" => "10, 5",
+            "style" => "stroke:rgb(#{random},#{random},#{random}) ;stroke-width:.1"
+          }
+        )
+      end
+
+      texts = config[:depth_coords_text].map do |ranges, depth|
+        x = ranges[0].minmax.sum / 2.0
+        y = ranges[1].minmax.sum / 2.0
+
+        a = graph_immutable.calc_coords_pub([x, y], x_min, x_max, y_min, y_max)
+        Data.define(:name, :attributes).new(
+          "text", {
+            "x" => a[:x],
+            "y" => a[:y],
+            "font-size" => "small",
+            "text" => depth
+          }
+        )
+      end
+
+      additional_point = lambda { |x, y|
+        coords = graph_immutable.calc_coords_pub([x, y], x_min, x_max, y_min, y_max)
+        [
+          Data.define(:name, :attributes).new("rect", {
+                                                "x" => coords[:x] - 5 / 2.0,
+                                                "y" => coords[:y] - 5 / 2.0,
+                                                "width" => 5,
+                                                "height" => 5
+                                              }),
+          Data.define(:name, :attributes).new(
+            "text", {
+              "x" => coords[:x] + 5,
+              "y" => coords[:y] - 5,
+              "font-size" => "small",
+              "text" => "Px"
+            }
+          )
+        ]
+      }
+
+      additional_points_to_plot = config[:additional_points].map do |x, y|
+        additional_point.call(x, y)
+      end
+
+      pp novelty_legend
+
+      graph_immutable.elements = lines + texts + additional_points_to_plot.flatten + regular_points + novelty_points + regular_legend + novelty_legend
 
       graph_immutable
     end

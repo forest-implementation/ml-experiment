@@ -3,5 +3,6 @@
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "ml/experiment"
 require "stats/statistics"
+require "plotting/plotter"
 
 require "minitest/autorun"

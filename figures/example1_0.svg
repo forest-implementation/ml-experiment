@@ -1,0 +1,394 @@
+<svg width='500' height='300' viewBox='0 0 500 300' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:a3='http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/' a3:scriptImplementation='Adobe'>
+<!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
+<!-- Created with SVG::Graph -->
+<!-- SVG::Graph by Sean E. Russell -->
+<!-- Losely based on SVG::TT::Graph for Perl by Leo Lapworth & Stephan Morgan -->
+<!-- //////////////////////////////////////////////////////////////////-->
+<defs>
+<style type='text/css'>
+<![CDATA[/* Copy from here for external style sheet */
+.svgBackground{
+  fill:#ffffff;
+}
+.graphBackground{
+  fill:#f0f0f0;
+}
+
+/* graphs titles */
+.mainTitle{
+  text-anchor: middle;
+  fill: #000000;
+  font-size: 16px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+.subTitle{
+  text-anchor: middle;
+  fill: #999999;
+  font-size: 14px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.axis{
+  stroke: #000000;
+  stroke-width: 1px;
+}
+
+.guideLines{
+  stroke: #666666;
+  stroke-width: 1px;
+  stroke-dasharray: 5 5;
+}
+
+.xAxisLabels{
+  text-anchor: middle;
+  fill: #000000;
+  font-size: 12px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.yAxisLabels{
+  text-anchor: end;
+  fill: #000000;
+  font-size: 12px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.xAxisTitle{
+  text-anchor: middle;
+  fill: #ff0000;
+  font-size: 14px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.yAxisTitle{
+  fill: #ff0000;
+  text-anchor: middle;
+  font-size: 14px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.dataPointLabel, .dataPointLabelBackground, .dataPointPopup, .dataPointPopupMask{
+  fill: #000000;
+  text-anchor:middle;
+  font-size: 10px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+
+.dataPointLabelBackground{
+  stroke: #ffffff;
+  stroke-width: 2;
+}
+
+.dataPointPopupMask{
+  stroke: white;
+  stroke-width: 7;
+}
+
+.dataPointPopup{
+  fill: black;
+  stroke-width: 2;
+}
+
+.staggerGuideLine{
+  fill: none;
+  stroke: #000000;
+  stroke-width: 0.5px;
+}
+
+/* default line styles */
+.line1{
+	fill: none;
+	stroke: #ff0000;
+	stroke-width: 1px;
+}
+.line2{
+	fill: none;
+	stroke: #0000ff;
+	stroke-width: 1px;
+}
+.line3{
+	fill: none;
+	stroke: #00ff00;
+	stroke-width: 1px;
+}
+.line4{
+	fill: none;
+	stroke: #ffcc00;
+	stroke-width: 1px;
+}
+.line5{
+	fill: none;
+	stroke: #00ccff;
+	stroke-width: 1px;
+}
+.line6{
+	fill: none;
+	stroke: #ff00ff;
+	stroke-width: 1px;
+}
+.line7{
+	fill: none;
+	stroke: #00ffff;
+	stroke-width: 1px;
+}
+.line8{
+	fill: none;
+	stroke: #ffff00;
+	stroke-width: 1px;
+}
+.line9{
+	fill: none;
+	stroke: #cc6666;
+	stroke-width: 1px;
+}
+.line10{
+	fill: none;
+	stroke: #663399;
+	stroke-width: 1px;
+}
+.line11{
+	fill: none;
+	stroke: #339900;
+	stroke-width: 1px;
+}
+.line12{
+	fill: none;
+	stroke: #9966FF;
+	stroke-width: 1px;
+}
+/* default fill styles */
+.fill1{
+	fill: #cc0000;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill2{
+	fill: #0000cc;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill3{
+	fill: #00cc00;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill4{
+	fill: #ffcc00;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill5{
+	fill: #00ccff;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill6{
+	fill: #ff00ff;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill7{
+	fill: #00ffff;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill8{
+	fill: #ffff00;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill9{
+	fill: #cc6666;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill10{
+	fill: #663399;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill11{
+	fill: #339900;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+.fill12{
+	fill: #9966FF;
+	fill-opacity: 0.2;
+	stroke: none;
+}
+/* default line styles */
+.key1,.dataPoint1{
+	fill: #ff0000;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key2,.dataPoint2{
+	fill: #0000ff;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key3,.dataPoint3{
+	fill: #00ff00;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key4,.dataPoint4{
+	fill: #ffcc00;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key5,.dataPoint5{
+	fill: #00ccff;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key6,.dataPoint6{
+	fill: #ff00ff;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key7,.dataPoint7{
+	fill: #00ffff;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key8,.dataPoint8{
+	fill: #ffff00;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key9,.dataPoint9{
+	fill: #cc6666;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key10,.dataPoint10{
+	fill: #663399;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key11,.dataPoint11{
+	fill: #339900;
+	stroke: none;
+	stroke-width: 1px;
+}
+.key12,.dataPoint12{
+	fill: #9966FF;
+	stroke: none;
+	stroke-width: 1px;
+}
+
+
+.keyText{
+  fill: #000000;
+  text-anchor:start;
+  font-size: 10px;
+  font-family: "Arial", sans-serif;
+  font-weight: normal;
+}
+/* End copy for external style sheet */
+]]>
+</style>
+</defs>
+<!-- include default stylesheet if none specified -->
+<!--SVG Background-->
+<rect width='500' height='300' x='0' y='0' class='svgBackground'/>
+<g transform='translate( 65.0 10 )'>
+<rect x='0' y='0' width='364.0' height='249' class='graphBackground'/>
+<line x1='182.5' y1='250.0' x2='182.5' y2='0.0' stroke-dasharray='10, 5' style='stroke:rgb(79,79,79) ;stroke-width:.1'/>
+<line x1='273.75' y1='250.0' x2='273.75' y2='0.0' stroke-dasharray='10, 5' style='stroke:rgb(135,135,135) ;stroke-width:.1'/>
+<line x1='182.5' y1='125.0' x2='273.75' y2='125.0' stroke-dasharray='10, 5' style='stroke:rgb(20,20,20) ;stroke-width:.1'/>
+<line x1='228.12500000000003' y1='250.0' x2='228.12500000000003' y2='125.0' stroke-dasharray='10, 5' style='stroke:rgb(59,59,59) ;stroke-width:.1'/>
+<line x1='228.12500000000003' y1='187.5' x2='273.75' y2='187.5' stroke-dasharray='10, 5' style='stroke:rgb(35,35,35) ;stroke-width:.1'/>
+<line x1='228.12500000000003' y1='125.0' x2='228.12500000000003' y2='0.0' stroke-dasharray='10, 5' style='stroke:rgb(89,89,89) ;stroke-width:.1'/>
+<line x1='228.12500000000003' y1='62.5' x2='273.75' y2='62.5' stroke-dasharray='10, 5' style='stroke:rgb(155,155,155) ;stroke-width:.1'/>
+<line x1='273.75' y1='125.0' x2='365.0' y2='125.0' stroke-dasharray='10, 5' style='stroke:rgb(81,81,81) ;stroke-width:.1'/>
+<line x1='319.375' y1='250.0' x2='319.375' y2='125.0' stroke-dasharray='10, 5' style='stroke:rgb(93,93,93) ;stroke-width:.1'/>
+<line x1='273.75' y1='187.5' x2='319.375' y2='187.5' stroke-dasharray='10, 5' style='stroke:rgb(147,147,147) ;stroke-width:.1'/>
+<line x1='319.375' y1='187.5' x2='365.0' y2='187.5' stroke-dasharray='10, 5' style='stroke:rgb(4,4,4) ;stroke-width:.1'/>
+<line x1='319.375' y1='125.0' x2='319.375' y2='0.0' stroke-dasharray='10, 5' style='stroke:rgb(108,108,108) ;stroke-width:.1'/>
+<line x1='296.56250000000006' y1='125.0' x2='296.56250000000006' y2='0.0' stroke-dasharray='10, 5' style='stroke:rgb(110,110,110) ;stroke-width:.1'/>
+<line x1='319.375' y1='62.5' x2='365.0' y2='62.5' stroke-dasharray='10, 5' style='stroke:rgb(5,5,5) ;stroke-width:.1'/>
+<text x='91.25' y='125.0' font-size='small' text='1'>1</text>
+<text x='205.3125' y='187.5' font-size='small' text='4'>4</text>
+<text x='250.93750000000003' y='218.75' font-size='small' text='5'>5</text>
+<text x='250.93750000000003' y='156.25' font-size='small' text='5'>5</text>
+<text x='205.3125' y='62.5' font-size='small' text='4'>4</text>
+<text x='250.93750000000003' y='93.75000000000003' font-size='small' text='5'>5</text>
+<text x='250.93750000000003' y='31.25' font-size='small' text='5'>5</text>
+<text x='296.56250000000006' y='218.75' font-size='small' text='5'>5</text>
+<text x='296.56250000000006' y='156.25' font-size='small' text='5'>5</text>
+<text x='342.18749999999994' y='218.75' font-size='small' text='5'>5</text>
+<text x='342.18749999999994' y='156.25' font-size='small' text='5'>5</text>
+<text x='285.15625' y='62.5' font-size='small' text='5'>5</text>
+<text x='307.96875000000006' y='62.5' font-size='small' text='5'>5</text>
+<text x='342.18749999999994' y='93.75000000000003' font-size='small' text='5'>5</text>
+<text x='342.18749999999994' y='31.25' font-size='small' text='5'>5</text>
+<rect x='-2.5529102197112645' y='247.35937178488817' width='5' height='5'/>
+<text x='4.947089780288736' y='244.85937178488817' font-size='small' text='Px'>Px</text>
+<circle cx='235.14237543828534' cy='146.7230858076617' r='2' stroke='black'/>
+<circle cx='358.9965703830501' cy='30.781287813128614' r='2' stroke='black'/>
+<circle cx='347.5049440479688' cy='176.1411539555283' r='2' stroke='black'/>
+<circle cx='360.911841438897' cy='68.85172894566185' r='2' stroke='black'/>
+<circle cx='301.53843870764376' cy='56.73840676712854' r='2' stroke='black'/>
+<circle cx='240.888188605826' cy='138.07071282299506' r='2' stroke='black'/>
+<circle cx='288.13154131671564' cy='87.88694951192849' r='2' stroke='black'/>
+<circle cx='300.2615913370792' cy='80.96505112419518' r='2' stroke='black'/>
+<circle cx='309.83794661631356' cy='125.95739064446175' r='2' stroke='black'/>
+<circle cx='328.35223348950007' cy='63.6603051548619' r='2' stroke='black'/>
+<circle cx='284.9394228903042' cy='151.9145095984617' r='2' stroke='black'/>
+<circle cx='328.99065717478237' cy='82.69552572112849' r='2' stroke='black'/>
+<circle cx='341.12070719514594' cy='75.77362733339518' r='2' stroke='black'/>
+<circle cx='343.6744019362751' cy='77.50410193032852' r='2' stroke='black'/>
+<circle cx='325.1601150630886' cy='144.99261121072837' r='2' stroke='black'/>
+<circle cx='283.66257551973956' cy='49.81650837939523' r='2' stroke='black'/>
+<circle cx='359.6349940683324' cy='127.68786524139507' r='2' stroke='black'/>
+<circle cx='344.95124930683966' cy='138.07071282299506' r='2' stroke='black'/>
+<circle cx='274.0862202405052' cy='103.46122088432844' r='2' stroke='black'/>
+<circle cx='330.2675045453469' cy='56.73840676712854' r='2' stroke='black'/>
+<circle cx='336.01331771288756' cy='23.85938942539528' r='2' stroke='black'/>
+<circle cx='277.91676235219893' cy='127.68786524139507' r='2' stroke='black'/>
+<circle cx='332.8211992864761' cy='39.433660797795255' r='2' stroke='black'/>
+<circle cx='318.13745452498335' cy='89.61742410886185' r='2' stroke='black'/>
+<circle cx='276.6399149816344' cy='96.53932249659513' r='2' stroke='black'/>
+<circle cx='343.0359782509928' cy='120.76596685366175' r='2' stroke='black'/>
+<circle cx='258.7640517937302' cy='48.0860337824619' r='2' stroke='black' stroke-width='0.5' fill='none'/>
+<circle cx='259.4024754790125' cy='122.4964414505951' r='2' stroke='black' stroke-width='0.5' fill='none'/>
+<circle cx='222.3739017326395' cy='100.0002716904618' r='2' stroke='black' stroke-width='0.5' fill='none'/>
+<circle cx='370' cy='10' r='4.0' stroke='black'/>
+<text x='378' y='13' font-size='small' text='Regular'>Regular</text>
+<circle cx='370' cy='20' r='4.0' stroke-width='1' fill='none' stroke='black'/>
+<text x='378' y='23' font-size='small' text='Novelty'>Novelty</text>
+<path d='M 0 249 h364.0' class='axis' id='yAxis'/>
+<path d='M 0.0 0 v249' class='axis' id='xAxis'/>
+<text class='xAxisLabels' x='0.0' y='264' style='text-anchor: middle'>-5.82</text>
+<text class='xAxisLabels' x='40.44444444444444' y='264' style='text-anchor: middle'>-2.64</text>
+<text class='xAxisLabels' x='80.88888888888889' y='264' style='text-anchor: middle'>0.54</text>
+<text class='xAxisLabels' x='121.33333333333333' y='264' style='text-anchor: middle'>3.71</text>
+<text class='xAxisLabels' x='161.77777777777777' y='264' style='text-anchor: middle'>6.89</text>
+<text class='xAxisLabels' x='202.22222222222223' y='264' style='text-anchor: middle'>10.07</text>
+<text class='xAxisLabels' x='242.66666666666666' y='264' style='text-anchor: middle'>13.24</text>
+<text class='xAxisLabels' x='283.1111111111111' y='264' style='text-anchor: middle'>16.42</text>
+<text class='xAxisLabels' x='323.55555555555554' y='264' style='text-anchor: middle'>19.59</text>
+<text class='xAxisLabels' x='364.0' y='264' style='text-anchor: middle'>22.77</text>
+<text x='3' y='253.0' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 253.0 ) '>0.22</text>
+<text x='3' y='225.33333333333334' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 225.33333333333334 ) '>1.02</text>
+<text x='3' y='197.66666666666666' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 197.66666666666666 ) '>1.82</text>
+<text x='3' y='170.0' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 170.0 ) '>2.62</text>
+<text x='3' y='142.33333333333331' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 142.33333333333331 ) '>3.43</text>
+<text x='3' y='114.66666666666666' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 114.66666666666666 ) '>4.23</text>
+<text x='3' y='87.0' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 87.0 ) '>5.03</text>
+<text x='3' y='59.333333333333314' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 59.333333333333314 ) '>5.83</text>
+<text x='3' y='31.666666666666657' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 31.666666666666657 ) '>6.64</text>
+<text x='3' y='4.0' class='yAxisLabels' style='text-anchor: end' transform='translate( -12 0 ) rotate( 0 3 4.0 ) '>7.44</text>
+<g/>
+</g>
+</svg>

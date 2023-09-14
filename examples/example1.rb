@@ -46,20 +46,64 @@ pp input = [
   [21.05, 4.55],
   [11.6, 4.15]
 ]
-
+pp
 pp ranges = input[0].length.times.map { |x| adjusted_box(input, x) }
 
-service = Ml::Service::Isolation::Outlier.new(batch_size: 128)
-forest = Ml::Forest::Tree.new(input, trees_count: 100, forest_helper: service)
+novelty_service = Ml::Service::Isolation::Novelty.new(batch_size: 30, max_depth: 5, ranges: ranges)
 
-novelty_service = Ml::Service::Isolation::Novelty.new(batch_size: 30, max_depth: 4, ranges: ranges)
+# FILTER OUT inputs out of range!
+inputx = input.map { |input| input[0] }.filter { |input| ranges[0].include?(input) }
+inputy = input.map { |input| input[1] }.filter { |input| ranges[1].include?(input) }
+input = inputx.zip(inputy)
 
-points_to_predict = [[9, 7], [5, 2.1], [4.5, 2.2], [4.8, 2.0]]
-pp(points_to_predict.map { |point| forest.fit_predict(point, forest_helper: novelty_service) })
+forest = Ml::Forest::Tree.new(input, trees_count: 1, forest_helper: novelty_service)
+pp forest
+def splitpoints(key, tree, &fun)
+  return [key, tree.data.depth] if tree.is_a?(Node::OutNode)
 
-Plotting::Plotter.save_svg_figure(input, points_to_predict, "figures/example1.svg", {
-                                    # :height => 300,
-                                    # :width => 500,
+  fun.call [key, tree.split_point]
+  tree.branches.map { |key, x| splitpoints(key, x) { |x| fun.call x } }
+end
+
+f = Enumerator.new do |y|
+  splitpoints(ranges, forest.trees[0]) { |x| y << x }
+end
+
+lines_coords = f.map do |range, split_point|
+  range[1 - split_point.dimension].minmax.map do |x|
+    split_point.dimension == 1 ? [x, split_point.split_point] : [split_point.split_point, x]
+  end
+end
+
+# pp lines_coords
+
+def splitpoints2(key, tree, &fun)
+  return fun.call [key, tree.data.depth] if tree.is_a?(Node::OutNode)
+
+  tree.branches.map { |key, x| splitpoints2(key, x) { |x| fun.call x } }
+end
+
+s = Enumerator.new do |y|
+  splitpoints2(ranges, forest.trees[0]) { |x| y << x }
+end
+
+points_to_predict = [[8, 7], [5, 2.1], [4.5, 2.2], [4.8, 2.0]]
+pred_input = input.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
+pred_additional = points_to_predict.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
+
+input_novelty = input.zip(pred_input).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
+
+pp(input.zip(pred_input).filter { |_coord, score| score.novelty? })
+pp(input.zip(pred_input).filter { |_coord, score| !score.novelty? })
+
+input_regular = input.zip(pred_input).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
+
+additional_novelty = points_to_predict.zip(pred_additional).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
+additional_regular = points_to_predict.zip(pred_additional).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
+
+Plotting::Plotter.save_svg_figure(input_regular, input_novelty, "figures/example1_0.svg", {
+                                    height: 300,
+                                    width: 500,
                                     # :key => true,
                                     # :scale_x_integers => true,
                                     # :scale_y_integers => true,
@@ -69,5 +113,26 @@ Plotting::Plotter.save_svg_figure(input, points_to_predict, "figures/example1.sv
                                     max_x_value: ranges[0].max,
 
                                     min_y_value: ranges[1].min,
-                                    max_y_value: ranges[1].max
+                                    max_y_value: ranges[1].max,
+                                    lines_coords: lines_coords,
+                                    depth_coords_text: s,
+                                    additional_points: [[-5.82, 0.22]]
+                                  })
+
+Plotting::Plotter.save_svg_figure(input_regular + additional_regular, input_novelty + additional_novelty, "figures/example1_1.svg", {
+                                    height: 300,
+                                    width: 500,
+                                    # :key => true,
+                                    # :scale_x_integers => true,
+                                    # :scale_y_integers => true,
+                                    show_data_points: true, # for scatter functionality
+                                    show_lines: false, # for scatter functionality
+                                    min_x_value: ranges[0].min,
+                                    max_x_value: ranges[0].max,
+
+                                    min_y_value: ranges[1].min,
+                                    max_y_value: ranges[1].max,
+                                    lines_coords: lines_coords,
+                                    depth_coords_text: s,
+                                    additional_points: [[-5.82, 0.22]]
                                   })
