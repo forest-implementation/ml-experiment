@@ -5,20 +5,22 @@ GIT
   specs:
     rinruby (2.1.0)
 
+GIT
+  remote: https://github.com/forest-implementation/ml-forest
+  revision: 252a5d6a7e7ef31dd955c6956b24254b40573c32
+  specs:
+    ml-forest (0.1.0)
+
+GIT
+  remote: https://github.com/forest-implementation/ml-service-isolation
+  revision: e4276c3a73dff47694dbe3b81fa212c76d98d8a7
+  specs:
+    ml-service-isolation (0.1.0)
+
 PATH
   remote: .
   specs:
     ml-experiment (0.1.0)
-
-PATH
-  remote: /home/adamo/source/rubyml/ml-forest
-  specs:
-    ml-forest (0.1.0)
-
-PATH
-  remote: /home/adamo/source/rubyml/ml-service-isolation
-  specs:
-    ml-service-isolation (0.1.0)
 
 GEM
   remote: https://rubygems.org/
