@@ -303,35 +303,35 @@
 <rect width='500' height='300' x='0' y='0' class='svgBackground'/>
 <g transform='translate( 65.0 10 )'>
 <rect x='0' y='0' width='364.0' height='249' class='graphBackground'/>
-<line x1='182.5' y1='250.0' x2='182.5' y2='0.0' stroke-dasharray='10, 5' style='stroke:rgb(116,116,116) ;stroke-width:.1'/>
-<line x1='273.75' y1='250.0' x2='273.75' y2='0.0' stroke-dasharray='10, 5' style='stroke:rgb(70,70,70) ;stroke-width:.1'/>
-<line x1='182.5' y1='125.0' x2='273.75' y2='125.0' stroke-dasharray='10, 5' style='stroke:rgb(6,6,6) ;stroke-width:.1'/>
-<line x1='228.12500000000003' y1='250.0' x2='228.12500000000003' y2='125.0' stroke-dasharray='10, 5' style='stroke:rgb(155,155,155) ;stroke-width:.1'/>
-<line x1='228.12500000000003' y1='187.5' x2='273.75' y2='187.5' stroke-dasharray='10, 5' style='stroke:rgb(4,4,4) ;stroke-width:.1'/>
-<line x1='228.12500000000003' y1='125.0' x2='228.12500000000003' y2='0.0' stroke-dasharray='10, 5' style='stroke:rgb(88,88,88) ;stroke-width:.1'/>
-<line x1='228.12500000000003' y1='62.5' x2='273.75' y2='62.5' stroke-dasharray='10, 5' style='stroke:rgb(152,152,152) ;stroke-width:.1'/>
-<line x1='273.75' y1='125.0' x2='365.0' y2='125.0' stroke-dasharray='10, 5' style='stroke:rgb(117,117,117) ;stroke-width:.1'/>
-<line x1='319.375' y1='250.0' x2='319.375' y2='125.0' stroke-dasharray='10, 5' style='stroke:rgb(34,34,34) ;stroke-width:.1'/>
-<line x1='273.75' y1='187.5' x2='319.375' y2='187.5' stroke-dasharray='10, 5' style='stroke:rgb(68,68,68) ;stroke-width:.1'/>
-<line x1='319.375' y1='187.5' x2='365.0' y2='187.5' stroke-dasharray='10, 5' style='stroke:rgb(22,22,22) ;stroke-width:.1'/>
-<line x1='319.375' y1='125.0' x2='319.375' y2='0.0' stroke-dasharray='10, 5' style='stroke:rgb(97,97,97) ;stroke-width:.1'/>
-<line x1='296.56250000000006' y1='125.0' x2='296.56250000000006' y2='0.0' stroke-dasharray='10, 5' style='stroke:rgb(121,121,121) ;stroke-width:.1'/>
-<line x1='319.375' y1='62.5' x2='365.0' y2='62.5' stroke-dasharray='10, 5' style='stroke:rgb(102,102,102) ;stroke-width:.1'/>
+<line x1='182.5' y1='250.0' x2='182.5' y2='0.0' stroke-dasharray='10, 5' style='stroke:rgb(118,118,118) ;stroke-width:.1'/>
+<line x1='273.75' y1='250.0' x2='273.75' y2='0.0' stroke-dasharray='10, 5' style='stroke:rgb(123,123,123) ;stroke-width:.1'/>
+<line x1='182.5' y1='125.0' x2='273.75' y2='125.0' stroke-dasharray='10, 5' style='stroke:rgb(128,128,128) ;stroke-width:.1'/>
+<line x1='228.12500000000003' y1='250.0' x2='228.12500000000003' y2='125.0' stroke-dasharray='10, 5' style='stroke:rgb(109,109,109) ;stroke-width:.1'/>
+<line x1='250.93750000000003' y1='250.0' x2='250.93750000000003' y2='125.0' stroke-dasharray='10, 5' style='stroke:rgb(63,63,63) ;stroke-width:.1'/>
+<line x1='228.12500000000003' y1='125.0' x2='228.12500000000003' y2='0.0' stroke-dasharray='10, 5' style='stroke:rgb(0,0,0) ;stroke-width:.1'/>
+<line x1='250.93750000000003' y1='125.0' x2='250.93750000000003' y2='0.0' stroke-dasharray='10, 5' style='stroke:rgb(17,17,17) ;stroke-width:.1'/>
+<line x1='319.375' y1='250.0' x2='319.375' y2='0.0' stroke-dasharray='10, 5' style='stroke:rgb(112,112,112) ;stroke-width:.1'/>
+<line x1='296.56250000000006' y1='250.0' x2='296.56250000000006' y2='0.0' stroke-dasharray='10, 5' style='stroke:rgb(46,46,46) ;stroke-width:.1'/>
+<line x1='273.75' y1='125.0' x2='296.56250000000006' y2='125.0' stroke-dasharray='10, 5' style='stroke:rgb(132,132,132) ;stroke-width:.1'/>
+<line x1='296.56250000000006' y1='125.0' x2='319.375' y2='125.0' stroke-dasharray='10, 5' style='stroke:rgb(57,57,57) ;stroke-width:.1'/>
+<line x1='342.18749999999994' y1='250.0' x2='342.18749999999994' y2='0.0' stroke-dasharray='10, 5' style='stroke:rgb(24,24,24) ;stroke-width:.1'/>
+<line x1='319.375' y1='125.0' x2='342.18749999999994' y2='125.0' stroke-dasharray='10, 5' style='stroke:rgb(95,95,95) ;stroke-width:.1'/>
+<line x1='353.59374999999994' y1='250.0' x2='353.59374999999994' y2='0.0' stroke-dasharray='10, 5' style='stroke:rgb(5,5,5) ;stroke-width:.1'/>
 <text x='91.25' y='125.0' font-size='small' text='1'>1</text>
 <text x='205.3125' y='187.5' font-size='small' text='4'>4</text>
-<text x='250.93750000000003' y='218.75' font-size='small' text='5'>5</text>
-<text x='250.93750000000003' y='156.25' font-size='small' text='5'>5</text>
+<text x='239.53125000000003' y='187.5' font-size='small' text='5'>5</text>
+<text x='262.34375' y='187.5' font-size='small' text='5'>5</text>
 <text x='205.3125' y='62.5' font-size='small' text='4'>4</text>
-<text x='250.93750000000003' y='93.75000000000003' font-size='small' text='5'>5</text>
-<text x='250.93750000000003' y='31.25' font-size='small' text='5'>5</text>
-<text x='296.56250000000006' y='218.75' font-size='small' text='5'>5</text>
-<text x='296.56250000000006' y='156.25' font-size='small' text='5'>5</text>
-<text x='342.18749999999994' y='218.75' font-size='small' text='5'>5</text>
-<text x='342.18749999999994' y='156.25' font-size='small' text='5'>5</text>
+<text x='239.53125000000003' y='62.5' font-size='small' text='5'>5</text>
+<text x='262.34375' y='62.5' font-size='small' text='5'>5</text>
+<text x='285.15625' y='187.5' font-size='small' text='5'>5</text>
 <text x='285.15625' y='62.5' font-size='small' text='5'>5</text>
+<text x='307.96875000000006' y='187.5' font-size='small' text='5'>5</text>
 <text x='307.96875000000006' y='62.5' font-size='small' text='5'>5</text>
-<text x='342.18749999999994' y='93.75000000000003' font-size='small' text='5'>5</text>
-<text x='342.18749999999994' y='31.25' font-size='small' text='5'>5</text>
+<text x='330.78124999999994' y='187.5' font-size='small' text='5'>5</text>
+<text x='330.78124999999994' y='62.5' font-size='small' text='5'>5</text>
+<text x='347.89062499999994' y='125.0' font-size='small' text='5'>5</text>
+<text x='359.296875' y='125.0' font-size='small' text='5'>5</text>
 <rect x='-2.5529102197112645' y='247.35937178488817' width='5' height='5'/>
 <text x='4.947089780288736' y='244.85937178488817' font-size='small' text='Px'>Px</text>
 <circle cx='235.14237543828534' cy='146.7230858076617' r='2' stroke='black'/>
@@ -342,26 +342,26 @@
 <circle cx='240.888188605826' cy='138.07071282299506' r='2' stroke='black'/>
 <circle cx='288.13154131671564' cy='87.88694951192849' r='2' stroke='black'/>
 <circle cx='300.2615913370792' cy='80.96505112419518' r='2' stroke='black'/>
-<circle cx='309.83794661631356' cy='125.95739064446175' r='2' stroke='black'/>
 <circle cx='328.35223348950007' cy='63.6603051548619' r='2' stroke='black'/>
 <circle cx='284.9394228903042' cy='151.9145095984617' r='2' stroke='black'/>
 <circle cx='328.99065717478237' cy='82.69552572112849' r='2' stroke='black'/>
 <circle cx='341.12070719514594' cy='75.77362733339518' r='2' stroke='black'/>
+<circle cx='258.7640517937302' cy='48.0860337824619' r='2' stroke='black'/>
 <circle cx='343.6744019362751' cy='77.50410193032852' r='2' stroke='black'/>
-<circle cx='325.1601150630886' cy='144.99261121072837' r='2' stroke='black'/>
 <circle cx='283.66257551973956' cy='49.81650837939523' r='2' stroke='black'/>
 <circle cx='359.6349940683324' cy='127.68786524139507' r='2' stroke='black'/>
 <circle cx='344.95124930683966' cy='138.07071282299506' r='2' stroke='black'/>
 <circle cx='274.0862202405052' cy='103.46122088432844' r='2' stroke='black'/>
 <circle cx='330.2675045453469' cy='56.73840676712854' r='2' stroke='black'/>
 <circle cx='336.01331771288756' cy='23.85938942539528' r='2' stroke='black'/>
+<circle cx='259.4024754790125' cy='122.4964414505951' r='2' stroke='black'/>
 <circle cx='277.91676235219893' cy='127.68786524139507' r='2' stroke='black'/>
 <circle cx='332.8211992864761' cy='39.433660797795255' r='2' stroke='black'/>
 <circle cx='318.13745452498335' cy='89.61742410886185' r='2' stroke='black'/>
 <circle cx='276.6399149816344' cy='96.53932249659513' r='2' stroke='black'/>
 <circle cx='343.0359782509928' cy='120.76596685366175' r='2' stroke='black'/>
-<circle cx='258.7640517937302' cy='48.0860337824619' r='2' stroke='black' stroke-width='0.5' fill='none'/>
-<circle cx='259.4024754790125' cy='122.4964414505951' r='2' stroke='black' stroke-width='0.5' fill='none'/>
+<circle cx='309.83794661631356' cy='125.95739064446175' r='2' stroke='black' stroke-width='0.5' fill='none'/>
+<circle cx='325.1601150630886' cy='144.99261121072837' r='2' stroke='black' stroke-width='0.5' fill='none'/>
 <circle cx='222.3739017326395' cy='100.0002716904618' r='2' stroke='black' stroke-width='0.5' fill='none'/>
 <circle cx='176.4073963923144' cy='15.207016440728637' r='2' stroke='black' stroke-width='0.5' fill='none'/>
 <circle cx='138.10197527537687' cy='184.79352694019497' r='2' stroke='black' stroke-width='0.5' fill='none'/>

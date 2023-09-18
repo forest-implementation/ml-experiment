@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
-require "svggraph" # https://github.com/lumean/svg-graph2
-require "SVG/Graph/Plot"
 
 require "ml/experiment/preprocessor"
-require "plotting/plotter"
-
 require "ml/forest"
 require "ml/service/isolation/outlier"
 require "ml/service/isolation/novelty"
 require "stats/statistics"
+require "plotting/gnuplotter"
+require "plotting/preprocessor"
 
+
+include Plotting::Gnuplotter
+include Plotting::Preprocessor
 include Stats::Statistics
 
 pp input = [
@@ -57,82 +58,47 @@ inputy = input.map { |input| input[1] }.filter { |input| ranges[1].include?(inpu
 input = inputx.zip(inputy)
 
 forest = Ml::Forest::Tree.new(input, trees_count: 1, forest_helper: novelty_service)
-pp forest
-def splitpoints(key, tree, &fun)
-  return [key, tree.data.depth] if tree.is_a?(Node::OutNode)
-
-  fun.call [key, tree.split_point]
-  tree.branches.map { |key, x| splitpoints(key, x) { |x| fun.call x } }
-end
-
-f = Enumerator.new do |y|
-  splitpoints(ranges, forest.trees[0]) { |x| y << x }
-end
-
-lines_coords = f.map do |range, split_point|
-  range[1 - split_point.dimension].minmax.map do |x|
-    split_point.dimension == 1 ? [x, split_point.split_point] : [split_point.split_point, x]
-  end
-end
-
-# pp lines_coords
-
-def splitpoints2(key, tree, &fun)
-  return fun.call [key, tree.data.depth] if tree.is_a?(Node::OutNode)
-
-  tree.branches.map { |key, x| splitpoints2(key, x) { |x| fun.call x } }
-end
-
-s = Enumerator.new do |y|
-  splitpoints2(ranges, forest.trees[0]) { |x| y << x }
-end
 
 points_to_predict = [[8, 7], [5, 2.1], [4.5, 2.2], [4.8, 2.0]]
 pred_input = input.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
-pred_additional = points_to_predict.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
+pred_to_predict = points_to_predict.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
 
 input_novelty = input.zip(pred_input).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
 
-pp(input.zip(pred_input).filter { |_coord, score| score.novelty? })
-pp(input.zip(pred_input).filter { |_coord, score| !score.novelty? })
-
 input_regular = input.zip(pred_input).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
 
-additional_novelty = points_to_predict.zip(pred_additional).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
-additional_regular = points_to_predict.zip(pred_additional).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
+to_predict_novelty = points_to_predict.zip(pred_to_predict).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
+to_predict_regular = points_to_predict.zip(pred_to_predict).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
 
-Plotting::Plotter.save_svg_figure(input_regular, input_novelty, "figures/example1_0.svg", {
-                                    height: 300,
-                                    width: 500,
-                                    # :key => true,
-                                    # :scale_x_integers => true,
-                                    # :scale_y_integers => true,
-                                    show_data_points: true, # for scatter functionality
-                                    show_lines: false, # for scatter functionality
-                                    min_x_value: ranges[0].min,
-                                    max_x_value: ranges[0].max,
+def split_and_depths(key, tree, &fun)
+  return fun.call [key, tree.data.depth] if tree.is_a?(Node::OutNode)
 
-                                    min_y_value: ranges[1].min,
-                                    max_y_value: ranges[1].max,
-                                    lines_coords: lines_coords,
-                                    depth_coords_text: s,
-                                    additional_points: [[-5.82, 0.22]]
-                                  })
+  tree.branches.map { |key, x| split_and_depths(key, x) { |x| fun.call x } }
+end
 
-Plotting::Plotter.save_svg_figure(input_regular + additional_regular, input_novelty + additional_novelty, "figures/example1_1.svg", {
-                                    height: 300,
-                                    width: 500,
-                                    # :key => true,
-                                    # :scale_x_integers => true,
-                                    # :scale_y_integers => true,
-                                    show_data_points: true, # for scatter functionality
-                                    show_lines: false, # for scatter functionality
-                                    min_x_value: ranges[0].min,
-                                    max_x_value: ranges[0].max,
+s = Enumerator.new do |y|
+  split_and_depths(ranges, forest.trees[0]) { |x| y << x }
+end
 
-                                    min_y_value: ranges[1].min,
-                                    max_y_value: ranges[1].max,
-                                    lines_coords: lines_coords,
-                                    depth_coords_text: s,
-                                    additional_points: [[-5.82, 0.22]]
-                                  })
+
+def prepare_depth_labels(split_depths_array)
+  split_depths_array.map do |ranges, depth|
+    x = ranges[0].minmax.sum / 2.0
+    y = ranges[1].minmax.sum / 2.0
+    [depth, x, y]
+  end
+end
+
+labels, label_xs, label_ys = prepare_depth_labels(s).transpose
+line_xs, line_ys = prepare_lines(ranges, forest)
+
+plot_regular = input_regular + to_predict_regular
+plot_novelty = input_novelty + to_predict_novelty
+
+
+plot("../../figures/example1_gnu.svg", ranges[0].minmax, ranges[1].minmax) do |x|
+  x.data << points_init(*plot_regular.transpose, "regular") # regular
+  x.data << points_init(*plot_novelty.transpose, "novelty") # novelty
+  x.data << lines_init(prepare_for_lines_plot(line_xs), prepare_for_lines_plot(line_ys))
+  set_labels(x, labels, label_xs, label_ys)
+end
