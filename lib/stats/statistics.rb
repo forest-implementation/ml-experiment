@@ -38,9 +38,6 @@ module Stats
       sorted.median
     end
 
-    # raise "median test failed" unless median([1,2,3,4,5]) == 3
-    # raise "median test failed" unless median([1,2,3,4]) == 2.5
-
     def sgn(x)
       x <=> 0
     end
