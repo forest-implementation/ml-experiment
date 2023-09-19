@@ -34,15 +34,15 @@ module Plotting
     end
 
     # usage: set_labels(x, ["label1", "label2", "label3"], [x1, x2, x3], [y1, y2, y3])
-    def set_labels(plot, labels, xs, ys)
+    def set_labels(plot, labels, xs, ys, style = "")
       pos = xs.zip(ys)
       labels.zip(pos).each do |label, xy|
-        set_label(plot, label, xy[0], xy[1])
+        set_label(plot, label, xy[0], xy[1], style)
       end
     end
 
-    def set_label(plot, label, x, y)
-      plot.label "'#{label}' at #{x},#{y}"
+    def set_label(plot, label, x, y, style = "")
+      plot.label "'{/:#{style} #{label}}' at #{x},#{y}"
     end
   end
 end

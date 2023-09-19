@@ -10,7 +10,6 @@ require "stats/statistics"
 require "plotting/gnuplotter"
 require "plotting/preprocessor"
 
-
 include Plotting::Gnuplotter
 include Plotting::Preprocessor
 include Stats::Statistics
@@ -59,7 +58,7 @@ input = inputx.zip(inputy)
 
 forest = Ml::Forest::Tree.new(input, trees_count: 1, forest_helper: novelty_service)
 
-points_to_predict = [[8, 7], [5, 2.1], [4.5, 2.2], [4.8, 2.0]]
+points_to_predict = [[15, 2.5], [8, 7], [5, 2.1], [4.5, 2.2], [4.8, 2.0]]
 pred_input = input.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
 pred_to_predict = points_to_predict.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
 
@@ -80,7 +79,6 @@ s = Enumerator.new do |y|
   split_and_depths(ranges, forest.trees[0]) { |x| y << x }
 end
 
-
 def prepare_depth_labels(split_depths_array)
   split_depths_array.map do |ranges, depth|
     x = ranges[0].minmax.sum / 2.0
@@ -95,10 +93,10 @@ line_xs, line_ys = prepare_lines(ranges, forest)
 plot_regular = input_regular + to_predict_regular
 plot_novelty = input_novelty + to_predict_novelty
 
-
-plot("../../figures/example1_gnu.svg", ranges[0].minmax, ranges[1].minmax) do |x|
-  x.data << points_init(*plot_regular.transpose, "regular") # regular
-  x.data << points_init(*plot_novelty.transpose, "novelty") # novelty
-  x.data << lines_init(prepare_for_lines_plot(line_xs), prepare_for_lines_plot(line_ys))
-  set_labels(x, labels, label_xs, label_ys)
+plot("../../figures/example1_gnu.svg", ranges[0].minmax, ranges[1].minmax) do |plot|
+  plot.data << points_init(*plot_regular.transpose, "regular") # regular
+  plot.data << points_init(*plot_novelty.transpose, "novelty") # novelty
+  plot.data << lines_init(prepare_for_lines_plot(line_xs), prepare_for_lines_plot(line_ys))
+  set_labels(plot, %w[Px B], [15 - 1, 7], [2.5 + 0.1, 7], style="Bold")
+  set_labels(plot, labels, label_xs, label_ys)
 end
