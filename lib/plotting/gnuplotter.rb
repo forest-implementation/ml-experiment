@@ -44,5 +44,15 @@ module Plotting
     def set_label(plot, label, x, y, style = "")
       plot.label "'{/:#{style} #{label}}' at #{x},#{y}"
     end
+
+    def set_rects(plot, x1y1x2y2, style: "fc rgb '#BD73BD' fs solid #{1.0/8}" )
+      x1y1x2y2.each do |x1y1, x2y2|
+        set_rect(plot, x1y1[0], x1y1[1], x2y2[0], x2y2[1], style: style)
+      end
+    end
+
+    def set_rect(plot, x1, y1, x2, y2, style: "fc rgb 'gray'")
+      plot.object "rect from #{x1},#{y1} to #{x2},#{y2} #{style} "
+    end
   end
 end

@@ -7,10 +7,15 @@ module Plotting
       tree.branches.map { |key, x| splitpoints(key, x) { |x| fun.call x } }
     end
 
+    # this function is for making a nice 3D plasticity effect for lines
+    def gaperize_min_max(min, max, percent = 0.02)
+      [min + (max - min) * percent, max - (max - min) * percent]
+    end
+
     # input: [x1..y1, x2..y2], SplitPointD(split_point=R from [x1..y1] | [x2..y2], dimension=0|1)
     # TODO: For now, only 2 dimensions are supported (x,y)
     def prepare_line_coords(range, split_point)
-      range[1 - split_point.dimension].minmax.map do |x|
+      gaperize_min_max(*range[1 - split_point.dimension].minmax).map do |x|
         split_point.dimension == 1 ? [x, split_point.split_point] : [split_point.split_point, x]
       end
     end
