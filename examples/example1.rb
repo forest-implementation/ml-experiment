@@ -58,7 +58,7 @@ input = inputx.zip(inputy)
 
 forest = Ml::Forest::Tree.new(input, trees_count: 1, forest_helper: novelty_service)
 
-points_to_predict = [[15, 2.5], [8, 7], [5, 2.1], [4.5, 2.2], [4.8, 2.0]]
+points_to_predict = [[5, 2.5], [15, 2.5], [8, 7], [5, 2.1], [4.5, 2.2], [4.8, 2.0]]
 pred_input = input.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
 pred_to_predict = points_to_predict.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
 
@@ -93,10 +93,12 @@ line_xs, line_ys = prepare_lines(ranges, forest)
 plot_regular = input_regular + to_predict_regular
 plot_novelty = input_novelty + to_predict_novelty
 
+
+
 plot("../../figures/example1_gnu.svg", ranges[0].minmax, ranges[1].minmax) do |plot|
-  plot.data << points_init(*plot_regular.transpose, "regular") # regular
-  plot.data << points_init(*plot_novelty.transpose, "novelty") # novelty
   plot.data << lines_init(prepare_for_lines_plot(line_xs), prepare_for_lines_plot(line_ys))
-  set_labels(plot, %w[Px B], [15 - 1, 7], [2.5 + 0.1, 7], style="Bold")
+  set_labels(plot, ["Px"], [points_to_predict[0][0] - 1.5], [points_to_predict[0][1]], "Bold")
   set_labels(plot, labels, label_xs, label_ys)
+  plot.data << points_init(*plot_regular.transpose, "regular", "1", "black") # regular
+  plot.data << points_init(*plot_novelty.transpose, "novelty", "2", "blue") # novelty
 end

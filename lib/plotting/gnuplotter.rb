@@ -19,16 +19,16 @@ module Plotting
       end
     end
 
-    def points_init(x, y, title)
+    def points_init(x, y, title, pointtype = "1", color = "red")
       Gnuplot::DataSet.new([x, y]) do |ds|
-        ds.with = "points"
+        ds.with = "points pointtype #{pointtype} lc rgbcolor '#{color}'"
         ds.title = title
       end
     end
 
     def lines_init(x, y)
       Gnuplot::DataSet.new([x, y]) do |ds|
-        ds.with = "lines"
+        ds.with = "lines lw 0.6"
         ds.notitle
       end
     end
@@ -45,14 +45,16 @@ module Plotting
       plot.label "'{/:#{style} #{label}}' at #{x},#{y}"
     end
 
-    def set_rects(plot, x1y1x2y2, style: "fc rgb '#BD73BD' fs solid #{1.0/8}" )
+    def set_rects(plot, x1y1x2y2, style: "fc rgb '#BD73BD' fs solid #{1.0 / 8}")
       x1y1x2y2.each do |x1y1, x2y2|
         set_rect(plot, x1y1[0], x1y1[1], x2y2[0], x2y2[1], style: style)
       end
     end
 
     def set_rect(plot, x1, y1, x2, y2, style: "fc rgb 'gray'")
-      plot.object "rect from #{x1},#{y1} to #{x2},#{y2} #{style} "
+      plot.object "rect from #{x1},#{y1} to #{x2},#{y2} #{style} lw 0.1"
+      # plot only if last layer
+      # plot.label "at #{(x2 + x1)/2},#{(y2+y1)/2} 'L' back font',8'"
     end
   end
 end

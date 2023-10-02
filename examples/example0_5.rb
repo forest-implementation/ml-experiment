@@ -64,6 +64,6 @@ plot_regular = input_regular
 plot_novelty = input_novelty
 
 plot("../../figures/example0_5_gnu.svg", (plot_regular + plot_novelty).transpose[0].minmax, (plot_regular + plot_novelty).transpose[1].minmax) do |plot|
-  plot.data << points_init(*plot_regular.transpose, "regular")
-  plot.data << points_init(*plot_novelty.transpose, "outlier")
+  plot.data << points_init(*plot_regular.transpose, "regular", "1")
+  plot.data << points_init(*plot_novelty.transpose, "outlier", "3")
 end

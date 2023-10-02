@@ -47,20 +47,23 @@ pp input = [
   [11.6, 4.15]
 ]
 
-novelty_service = Ml::Service::Isolation::Outlier.new(batch_size: input.size, max_depth: 16)
+points_to_predict = [[5, 2.5], [15, 2.5], [8, 7], [5, 2.1], [4.5, 2.2], [4.8, 2.0]]
+input += points_to_predict
 
-forest = Ml::Forest::Tree.new(input, trees_count: 1, forest_helper: novelty_service)
+service = Ml::Service::Isolation::Outlier.new(batch_size: input.size, max_depth: 2)
 
-#points_to_predict = [[15, 2.5], [8, 7], [5, 2.1], [4.5, 2.2], [4.8, 2.0]]
-pred_input = input.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
-#pred_to_predict = points_to_predict.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
+forest = Ml::Forest::Tree.new(input, trees_count: 1, forest_helper: service)
+
+pred_input = input.map { |point| forest.fit_predict(point, forest_helper: service) }
+
+# pred_to_predict = points_to_predict.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
 
 input_novelty = input.zip(pred_input).filter { |_coord, score| score.outlier? }.map { |x| x[0] }
 
 input_regular = input.zip(pred_input).filter { |_coord, score| !score.outlier? }.map { |x| x[0] }
 
-#to_predict_novelty = points_to_predict.zip(pred_to_predict).filter { |_coord, score| score.outlier? }.map { |x| x[0] }
-#to_predict_regular = points_to_predict.zip(pred_to_predict).filter { |_coord, score| !score.outlier? }.map { |x| x[0] }
+# to_predict_novelty = points_to_predict.zip(pred_to_predict).filter { |_coord, score| score.outlier? }.map { |x| x[0] }
+# to_predict_regular = points_to_predict.zip(pred_to_predict).filter { |_coord, score| !score.outlier? }.map { |x| x[0] }
 
 def rectangles_coords(tree, &fun)
   return fun.call tree.minmaxborders if tree.is_a?(Node::OutNode)
@@ -90,8 +93,10 @@ r = Enumerator.new do |y|
   split_line_coords(forest.trees[0]) { |x| y << x }
 end
 
+pp "line coords r"
 pp r.to_a
 
+pp "rect coords s"
 pp s.to_a
 
 def prepare_depth_labels(split_depths_array)
@@ -104,17 +109,23 @@ end
 
 # labels, label_xs, label_ys = prepare_depth_labels(s).transpose
 
-line_xs, line_ys = prepare_lines([input.transpose[0].minmax.reduce{|x, y| x..y}, input.transpose[1].minmax.reduce{|x, y| x..y}], forest)
+line_xs, line_ys = prepare_lines([input.transpose[0].minmax.reduce do |x, y|
+  x..y
+end, input.transpose[1].minmax.reduce do |x, y|
+       x..y
+     end], forest)
 
-plot_regular = input_regular #+ to_predict_regular
-plot_novelty = input_novelty #+ to_predict_novelty
+plot_regular = input_regular # + to_predict_regular
+plot_novelty = input_novelty # + to_predict_novelty
 
-
-plot("../../figures/example2_gnu.svg", input.transpose[0].minmax, input.transpose[1].minmax) do |plot|
-  plot.data << points_init(*plot_regular.transpose, "regular") # regular
-  plot.data << points_init(*plot_novelty.transpose, "novelty") # novelty
+# plot("../../figures/example2_gnu.svg", input.transpose[0].minmax, input.transpose[1].minmax) do |plot|
+plot("../../figures/example2_gnu.svg", [-5.5, 24], [0.5, 7.5]) do |plot|
+  plot.data << lines_init(prepare_for_lines_plot(r.to_a.flatten(1).transpose[0]),
+                          prepare_for_lines_plot(r.to_a.flatten(1).transpose[1]))
   set_rects(plot, s.to_a)
-  plot.data << lines_init(prepare_for_lines_plot(r.to_a.flatten(1).transpose[0]), prepare_for_lines_plot(r.to_a.flatten(1).transpose[1]))
-  #set_labels(plot, %w[Px B], [15 - 1, 7], [2.5 + 0.1, 7], style = "Bold")
-  #set_labels(plot, labels, label_xs, label_ys)
+  set_labels(plot, ["Px"], [points_to_predict[0][0] - 1.5], [points_to_predict[0][1]], "Bold")
+  plot.data << points_init(*plot_regular.transpose, "regular", "1", "black") # regular
+  plot.data << points_init(*plot_novelty.transpose, "outlier", "2", "blue") # novelty
+  # set_labels(plot, %w[Px B], [15 - 1, 7], [2.5 + 0.1, 7], style = "Bold")
+  # set_labels(plot, labels, label_xs, label_ys)
 end
