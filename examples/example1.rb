@@ -58,7 +58,7 @@ input = inputx.zip(inputy)
 
 forest = Ml::Forest::Tree.new(input, trees_count: 1, forest_helper: novelty_service)
 
-points_to_predict = [[5, 2.5], [15, 2.5], [8, 7], [5, 2.1], [4.5, 2.2], [4.8, 2.0]]
+points_to_predict = [[13, 6], [12, 6.1], [12.5, 5.9]]
 pred_input = input.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
 pred_to_predict = points_to_predict.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
 
@@ -70,7 +70,9 @@ to_predict_novelty = points_to_predict.zip(pred_to_predict).filter { |_coord, sc
 to_predict_regular = points_to_predict.zip(pred_to_predict).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
 
 def split_and_depths(key, tree, &fun)
-  return fun.call [key, tree.data.depth] if tree.is_a?(Node::OutNode)
+  if tree.is_a?(Node::OutNode)
+    return fun.call [key, tree.data.depth + Evaluatable.evaluate_path_length_c(tree.data.data.size)]
+  end
 
   tree.branches.map { |key, x| split_and_depths(key, x) { |x| fun.call x } }
 end
@@ -83,7 +85,7 @@ def prepare_depth_labels(split_depths_array)
   split_depths_array.map do |ranges, depth|
     x = ranges[0].minmax.sum / 2.0
     y = ranges[1].minmax.sum / 2.0
-    [depth, x, y]
+    [depth.round(2), x, y]
   end
 end
 
@@ -92,8 +94,6 @@ line_xs, line_ys = prepare_lines(ranges, forest)
 
 plot_regular = input_regular + to_predict_regular
 plot_novelty = input_novelty + to_predict_novelty
-
-
 
 plot("../../figures/example1_gnu.svg", ranges[0].minmax, ranges[1].minmax) do |plot|
   plot.data << lines_init(prepare_for_lines_plot(line_xs), prepare_for_lines_plot(line_ys))

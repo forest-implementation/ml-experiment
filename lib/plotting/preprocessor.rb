@@ -12,12 +12,16 @@ module Plotting
       [min + (max - min) * percent, max - (max - min) * percent]
     end
 
+    def prepare_line_coords_general(range, split_point)
+      yield(*range[1 - split_point.dimension].minmax).map do |x|
+        split_point.dimension == 1 ? [x, split_point.split_point] : [split_point.split_point, x]
+      end
+    end
+
     # input: [x1..y1, x2..y2], SplitPointD(split_point=R from [x1..y1] | [x2..y2], dimension=0|1)
     # TODO: For now, only 2 dimensions are supported (x,y)
     def prepare_line_coords(range, split_point)
-      gaperize_min_max(*range[1 - split_point.dimension].minmax).map do |x|
-        split_point.dimension == 1 ? [x, split_point.split_point] : [split_point.split_point, x]
-      end
+      prepare_line_coords_general(range, split_point) { |min, max| gaperize_min_max(min, max) }
     end
 
     # input: array of prepare_line_coords's inputs

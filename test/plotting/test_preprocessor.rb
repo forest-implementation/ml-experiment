@@ -11,7 +11,7 @@ class Plotting::TestPlotter < Minitest::Test
     range = [0..5, 1..3]
     split_point = Data.define(:split_point, :dimension).new(2, 0)
 
-    res = prepare_line_coords(range, split_point)
+    res = prepare_line_coords_general(range, split_point) { |min, max| gaperize_min_max(min, max, 0.0) }
 
     assert_equal([[2, 1], [2, 3]], res)
   end
