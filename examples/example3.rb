@@ -58,7 +58,7 @@ input = input.filter { |input| ranges[0].include?(input[0]) && ranges[1].include
 # muzes zakomentovat a bude modry
 input += points_to_predict = [[17, 2.7]]
 
-forest = Ml::Forest::Tree.new(input, trees_count: 9, forest_helper: novelty_service)
+forest = Ml::Forest::Tree.new(input, trees_count: 100, forest_helper: novelty_service)
 pp input
 
 points_to_predict = [[17, 2.7], [2, 2]]

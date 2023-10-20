@@ -50,7 +50,7 @@ pp input = [
 service = Ml::Service::Isolation::Outlier.new(batch_size: input.size, max_depth: 5)
 
 
-forest = Ml::Forest::Tree.new(input, trees_count: 1, forest_helper: service)
+forest = Ml::Forest::Tree.new(input, trees_count: 100, forest_helper: service)
 
 # cerny kdyz ucis bez nej
 points_to_predict = [[17, 2.7]]
