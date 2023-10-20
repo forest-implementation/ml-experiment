@@ -2,20 +2,18 @@ require "gnuplot"
 
 module Plotting
   module Gnuplotter
-    def plot(path, x_ranges, y_ranges, &fun)
-      Gnuplot.open do |gp|
-        Gnuplot::Plot.new(gp) do |plot|
-          # #plot.terminal "svg"
-          # #plot.output File.expand_path(path, __dir__)
-          # plot.xrange "[#{x_ranges[0]}:#{x_ranges[1]}]"
-          # plot.yrange "[#{y_ranges[0]}:#{y_ranges[1]}]"
-          # plot.notitle
-          # # plot.xlabel "X"
-          # # plot.ylabel "Y"
-          # plot.key "left"
+    def plot(gp, path, x_ranges, y_ranges, &fun)
+      Gnuplot::Plot.new(gp) do |plot|
+        plot.terminal "svg"
+        plot.output File.expand_path(path, __dir__)
+        plot.xrange "[#{x_ranges[0]}:#{x_ranges[1]}]"
+        plot.yrange "[#{y_ranges[0]}:#{y_ranges[1]}]"
+        plot.notitle
+        # plot.xlabel "X"
+        # plot.ylabel "Y"
+        plot.key "left"
 
-          fun.call(plot)
-        end
+        fun.call(plot)
       end
     end
 
