@@ -14,7 +14,7 @@ include Plotting::Gnuplotter
 include Plotting::Preprocessor
 include Stats::Statistics
 
-pp input = [
+input = [
   [12.6, 3.2],
   [22.3, 6.55],
   [21.4, 2.35],
@@ -44,33 +44,40 @@ pp input = [
   [19.1, 4.65],
   [15.85, 3.95],
   [21.05, 4.55],
-  [11.6, 4.15]
+  [11.6, 4.15],
 ]
-pp
-pp ranges = input[0].length.times.map { |x| adjusted_box(input, x) }
 
+pp ranges = input[0].length.times.map { |dim| adjusted_box(input, dim) }
+ranges = [0..30, 0..10]
 novelty_service = Ml::Service::Isolation::Novelty.new(batch_size: input.size, max_depth: 5, ranges: ranges)
 
+points_to_predict = [[29, 5]]
+input += points_to_predict
 # FILTER OUT inputs out of range!
 input = input.filter { |input| ranges[0].include?(input[0]) && ranges[1].include?(input[1]) }
+points_to_predict = points_to_predict.filter { |input| ranges[0].include?(input[0]) && ranges[1].include?(input[1]) }
 
 # cerny kdyz ucis s nim
 # muzes zakomentovat a bude modry
-input += points_to_predict = [[17, 2.7]]
 
+# points_to_predict = [[10, 5]]
+# input += points_to_predict
 forest = Ml::Forest::Tree.new(input, trees_count: 100, forest_helper: novelty_service)
-pp input
 
-points_to_predict = [[17, 2.7], [2, 2]]
 pred_input = input.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
 pred_to_predict = points_to_predict.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
 
 input_novelty = input.zip(pred_input).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
 
+pp input_novelty.size
+
+
 input_regular = input.zip(pred_input).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
 
 to_predict_novelty = points_to_predict.zip(pred_to_predict).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
 to_predict_regular = points_to_predict.zip(pred_to_predict).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
+
+pp to_predict_novelty.size
 
 def split_and_depths(key, tree, &fun)
   if tree.is_a?(Node::OutNode)
@@ -81,32 +88,29 @@ def split_and_depths(key, tree, &fun)
 end
 
 Gnuplot.open do |gp|
-  gp << "set multiplot layout 1,1\n"
-  (0...forest.trees.size).each do |i|
-    s = Enumerator.new do |y|
-      split_and_depths(ranges, forest.trees[i]) { |x| y << x }
+  s = Enumerator.new do |y|
+    split_and_depths(ranges, forest.trees[0]) { |x| y << x }
+  end
+
+  def prepare_depth_labels(split_depths_array)
+    split_depths_array.map do |ranges, depth|
+      x = ranges[0].minmax.sum / 2.0
+      y = ranges[1].minmax.sum / 2.0
+      [depth.round(2), x, y]
     end
+  end
 
-    def prepare_depth_labels(split_depths_array)
-      split_depths_array.map do |ranges, depth|
-        x = ranges[0].minmax.sum / 2.0
-        y = ranges[1].minmax.sum / 2.0
-        [depth.round(2), x, y]
-      end
-    end
+  labels, label_xs, label_ys = prepare_depth_labels(s).transpose
+  line_xs, line_ys = prepare_lines(ranges, forest)
 
-    labels, label_xs, label_ys = prepare_depth_labels(s).transpose
-    line_xs, line_ys = prepare_lines(ranges, forest)
+  plot_regular = input_regular + to_predict_regular
+  plot_novelty = input_novelty + to_predict_novelty
 
-    plot_regular = input_regular + to_predict_regular
-    plot_novelty = input_novelty + to_predict_novelty
-
-    plot(gp, "../../figures/example1_gnu.svg", ranges[0].minmax, ranges[1].minmax) do |plot|
-      plot.data << lines_init(prepare_for_lines_plot(line_xs), prepare_for_lines_plot(line_ys))
-      set_labels(plot, ["Px"], [points_to_predict[0][0] - 1.5], [points_to_predict[0][1]], "Bold")
-      # set_labels(plot, labels, label_xs, label_ys)
-      plot.data << points_init(*plot_regular.transpose, "regular", "1", "black") # regular
-      plot.data << points_init(*plot_novelty.transpose, "novelty", "2", "blue") # novelty
-    end
+  plot(gp, "../../figures/example3_gnu.svg", ranges[0].minmax, ranges[1].minmax) do |plot|
+    plot.data << lines_init(prepare_for_lines_plot(line_xs), prepare_for_lines_plot(line_ys))
+    set_labels(plot, ["Px"], [points_to_predict[0][0] - 1.5], [points_to_predict[0][1]], "Bold")
+    # set_labels(plot, labels, label_xs, label_ys)
+    plot.data << points_init(*plot_regular.transpose, "regular", "1", "black") # regular
+    plot.data << points_init(*plot_novelty.transpose, "novelty", "2", "blue") # novelty
   end
 end

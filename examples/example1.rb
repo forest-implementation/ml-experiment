@@ -52,9 +52,7 @@ pp ranges = input[0].length.times.map { |x| adjusted_box(input, x) }
 novelty_service = Ml::Service::Isolation::Novelty.new(batch_size: 30, max_depth: 5, ranges: ranges)
 
 # FILTER OUT inputs out of range!
-inputx = input.map { |input| input[0] }.filter { |input| ranges[0].include?(input) }
-inputy = input.map { |input| input[1] }.filter { |input| ranges[1].include?(input) }
-input = inputx.zip(inputy)
+input = input.filter { |input| ranges[0].include?(input[0]) && ranges[1].include?(input[1]) }
 
 forest = Ml::Forest::Tree.new(input, trees_count: 1, forest_helper: novelty_service)
 
