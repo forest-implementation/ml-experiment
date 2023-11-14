@@ -44,7 +44,7 @@ input = [
   [19.1, 4.65],
   [15.85, 3.95],
   [21.05, 4.55],
-  [11.6, 4.15],
+  [11.6, 4.15]
 ]
 
 pp ranges = input[0].length.times.map { |dim| adjusted_box(input, dim) }
@@ -71,7 +71,6 @@ input_novelty = input.zip(pred_input).filter { |_coord, score| score.novelty? }.
 
 pp input_novelty.size
 
-
 input_regular = input.zip(pred_input).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
 
 to_predict_novelty = points_to_predict.zip(pred_to_predict).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
@@ -79,25 +78,9 @@ to_predict_regular = points_to_predict.zip(pred_to_predict).filter { |_coord, sc
 
 pp to_predict_novelty.size
 
-def split_and_depths(key, tree, &fun)
-  if tree.is_a?(Node::OutNode)
-    return fun.call [key, tree.data.depth + Evaluatable.evaluate_path_length_c(tree.data.data.size)]
-  end
-
-  tree.branches.map { |key, x| split_and_depths(key, x) { |x| fun.call x } }
-end
-
 Gnuplot.open do |gp|
   s = Enumerator.new do |y|
     split_and_depths(ranges, forest.trees[0]) { |x| y << x }
-  end
-
-  def prepare_depth_labels(split_depths_array)
-    split_depths_array.map do |ranges, depth|
-      x = ranges[0].minmax.sum / 2.0
-      y = ranges[1].minmax.sum / 2.0
-      [depth.round(2), x, y]
-    end
   end
 
   labels, label_xs, label_ys = prepare_depth_labels(s).transpose

@@ -778,27 +778,6 @@ input_novelty = input.zip(pred_input).filter { |_coord, score| score.novelty? }.
 # to_predict_novelty = points_to_predict.zip(pred_to_predict).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
 # to_predict_regular = points_to_predict.zip(pred_to_predict).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
 
-def split_and_depths(key, tree, &fun)
-  if tree.is_a?(Node::OutNode)
-    return fun.call [key, tree.data.depth + Evaluatable.evaluate_path_length_c(tree.data.data.size)]
-  end
-
-  tree.branches.map { |key, x| split_and_depths(key, x) { |x| fun.call x } }
-end
-
-def nicekey(hnuskey)
-  "#{hnuskey[0]}\n#{hnuskey[1]}"
-end
-
-def deep_depths(key, tree, &fun)
-  return if tree.is_a?(Node::OutNode)
-
-  fun.call [nicekey(key), tree.branches.keys.map {|kk| nicekey(kk)}] if tree.is_a?(Node::InNode)
-  tree.branches.map do |key, x|
-    deep_depths(key, x) { |x| fun.call x }
-  end
-end
-
 depths_for_tree = Enumerator.new do |y|
   deep_depths(ranges, forest.trees[0]) { |x| y << x }
 end
@@ -820,14 +799,6 @@ g.output(svg: "figures/hello_world.svg")
 Gnuplot.open do |gp|
   s = Enumerator.new do |y|
     split_and_depths(ranges, forest.trees[0]) { |x| y << x }
-  end
-
-  def prepare_depth_labels(split_depths_array)
-    split_depths_array.map do |ranges, depth|
-      x = ranges[0].minmax.sum / 2.0
-      y = ranges[1].minmax.sum / 2.0
-      [depth.round(2), x, y]
-    end
   end
 
   labels, label_xs, label_ys = prepare_depth_labels(s).transpose

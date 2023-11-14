@@ -1,5 +1,36 @@
 module Plotting
   module Preprocessor
+    def nicekey(hnuskey)
+      "#{hnuskey[0]}\n#{hnuskey[1]}"
+    end
+
+    # for graphviz depths plotting
+    def deep_depths(key, tree, &fun)
+      return if tree.is_a?(Node::OutNode)
+
+      fun.call [nicekey(key), tree.branches.keys.map { |kk| nicekey(kk) }] if tree.is_a?(Node::InNode)
+      tree.branches.map do |key, x|
+        deep_depths(key, x) { |x| fun.call x }
+      end
+    end
+
+    # for labels in the middle of the novelty node
+    def prepare_depth_labels(split_depths_array)
+      split_depths_array.map do |ranges, depth|
+        x = ranges[0].minmax.sum / 2.0
+        y = ranges[1].minmax.sum / 2.0
+        [depth.round(2), x, y]
+      end
+    end
+
+    def split_and_depths(key, tree, &fun)
+      if tree.is_a?(Node::OutNode)
+        return fun.call [key, tree.data.depth + Evaluatable.evaluate_path_length_c(tree.data.data.size)]
+      end
+
+      tree.branches.map { |key, x| split_and_depths(key, x) { |x| fun.call x } }
+    end
+
     def splitpoints(key, tree, &fun)
       return [key, tree.data.depth] if tree.is_a?(Node::OutNode)
 

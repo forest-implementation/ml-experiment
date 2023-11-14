@@ -112,14 +112,6 @@ Gnuplot.open do |gp|
   s = s.filter { |obj| !obj["borders"].empty? }
   pp s.to_a
 
-  def prepare_depth_labels(split_depths_array)
-    split_depths_array.map do |ranges, depth|
-      x = ranges[0].minmax.sum / 2.0
-      y = ranges[1].minmax.sum / 2.0
-      [depth, x, y]
-    end
-  end
-
   plot_regular = input_regular # + to_predict_regular
   plot_novelty = input_novelty # + to_predict_novelty
 

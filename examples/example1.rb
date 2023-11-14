@@ -67,24 +67,8 @@ input_regular = input.zip(pred_input).filter { |_coord, score| !score.novelty? }
 to_predict_novelty = points_to_predict.zip(pred_to_predict).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
 to_predict_regular = points_to_predict.zip(pred_to_predict).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
 
-def split_and_depths(key, tree, &fun)
-  if tree.is_a?(Node::OutNode)
-    return fun.call [key, tree.data.depth + Evaluatable.evaluate_path_length_c(tree.data.data.size)]
-  end
-
-  tree.branches.map { |key, x| split_and_depths(key, x) { |x| fun.call x } }
-end
-
 s = Enumerator.new do |y|
   split_and_depths(ranges, forest.trees[0]) { |x| y << x }
-end
-
-def prepare_depth_labels(split_depths_array)
-  split_depths_array.map do |ranges, depth|
-    x = ranges[0].minmax.sum / 2.0
-    y = ranges[1].minmax.sum / 2.0
-    [depth.round(2), x, y]
-  end
 end
 
 labels, label_xs, label_ys = prepare_depth_labels(s).transpose
@@ -95,10 +79,12 @@ pp line_xs.zip(line_ys)
 plot_regular = input_regular + to_predict_regular
 plot_novelty = input_novelty + to_predict_novelty
 
-plot("../../figures/example1_gnu.svg", ranges[0].minmax, ranges[1].minmax) do |plot|
-  plot.data << lines_init(prepare_for_lines_plot(line_xs), prepare_for_lines_plot(line_ys))
-  set_labels(plot, ["Px"], [points_to_predict[0][0] - 1.5], [points_to_predict[0][1]], "Bold")
-  set_labels(plot, labels, label_xs, label_ys)
-  plot.data << points_init(*plot_regular.transpose, "regular", "1", "black") # regular
-  plot.data << points_init(*plot_novelty.transpose, "novelty", "2", "blue") # novelty
+Gnuplot.open do |gp|
+  plot(gp, "../../figures/example1_gnu.svg", ranges[0].minmax, ranges[1].minmax) do |plot|
+    plot.data << lines_init(prepare_for_lines_plot(line_xs), prepare_for_lines_plot(line_ys))
+    set_labels(plot, ["Px"], [points_to_predict[0][0] - 1.5], [points_to_predict[0][1]], "Bold")
+    set_labels(plot, labels, label_xs, label_ys)
+    plot.data << points_init(*plot_regular.transpose, "regular", "1", "black") # regular
+    plot.data << points_init(*plot_novelty.transpose, "novelty", "2", "blue") # novelty
+  end
 end
