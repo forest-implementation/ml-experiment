@@ -90,6 +90,8 @@ end
 labels, label_xs, label_ys = prepare_depth_labels(s).transpose
 line_xs, line_ys = prepare_lines(ranges, forest)
 
+pp line_xs.zip(line_ys)
+
 plot_regular = input_regular + to_predict_regular
 plot_novelty = input_novelty + to_predict_novelty
 

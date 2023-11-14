@@ -63,6 +63,8 @@ GEM
       unicode-display_width (>= 2.4.0, < 3.0)
     rubocop-ast (1.29.0)
       parser (>= 3.2.1.0)
+    ruby-graphviz (1.2.5)
+      rexml
     ruby-progressbar (1.13.0)
     rubystats (0.4.1)
       matrix
@@ -113,6 +115,7 @@ DEPENDENCIES
   rake (~> 13.0)
   rinruby!
   rubocop (~> 1.21)
+  ruby-graphviz (~> 1.2)
   rubystats
   sorbet
   sorbet-runtime

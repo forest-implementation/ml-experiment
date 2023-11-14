@@ -33,3 +33,5 @@ gem 'sorbet-runtime'
 gem 'tapioca', require: false, :group => :development
 
 gem "gnuplot", "~> 2.6"
+
+gem "ruby-graphviz", "~> 1.2"

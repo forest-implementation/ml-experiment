@@ -9,6 +9,7 @@ require "ml/service/isolation/novelty"
 require "stats/statistics"
 require "plotting/gnuplotter"
 require "plotting/preprocessor"
+require "ruby-graphviz"
 
 include Plotting::Gnuplotter
 include Plotting::Preprocessor
@@ -736,16 +737,16 @@ input = [
 
 input = input.each_slice(3)
 pp input.to_a
-points_to_predict = input.filter { |x| x[2] == "b" }.map { |x| [x[0], x[1]] }
-input = input.filter { |x| x[2] == "a" }.map { |x| [x[0], x[1]] }
+points_to_predict = input.filter { |x| x[2] == "b" }.map { |x| [x[0], x[1]] }.take(5)
+input = input.filter { |x| x[2] == "a" }.map { |x| [x[0], x[1]] }.take(20)
 
 pp points_to_predict.size
 pp input.size
 pp ranges = input[0].length.times.map { |dim| adjusted_box(input, dim) }
 ranges = [-100.0..800, 0.0..150]
 novelty_service = Ml::Service::Isolation::Novelty.new(
-  batch_size: 1000,
-  #max_depth: 10,
+  batch_size: 20,
+  max_depth: 5,
   ranges: ranges
 )
 
@@ -760,7 +761,7 @@ points_to_predict = points_to_predict.filter { |input| ranges[0].include?(input[
 # muzes zakomentovat a bude modry
 
 # points_to_predict = [[10, 5]]
-forest = Ml::Forest::Tree.new(input, trees_count: 100, forest_helper: novelty_service)
+forest = Ml::Forest::Tree.new(input, trees_count: 1, forest_helper: novelty_service)
 
 input += points_to_predict
 
@@ -784,6 +785,37 @@ def split_and_depths(key, tree, &fun)
 
   tree.branches.map { |key, x| split_and_depths(key, x) { |x| fun.call x } }
 end
+
+def nicekey(hnuskey)
+  "#{hnuskey[0]}\n#{hnuskey[1]}"
+end
+
+def deep_depths(key, tree, &fun)
+  return if tree.is_a?(Node::OutNode)
+
+  fun.call [nicekey(key), tree.branches.keys.map {|kk| nicekey(kk)}] if tree.is_a?(Node::InNode)
+  tree.branches.map do |key, x|
+    deep_depths(key, x) { |x| fun.call x }
+  end
+end
+
+depths_for_tree = Enumerator.new do |y|
+  deep_depths(ranges, forest.trees[0]) { |x| y << x }
+end
+
+pp "dasdas"
+pp depths_for_tree.to_a
+
+# Create a new graph
+g = GraphViz.new(:G, type: :digraph, "rankdir" => "LR")
+g.node[:shape] = "polygon"
+
+depths_for_tree.each do |x, y|
+  g.add_edges(x, y)
+end
+
+# Generate output image
+g.output(svg: "figures/hello_world.svg")
 
 Gnuplot.open do |gp|
   s = Enumerator.new do |y|
