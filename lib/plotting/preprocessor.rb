@@ -1,16 +1,39 @@
 module Plotting
   module Preprocessor
     def nicekey(hnuskey)
+      hnuskey = hnuskey.map(&:minmax).map{|y| y.map{|x| x.round(2)}}
       "#{hnuskey[0]}\n#{hnuskey[1]}"
     end
 
-    # for graphviz depths plotting
+    # for outlier plotting
+    def rectangles_coords(tree, &fun)
+      if tree.is_a?(Node::OutNode)
+        return fun.call({ "borders" => tree.minmaxborders,
+                          "depth" => tree.data.depth + Evaluatable.evaluate_path_length_c(tree.data.data.size) })
+      end
+    
+      fun.call({ "borders" => tree.minmaxborders, "depth" => -1 })
+      tree.branches.map { |_key, x| rectangles_coords(x) { |x| fun.call x } }
+    end
+
+    # for graphviz novelty depths plotting
     def deep_depths(key, tree, &fun)
       return if tree.is_a?(Node::OutNode)
 
       fun.call [nicekey(key), tree.branches.keys.map { |kk| nicekey(kk) }] if tree.is_a?(Node::InNode)
       tree.branches.map do |key, x|
         deep_depths(key, x) { |x| fun.call x }
+      end
+    end
+
+
+    # TODO: NEFUNGUJE
+    def rectangles_coords_deep(key, tree, &fun)
+      return if tree.is_a?(Node::OutNode)
+    pp tree.branches.keys
+    fun.call [nicekey(key), tree.branches.keys.map { |kk| nicekey(kk) }] if tree.is_a?(Node::InNode)
+      tree.branches.map do |key, y|
+        rectangles_coords_deep(key,y) { |x| fun.call x }
       end
     end
 

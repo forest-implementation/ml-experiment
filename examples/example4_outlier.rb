@@ -726,7 +726,7 @@ input = [
   572.808308394738, 94.36383261170505, "a",
   544.0413168065995, 131.910981340871, "a",
   542.8778952182894, 109.84296822067279, "a",
-  #377.2414279836732, 155.77308336647053, "b",
+  377.2414279836732, 155.77308336647053, "b",
   368.0310520508527, 89.152582548684, "b",
   358.09541122895945, 118.404886437188, "b",
   321.1174251499526, 67.30817723755024, "b",
@@ -738,9 +738,12 @@ input = [
 ]
 
 input = input.each_slice(3)
+pp input.to_a
+points_to_predict_origin = input.filter { |x| x[2] == "b" }.map { |x| [x[0], x[1]] }.take(5)
+input = input.filter { |x| x[2] == "a" }.map { |x| [x[0], x[1]] }.take(20)
 
-
-# pp ranges = input[0].length.times.map { |dim| adjusted_box(input, dim) }
+pp ranges = input[0].length.times.map { |dim| adjusted_box(input, dim) }
+ranges = [-100.0..800, 0.0..150]
 def min_max(data)
   dimensions = data[0].length
   (0...dimensions).map do |dim|
@@ -749,21 +752,9 @@ def min_max(data)
   end
 end
 
+novelty_service = Ml::Service::Isolation::Outlier.new(batch_size: input.size, max_depth: 5)
 
-# input = input.filter {|input| ranges[0].include?(input[0]) && ranges[1].include?(input[1]) }
-
-points_to_predict_origin = input.filter { |x| x[2] == "b" }.map { |x| [x[0], x[1]] }.take(5)
-input = input.filter { |x| x[2] == "a" }.map { |x| [x[0], x[1]] }.take(20)
-
-
-ranges = min_max(input)
-
-novelty_service = Ml::Service::Isolation::Noutlier.new(
-  batch_size: 20,
-  max_depth: 5,
-  ranges: ranges
-)
-
+# points_to_predict = [[29, 5]]
 # input += points_to_predict
 # FILTER OUT inputs out of range!
 
@@ -773,39 +764,28 @@ points_to_predict = points_to_predict_origin.filter { |input| ranges[0].include?
 # cerny kdyz ucis s nim
 # muzes zakomentovat a bude modry
 
+# points_to_predict = [[10, 5]]
 pp "staert"
-input += points_to_predict
 forest = Ml::Forest::Tree.new(input, trees_count: 1, forest_helper: novelty_service)
 pp "end"
+input += points_to_predict
 
 pred_input = input.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
+# pred_to_predict = points_to_predict.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
 
-pp "pred fit predictem"
-pp points_to_predict
-pred_to_predict = input.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
-
-input_novelty = input.zip(pred_input).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
+input_novelty = input.zip(pred_input).filter { |_coord, score| score.outlier? }.map { |x| x[0] }
 
 pp input_novelty.size
 
-input_regular = input.zip(pred_input).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
-input_novelty = input.zip(pred_input).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
+input_regular = input.zip(pred_input).filter { |_coord, score| !score.outlier? }.map { |x| x[0] }
+input_novelty = input.zip(pred_input).filter { |_coord, score| score.outlier? }.map { |x| x[0] }
 
-pp "fdsfsdfsdfsdA"
-pp pred_to_predict
-points_to_predict += points_to_predict_origin
-pp points_to_predict
-to_predict_novelty = points_to_predict.zip(pred_to_predict).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
-to_predict_regular = points_to_predict.zip(pred_to_predict).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
-depths_for_tree = Enumerator.new do |y|
-  deep_depths(ranges, forest.trees[0]) { |x| y << x }
-end
+# to_predict_novelty = points_to_predict.zip(pred_to_predict).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
+# to_predict_regular = points_to_predict.zip(pred_to_predict).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
+
 
 pp "dasdas"
 pp points_to_predict_origin
-
-# Create a new graph
-save_graph(create_graph(depths_for_tree), "figures/example4_outlier_tree.svg")
 
 Gnuplot.open do |gp|
   s = Enumerator.new do |y|
@@ -837,20 +817,19 @@ Gnuplot.open do |gp|
   s = s.filter { |obj| !obj["borders"].empty? }
   pp s.to_a
 
-  plot_regular = input_regular + to_predict_regular
-  plot_novelty = input_novelty + to_predict_novelty
-
-  pp points_to_predict_origin[0]
+  plot_regular = input_regular # + to_predict_regular
+  plot_novelty = input_novelty # + to_predict_novelty
 
   # plot("../../figures/example2_gnu.svg", input.transpose[0].minmax, input.transpose[1].minmax) do |plot|
-  plot(gp, "../../figures/example4_outlier_gnu.svg",  [-100.0, 800], [0.0, 150]) do |plot|
+  plot(gp, "../../figures/example4_outlier_gnu.svg",[-100.0, 800], [0.0, 150]) do |plot|
     plot.data << lines_init(prepare_for_lines_plot(r.to_a.flatten(1).transpose[0]),
                             prepare_for_lines_plot(r.to_a.flatten(1).transpose[1]))
     set_rects(plot, s.to_a)
-    set_labels(plot, ["Px"], [points_to_predict_origin[0][0] - 1.5], [points_to_predict_origin[0][1] - 2.5], "Bold")
+    set_labels(plot, ["Px"], [points_to_predict[0][0] - 1.5], [points_to_predict[0][1]], "Bold")
     plot.data << points_init(*plot_regular.transpose, "regular", "1", "black") # regular
     plot.data << points_init(*plot_novelty.transpose, "outlier", "2", "blue") # novelty
     # set_labels(plot, %w[Px B], [15 - 1, 7], [2.5 + 0.1, 7], style = "Bold")
     # set_labels(plot, labels, label_xs, label_ys)
   end
 end
+
