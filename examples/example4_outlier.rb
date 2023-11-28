@@ -726,7 +726,7 @@ input = [
   572.808308394738, 94.36383261170505, "a",
   544.0413168065995, 131.910981340871, "a",
   542.8778952182894, 109.84296822067279, "a",
-  377.2414279836732, 155.77308336647053, "b",
+  #377.2414279836732, 155.77308336647053, "b",
   368.0310520508527, 89.152582548684, "b",
   358.09541122895945, 118.404886437188, "b",
   321.1174251499526, 67.30817723755024, "b",
@@ -738,9 +738,11 @@ input = [
 ]
 
 input = input.each_slice(3)
-pp input.to_a
+# pp input.to_a
 points_to_predict_origin = input.filter { |x| x[2] == "b" }.map { |x| [x[0], x[1]] }.take(5)
 input = input.filter { |x| x[2] == "a" }.map { |x| [x[0], x[1]] }.take(20)
+
+pp points_to_predict_origin
 
 pp ranges = input[0].length.times.map { |dim| adjusted_box(input, dim) }
 ranges = [-100.0..800, 0.0..150]
@@ -792,6 +794,8 @@ Gnuplot.open do |gp|
     rectangles_coords(forest.trees[0]) { |x| y << x }
   end
 
+
+  # TODO: MINMAXBORDERS DO NOT EXIST
   def split_line_coords(tree, &fun)
     return false if tree.is_a?(Node::OutNode)
 
@@ -827,7 +831,7 @@ Gnuplot.open do |gp|
     set_rects(plot, s.to_a)
     set_labels(plot, ["Px"], [points_to_predict[0][0] - 1.5], [points_to_predict[0][1]], "Bold")
     plot.data << points_init(*plot_regular.transpose, "regular", "1", "black") # regular
-    plot.data << points_init(*plot_novelty.transpose, "outlier", "2", "blue") # novelty
+    plot.data << points_init(*plot_novelty.transpose, "anomaly", "2", "blue") # novelty
     # set_labels(plot, %w[Px B], [15 - 1, 7], [2.5 + 0.1, 7], style = "Bold")
     # set_labels(plot, labels, label_xs, label_ys)
   end

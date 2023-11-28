@@ -94,6 +94,6 @@ Gnuplot.open do |gp|
     set_labels(plot, ["Px"], [points_to_predict[0][0] - 1.5], [points_to_predict[0][1]], "Bold")
     # set_labels(plot, labels, label_xs, label_ys)
     plot.data << points_init(*plot_regular.transpose, "regular", "1", "black") # regular
-    plot.data << points_init(*plot_novelty.transpose, "novelty", "2", "blue") # novelty
+    plot.data << points_init(*plot_novelty.transpose, "anomaly", "2", "blue") # novelty
   end
 end

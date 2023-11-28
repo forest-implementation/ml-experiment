@@ -17,7 +17,7 @@ include Plotting::Preprocessor
 include Stats::Statistics
 include Plotting::Graphviz
 
-input = [
+data = [
   204.37834694137254, 80.44511997651682, "a",
   181.41498212709297, 61.68981864567371, "a",
   178.75720904480573, 52.00468703958586, "a",
@@ -726,7 +726,7 @@ input = [
   572.808308394738, 94.36383261170505, "a",
   544.0413168065995, 131.910981340871, "a",
   542.8778952182894, 109.84296822067279, "a",
-  #377.2414279836732, 155.77308336647053, "b",
+  # 377.2414279836732, 155.77308336647053, "b",
   368.0310520508527, 89.152582548684, "b",
   358.09541122895945, 118.404886437188, "b",
   321.1174251499526, 67.30817723755024, "b",
@@ -735,121 +735,76 @@ input = [
   338.01561172378894, 81.6482928551286, "b",
   384.8077814583488, 119.04546841852738, "b",
   345.34089953682815, 48.55601407277027, "b"
-]
+].each_slice(3)
 
-input = input.each_slice(3)
+input = data.filter { |x| x[2] == "a" }.map { |x| [x[0], x[1]] }.take(20)
+predict = data.filter { |x| x[2] == "b" }.map { |x| [x[0], x[1]] }.take(5)
 
+# for novelty
+ranges = [100..500, 0..150]
 
-# pp ranges = input[0].length.times.map { |dim| adjusted_box(input, dim) }
-def min_max(data)
-  dimensions = data[0].length
-  (0...dimensions).map do |dim|
-    min, max = data.transpose[dim].minmax
-    min..max
-  end
-end
-
-
-# input = input.filter {|input| ranges[0].include?(input[0]) && ranges[1].include?(input[1]) }
-
-points_to_predict_origin = input.filter { |x| x[2] == "b" }.map { |x| [x[0], x[1]] }.take(5)
-input = input.filter { |x| x[2] == "a" }.map { |x| [x[0], x[1]] }.take(20)
-
-
-ranges = min_max(input)
-
-novelty_service = Ml::Service::Isolation::Noutlier.new(
+# ranges = input[0].length.times.map { |dim| adjusted_box(input, dim) }
+novelty_service = Ml::Service::Isolation::Novelty.new(
   batch_size: 20,
   max_depth: 5,
   ranges: ranges
 )
 
-# input += points_to_predict
-# FILTER OUT inputs out of range!
-
 input = input.filter { |input| ranges[0].include?(input[0]) && ranges[1].include?(input[1]) }
-points_to_predict = points_to_predict_origin.filter { |input| ranges[0].include?(input[0]) && ranges[1].include?(input[1]) }
-
-# cerny kdyz ucis s nim
-# muzes zakomentovat a bude modry
+predict = predict.filter { |input| ranges[0].include?(input[0]) && ranges[1].include?(input[1]) }
 
 pp "staert"
-input += points_to_predict
 forest = Ml::Forest::Tree.new(input, trees_count: 1, forest_helper: novelty_service)
 pp "end"
 
-pred_input = input.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
+pred_input = input.map do |point|
+  pp point
+  forest.fit_predict(point, forest_helper: novelty_service)
+end
 
 pp "pred fit predictem"
-pp points_to_predict
-pred_to_predict = input.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
-
-input_novelty = input.zip(pred_input).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
-
-pp input_novelty.size
+pred_to_predict = predict.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
 
 input_regular = input.zip(pred_input).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
 input_novelty = input.zip(pred_input).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
 
-pp "fdsfsdfsdfsdA"
-pp pred_to_predict
-points_to_predict += points_to_predict_origin
-pp points_to_predict
-to_predict_novelty = points_to_predict.zip(pred_to_predict).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
-to_predict_regular = points_to_predict.zip(pred_to_predict).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
+to_predict_novelty = predict.zip(pred_to_predict).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
+to_predict_regular = predict.zip(pred_to_predict).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
 depths_for_tree = Enumerator.new do |y|
   deep_depths(ranges, forest.trees[0]) { |x| y << x }
 end
 
-pp "dasdas"
-pp points_to_predict_origin
-
 # Create a new graph
-save_graph(create_graph(depths_for_tree), "figures/example4_outlier_tree.svg")
+save_graph(create_graph(depths_for_tree), "figures/example4_novelty_tree.svg")
 
 Gnuplot.open do |gp|
   s = Enumerator.new do |y|
     rectangles_coords(forest.trees[0]) { |x| y << x }
   end
 
-  def split_line_coords(tree, &fun)
-    return false if tree.is_a?(Node::OutNode)
-
-    def calc_sp_coords(tree)
-      tree.minmaxborders.transpose[1 - tree.split_point.dimension].map do |x|
-        tree.split_point.dimension == 1 ? [x, tree.split_point.split_point] : [tree.split_point.split_point, x]
-      end
-    end
-
-    fun.call calc_sp_coords(tree)
-    tree.branches.map { |_key, x| split_line_coords(x) { |x| fun.call x } }
-  end
-
-  r = Enumerator.new do |y|
-    split_line_coords(forest.trees[0]) { |x| y << x }
-  end
-
-  pp "line coords r"
-  pp r.to_a
-
+  r = prepare_lines(ranges, forest)
   pp "rect coords s"
 
   s = s.filter { |obj| !obj["borders"].empty? }
   pp s.to_a
-
+  pp to_predict_novelty
+  pp to_predict_regular
   plot_regular = input_regular + to_predict_regular
   plot_novelty = input_novelty + to_predict_novelty
 
-  pp points_to_predict_origin[0]
+  # pp points_to_predict_origin[0]
+
+  pp "topto budou cary"
+  pp prepare_for_lines_plot(r.transpose[0]).zip(prepare_for_lines_plot(r.transpose[1]))
 
   # plot("../../figures/example2_gnu.svg", input.transpose[0].minmax, input.transpose[1].minmax) do |plot|
-  plot(gp, "../../figures/example4_outlier_gnu.svg",  [-100.0, 800], [0.0, 150]) do |plot|
-    plot.data << lines_init(prepare_for_lines_plot(r.to_a.flatten(1).transpose[0]),
-                            prepare_for_lines_plot(r.to_a.flatten(1).transpose[1]))
+  plot(gp, "../../figures/example4_novelty_gnu.svg", ranges[0].minmax, ranges[1].minmax) do |plot|
     set_rects(plot, s.to_a)
-    set_labels(plot, ["Px"], [points_to_predict_origin[0][0] - 1.5], [points_to_predict_origin[0][1] - 2.5], "Bold")
+    plot.data << lines_init(prepare_for_lines_plot(r[0]),
+                            prepare_for_lines_plot(r[1]))
+    set_labels(plot, ["Px"], [predict[0][0] - 1.5], [predict[0][1] - 2.5], "Bold")
     plot.data << points_init(*plot_regular.transpose, "regular", "1", "black") # regular
-    plot.data << points_init(*plot_novelty.transpose, "outlier", "2", "blue") # novelty
+    plot.data << points_init(*plot_novelty.transpose, "anomaly", "2", "blue") # novelty
     # set_labels(plot, %w[Px B], [15 - 1, 7], [2.5 + 0.1, 7], style = "Bold")
     # set_labels(plot, labels, label_xs, label_ys)
   end

@@ -8,11 +8,12 @@ module Plotting
     # for outlier plotting
     def rectangles_coords(tree, &fun)
       if tree.is_a?(Node::OutNode)
-        return fun.call({ "borders" => tree.minmaxborders,
+        return fun.call({ "borders" => tree.data.ranges,
                           "depth" => tree.data.depth + Evaluatable.evaluate_path_length_c(tree.data.data.size) })
       end
     
-      fun.call({ "borders" => tree.minmaxborders, "depth" => -1 })
+      fun.call({ "borders" => tree.data.old_range, "depth" => -1 })
+      # fun.call({ "borders" => tree.data.ranges[1], "depth" => -1 })
       tree.branches.map { |_key, x| rectangles_coords(x) { |x| fun.call x } }
     end
 
@@ -57,7 +58,7 @@ module Plotting
     def splitpoints(key, tree, &fun)
       return [key, tree.data.depth] if tree.is_a?(Node::OutNode)
 
-      fun.call [key, tree.split_point]
+      fun.call [key, tree.data]
       tree.branches.map { |key, x| splitpoints(key, x) { |x| fun.call x } }
     end
 

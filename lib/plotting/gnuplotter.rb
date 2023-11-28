@@ -26,7 +26,7 @@ module Plotting
 
     def lines_init(x, y)
       Gnuplot::DataSet.new([x, y]) do |ds|
-        ds.with = "lines lw 0.6"
+        ds.with = "lines lw 1.6 lc rgb '#AE000000'"
         ds.notitle
       end
     end
@@ -63,16 +63,16 @@ module Plotting
       end
     end
 
-    def set_rects(plot, x1y1x2y2, style: "fc rgb '#BD73BD' fs solid #{1.0 / 8}")
+    def set_rects(plot, x1y1x2y2, style: "fc rgb '#BD73BD' fs solid #{1.0 / 10}")
       x1y1x2y2.each do |hash|
-        children = get_children(x1y1x2y2.map { |x| x["borders"] }, hash["borders"])
-        set_rect(plot, *hash["borders"][0], *hash["borders"][1], style: style,
-                                                                 label: children.flatten.size > 1 ? hash["depth"] : -1)
+        # children = get_children(x1y1x2y2.map { |x| x["borders"] }, hash["borders"])
+        set_rect(plot, *hash["borders"][0].minmax, *hash["borders"][1].minmax, style: style,
+                                                                               label: hash["depth"])
       end
     end
 
-    def set_rect(plot, x1, y1, x2, y2, style: "fc rgb 'gray'", label: 0)
-      plot.object "rect from #{x1},#{y1} to #{x2},#{y2} #{style} lw 0.1"
+    def set_rect(plot, x1, x2, y1, y2, style: "fc rgb 'gray'", label: 0)
+      plot.object "rect from #{x1},#{y1} to #{x2},#{y2} #{style} lw 0.05"
       # plot only if last layer
       plot.label "at #{(x2 + x1 - 0.4) / 2},#{(y2 + y1) / 2} '#{label.round(2)}' back font',8'" if label != -1
     end
