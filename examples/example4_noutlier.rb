@@ -751,7 +751,7 @@ novelty_service = Ml::Service::Isolation::Noutlier.new(
 
 
 pp "staert"
-forest = Ml::Forest::Tree.new(input, trees_count: 1, forest_helper: novelty_service)
+forest = Ml::Forest::Tree.new(input, trees_count: 50, forest_helper: novelty_service)
 pp "end"
 
 pred_input = input.map do |point|
