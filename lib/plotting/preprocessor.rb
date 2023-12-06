@@ -21,7 +21,7 @@ module Plotting
     def deep_depths(key, tree, &fun)
       return if tree.is_a?(Node::OutNode)
 
-      fun.call [nicekey(key), tree.branches.keys.map { |kk| nicekey(kk) }] if tree.is_a?(Node::InNode)
+      fun.call [nicekey(key), tree.branches.keys.map { |kk| nicekey(kk) }, tree.data] if tree.is_a?(Node::InNode)
       tree.branches.map do |key, x|
         deep_depths(key, x) { |x| fun.call x }
       end

@@ -727,7 +727,7 @@ data = [
   544.0413168065995, 131.910981340871, "a",
   542.8778952182894, 109.84296822067279, "a",
   # 377.2414279836732, 155.77308336647053, "b",
-  368.0310520508527, 89.152582548684, "b",
+  368.0310520508527, 79.152582548684, "b", # Px
   358.09541122895945, 118.404886437188, "b",
   321.1174251499526, 67.30817723755024, "b",
   383.3612631764752, 54.582216477476095, "b",
@@ -755,7 +755,6 @@ forest = Ml::Forest::Tree.new(input, trees_count: 50, forest_helper: novelty_ser
 pp "end"
 
 pred_input = input.map do |point|
-  pp point
   forest.fit_predict(point, forest_helper: novelty_service)
 end
 
@@ -783,16 +782,10 @@ Gnuplot.open do |gp|
   pp "rect coords s"
 
   s = s.filter { |obj| !obj["borders"].empty? }
-  pp s.to_a
   pp to_predict_novelty
   pp to_predict_regular
   plot_regular = input_regular + to_predict_regular
   plot_novelty = input_novelty + to_predict_novelty
-
-  # pp points_to_predict_origin[0]
-
-  pp "topto budou cary"
-  pp prepare_for_lines_plot(r.transpose[0]).zip(prepare_for_lines_plot(r.transpose[1]))
 
   # plot("../../figures/example2_gnu.svg", input.transpose[0].minmax, input.transpose[1].minmax) do |plot|
   plot(gp, "../../figures/example4_noutlier_gnu.svg", [100.0, 500], [0.0, 150]) do |plot|
