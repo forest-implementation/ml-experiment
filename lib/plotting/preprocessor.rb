@@ -18,12 +18,12 @@ module Plotting
     end
 
     # for graphviz novelty depths plotting
-    def deep_depths(key, tree, &fun)
+    def deep_depths(key, tree, depth = 0, &fun)
       return if tree.is_a?(Node::OutNode)
 
-      fun.call [nicekey(key), tree.branches.keys.map { |kk| nicekey(kk) }, tree.data] if tree.is_a?(Node::InNode)
+      fun.call [nicekey(key), tree.branches.keys.map { |kk| nicekey(kk) }, tree.data, depth + 1 + Evaluatable.evaluate_path_length_c(tree.data.data.size)] if tree.is_a?(Node::InNode)
       tree.branches.map do |key, x|
-        deep_depths(key, x) { |x| fun.call x }
+        deep_depths(key, x, depth + 1) { |x| fun.call x }
       end
     end
 
