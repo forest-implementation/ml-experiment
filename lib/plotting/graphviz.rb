@@ -50,7 +50,7 @@ module Plotting
       g = MujGraphViz.new(:G, type: :digraph, "rankdir" => rankdir)
       g.node[:shape] = "polygon"
       input.each do |x, y, data, depth|
-        g.add_edges(x, y, {}, { sp: data.split_point, dim: data.dimension}, depth)
+        g.add_edges(x, y, {}, { sp: data.split_point.round(2), dim: data.dimension}, depth)
       end
       g
     end
