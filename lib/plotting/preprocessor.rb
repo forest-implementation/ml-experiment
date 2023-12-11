@@ -17,13 +17,24 @@ module Plotting
       tree.branches.map { |_key, x| rectangles_coords(x) { |x| fun.call x } }
     end
 
+    def tree_nodes(tree, &fun)
+      if tree.is_a?(Node::OutNode)
+        return fun.call({ "borders" => tree.data.ranges,
+                          "depth" => tree.data.depth + Evaluatable.evaluate_path_length_c(tree.data.data.size) })
+      end
+    
+      fun.call({ "borders" => tree.data.old_range, "sp" => tree.data.split_point, "dim" => tree.data.dimension })
+      # fun.call({ "borders" => tree.data.ranges[1], "depth" => -1 })
+      tree.branches.map { |_key, x| tree_nodes(x) { |x| fun.call x } }
+    end
+
     # for graphviz novelty depths plotting
-    def deep_depths(key, tree, depth = 0, &fun)
+    def deep_depths(key, tree, &fun)
       return if tree.is_a?(Node::OutNode)
 
-      fun.call [nicekey(key), tree.branches.keys.map { |kk| nicekey(kk) }, tree.data, depth + 1 + Evaluatable.evaluate_path_length_c(tree.data.data.size)] if tree.is_a?(Node::InNode)
+      fun.call [key, tree.branches.keys.map { |kk| kk }, tree.data]
       tree.branches.map do |key, x|
-        deep_depths(key, x, depth + 1) { |x| fun.call x }
+        deep_depths(key, x) { |x| fun.call x }
       end
     end
 

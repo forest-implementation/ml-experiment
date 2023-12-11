@@ -770,12 +770,19 @@ input_novelty = input.zip(pred_input).filter { |_coord, score| score.novelty? }.
 
 to_predict_novelty = predict.zip(pred_to_predict).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
 to_predict_regular = predict.zip(pred_to_predict).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
+
+
 depths_for_tree = Enumerator.new do |y|
   deep_depths(ranges, forest.trees[0]) { |x| y << x }
 end
+pp "nodes"
+tree_nodes = Enumerator.new do |y|
+  tree_nodes(forest.trees[0]) { |x| y << x }
+end
+nodes = tree_nodes.map { |node| [node["borders"], :label => node ]  }
 
 # Create a new graph
-save_graph(create_graph(depths_for_tree), "figures/example4_novelty_tree.svg")
+save_graph(create_graph(nodes, depths_for_tree), "figures/example4_novelty_tree.svg")
 
 Gnuplot.open do |gp|
   s = Enumerator.new do |y|
