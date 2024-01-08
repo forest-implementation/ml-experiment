@@ -1,7 +1,7 @@
 module Plotting
   module Preprocessor
     def nicekey(hnuskey)
-      hnuskey = hnuskey.map(&:minmax).map{|y| y.map{|x| x.round(2)}}
+      hnuskey = hnuskey.map(&:minmax).map { |y| y.map { |x| x.round(2) } }
       "#{hnuskey[0]}\n#{hnuskey[1]}"
     end
 
@@ -11,18 +11,38 @@ module Plotting
         return fun.call({ "borders" => tree.data.ranges,
                           "depth" => tree.data.depth + Evaluatable.evaluate_path_length_c(tree.data.data.size) })
       end
-    
+
       fun.call({ "borders" => tree.data.old_range, "depth" => -1 })
       # fun.call({ "borders" => tree.data.ranges[1], "depth" => -1 })
       tree.branches.map { |_key, x| rectangles_coords(x) { |x| fun.call x } }
     end
 
+    def pretty_borders(range_borders)
+      range_borders.map(&:minmax).map { |x| x.map { |y| y.round(2) } }
+    end
+
+    def label_pretty_print(previous_hash)
+      if previous_hash.key?("path_length")
+        return {
+          borders: pretty_borders(previous_hash["borders"]),
+          path_length: previous_hash["path_length"].round(2),
+          depth: previous_hash["depth"]
+        }
+      end
+      {
+        borders: pretty_borders(previous_hash["borders"]),
+        sp: previous_hash["sp"].round(2),
+        dim: previous_hash["dim"]
+      }
+    end
+
     def tree_nodes(tree, &fun)
       if tree.is_a?(Node::OutNode)
         return fun.call({ "borders" => tree.data.ranges,
-                          "depth" => tree.data.depth + Evaluatable.evaluate_path_length_c(tree.data.data.size) })
+                          "path_length" => tree.data.depth + Evaluatable.evaluate_path_length_c(tree.data.data.size),
+                          "depth" => tree.data.depth })
       end
-    
+
       fun.call({ "borders" => tree.data.old_range, "sp" => tree.data.split_point, "dim" => tree.data.dimension })
       # fun.call({ "borders" => tree.data.ranges[1], "depth" => -1 })
       tree.branches.map { |_key, x| tree_nodes(x) { |x| fun.call x } }
@@ -38,14 +58,14 @@ module Plotting
       end
     end
 
-
     # TODO: NEFUNGUJE
     def rectangles_coords_deep(key, tree, &fun)
       return if tree.is_a?(Node::OutNode)
-    pp tree.branches.keys
-    fun.call [nicekey(key), tree.branches.keys.map { |kk| nicekey(kk) }] if tree.is_a?(Node::InNode)
+
+      pp tree.branches.keys
+      fun.call [nicekey(key), tree.branches.keys.map { |kk| nicekey(kk) }] if tree.is_a?(Node::InNode)
       tree.branches.map do |key, y|
-        rectangles_coords_deep(key,y) { |x| fun.call x }
+        rectangles_coords_deep(key, y) { |x| fun.call x }
       end
     end
 

@@ -2,7 +2,7 @@ require "gnuplot"
 
 module Plotting
   module Gnuplotter
-    def plot(gp, path, x_ranges, y_ranges, &fun)
+    def plot(gp, path, x_ranges, y_ranges, key = "left", &fun)
       Gnuplot::Plot.new(gp) do |plot|
         plot.terminal "svg"
         plot.output File.expand_path(path, __dir__)
@@ -11,7 +11,7 @@ module Plotting
         plot.notitle
         # plot.xlabel "X"
         # plot.ylabel "Y"
-        plot.key "left"
+        plot.key key
 
         fun.call(plot)
       end

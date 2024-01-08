@@ -737,7 +737,7 @@ data = [
   345.34089953682815, 48.55601407277027, "b"
 ].each_slice(3)
 
-input = data.filter { |x| x[2] == "a" }.map { |x| [x[0], x[1]] }.take(20)
+input = data.filter { |x| x[2] == "a" }.map { |x| [x[0], x[1]] }.take(30)
 predict = data.filter { |x| x[2] == "b" }.map { |x| [x[0], x[1]] }.take(5)
 
 # for novelty
@@ -771,7 +771,6 @@ input_novelty = input.zip(pred_input).filter { |_coord, score| score.novelty? }.
 to_predict_novelty = predict.zip(pred_to_predict).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
 to_predict_regular = predict.zip(pred_to_predict).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
 
-
 depths_for_tree = Enumerator.new do |y|
   deep_depths(ranges, forest.trees[0]) { |x| y << x }
 end
@@ -779,7 +778,7 @@ pp "nodes"
 tree_nodes = Enumerator.new do |y|
   tree_nodes(forest.trees[0]) { |x| y << x }
 end
-nodes = tree_nodes.map { |node| [node["borders"], :label => node ]  }
+nodes = tree_nodes.map { |node| [node["borders"], { label: label_pretty_print(node) }] }
 
 # Create a new graph
 save_graph(create_graph(nodes, depths_for_tree), "figures/example4_novelty_tree.svg")
