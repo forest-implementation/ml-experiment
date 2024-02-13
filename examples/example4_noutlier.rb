@@ -728,6 +728,7 @@ data = [
   542.8778952182894, 109.84296822067279, "a",
   # 377.2414279836732, 155.77308336647053, "b",
   368.0310520508527, 89.152582548684, "b", # Px
+  120.34089953682815, 60.55601407277027, "b",
   358.09541122895945, 118.404886437188, "b",
   321.1174251499526, 67.30817723755024, "b",
   383.3612631764752, 54.582216477476095, "b",
@@ -737,26 +738,27 @@ data = [
   345.34089953682815, 48.55601407277027, "b"
 ].each_slice(3)
 
-pp input = data.filter { |x| x[2] == "a" }.map { |x| [x[0], x[1]] }.take(30)
-predict = data.filter { |x| x[2] == "b" }.map { |x| [x[0], x[1]] }.take(5)
+pp input = data.filter { |x| x[2] == "a" }.map { |x| [x[0], x[1]] }.take(130)
+predict = data.filter { |x| x[2] == "b" }.map { |x| [x[0], x[1]] }.take(25)
 
 # for noutlier
-#ranges = Ml::Service::Isolation::Noutlier.min_max(input)
+ranges = Ml::Service::Isolation::Noutlier.min_max(input)
 # ranges = input[0].length.times.map { |dim| adjusted_box(input, dim) }
 novelty_service = Ml::Service::Isolation::Noutlier.new(
   batch_size: 20,
-  max_depth: 5
+  max_depth: 5,
+  ranges: ranges
 )
 
 pp "staert"
-forest = Ml::Forest::Tree.new(input, trees_count: 50, forest_helper: novelty_service)
+forest = Ml::Forest::Tree.new(input, trees_count: 12, forest_helper: novelty_service)
 pp "end"
 
 pred_input = input.map do |point|
   forest.fit_predict(point, forest_helper: novelty_service)
 end
 
-ranges = novelty_service.ranges
+#ranges = novelty_service.ranges
 
 pp "pred fit predictem"
 pred_to_predict = predict.map { |point| forest.fit_predict(point, forest_helper: novelty_service) }
@@ -776,6 +778,8 @@ end
 
 nodes = tree_nodes.map { |node| [node["borders"], { label: label_pretty_print(node) }] }
 
+pp "nodes"
+pp tree_nodes.to_a
 # Create a new graph
 save_graph(create_graph(nodes, depths_for_tree), "figures/example4_noutlier_tree.svg")
 

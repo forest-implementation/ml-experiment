@@ -728,25 +728,26 @@ data = [
   542.8778952182894, 109.84296822067279, "a",
   # 377.2414279836732, 155.77308336647053, "b",
   368.0310520508527, 79.152582548684, "b", # Px
+  120.34089953682815, 60.55601407277027, "b",
   358.09541122895945, 118.404886437188, "b",
   321.1174251499526, 67.30817723755024, "b",
   383.3612631764752, 54.582216477476095, "b",
   369.476109956462, 65.36858385714271, "b",
   338.01561172378894, 81.6482928551286, "b",
   384.8077814583488, 119.04546841852738, "b",
-  345.34089953682815, 48.55601407277027, "b"
+  345.34089953682815, 48.55601407277027, "b",
 ].each_slice(3)
 
-input = data.filter { |x| x[2] == "a" }.map { |x| [x[0], x[1]] }.take(30)
-predict = data.filter { |x| x[2] == "b" }.map { |x| [x[0], x[1]] }.take(5)
+input = data.filter { |x| x[2] == "a" }.map { |x| [x[0], x[1]] }.take(130)
+predict = data.filter { |x| x[2] == "b" }.map { |x| [x[0], x[1]] }.take(25)
 
 # for novelty
 ranges = [100..500, 0..150]
 
 # ranges = input[0].length.times.map { |dim| adjusted_box(input, dim) }
 novelty_service = Ml::Service::Isolation::Novelty.new(
-  batch_size: 20,
-  max_depth: 5,
+  batch_size: 80,
+  max_depth: 7,
   ranges: ranges
 )
 
@@ -780,6 +781,8 @@ tree_nodes = Enumerator.new do |y|
 end
 nodes = tree_nodes.map { |node| [node["borders"], { label: label_pretty_print(node) }] }
 
+pp "dft"
+pp depths_for_tree
 # Create a new graph
 save_graph(create_graph(nodes, depths_for_tree), "figures/example4_novelty_tree.svg")
 
