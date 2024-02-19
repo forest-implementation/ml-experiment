@@ -20,36 +20,41 @@ include Plotting::Graphviz
 # TODO: PADA TO HNUSNĚ
 data = [
 100.0,0.0,"a",
-98.0,2.0,"a",
-102.0,2.0,"a",
+99.0,2.0,"a",
+101.0,2.0,"a",
 98.0,3.0,"a",
 100.0,3.0,"a",
 102.0,3.0,"a",
 0.0,100.0,"a",
-2.0,98.0,"a",
-2.0,102.0,"a",
+2.0,99.0,"a",
+2.0,101.0,"a",
 3.0,98.0,"a",
 3.0,100.0,"a",
 3.0,102.0,"a",
 100.0,100.0,"b",
 ].each_slice(3)
 
-pp input = data.filter { |x| x[2] == "a" }.map { |x| [x[0], x[1]] }
+
+data = data.map{|triple| [105 - triple[0], 105-triple[1], triple[2]]}
+pp data
+
+input = data.filter { |x| x[2] == "a" }.map { |x| [x[0], x[1]] }
 novelty_point = data.filter { |x| x[2] == "b" }.map { |x| [x[0], x[1]] }
-pp predict = input + novelty_point
+predict = input + novelty_point
 
 # for noutlier
 ranges = Ml::Service::Isolation::Noutlier.min_max(input)
 pp ranges
 # ranges = input[0].length.times.map { |dim| adjusted_box(input, dim) }
 novelty_service = Ml::Service::Isolation::Noutlier.new(
-  batch_size: 10,
+  batch_size: input.size,
   max_depth: 10,
-  ranges: ranges
+  ranges: ranges,
+  random: Random.new(111)
 )
 
 pp "staert"
-forest = Ml::Forest::Tree.new(input, trees_count: 5, forest_helper: novelty_service)
+forest = Ml::Forest::Tree.new(input, trees_count: 1, forest_helper: novelty_service)
 pp "end"
 
 pred_input = predict.map do |point|
@@ -61,6 +66,8 @@ end
 input_regular = predict.zip(pred_input).filter { |_coord, score| !score.novelty? }.map { |x| x[0] }
 input_novelty = predict.zip(pred_input).filter { |_coord, score| score.novelty? }.map { |x| x[0] }
 
+pp predict.zip(pred_input)
+
 depths_for_tree = Enumerator.new do |y|
   deep_depths(ranges, forest.trees[0]) { |x| y << x }
 end
@@ -69,11 +76,11 @@ tree_nodes = Enumerator.new do |y|
   tree_nodes(forest.trees[0]) { |x| y << x }
 end
 
+tree_nodes = tree_nodes.filter {|x| x["borders"][0].size != 0 }
+
+
 nodes = tree_nodes.map { |node| [node["borders"], { label: label_pretty_print(node) }] }
 
-pp "nodes"
-pp tree_nodes.to_a
-# Create a new graph
 save_graph(create_graph(nodes, depths_for_tree), "figures/example6_noutlier_tree.svg")
 
 Gnuplot.open do |gp|
@@ -81,17 +88,15 @@ Gnuplot.open do |gp|
     rectangles_coords(forest.trees[0]) { |x| y << x }
   end
 
-  pp "toto jsou ranges"
-  pp ranges
   r = prepare_lines(ranges, forest)
-  pp "rect coords s"
 
-  s = s.filter { |obj| !obj["borders"].empty? }
+  s = s.filter { |obj| !obj["borders"].empty? && obj["borders"][0].size != 0 }
+
   plot_regular = input_regular
   plot_novelty = input_novelty
 
 
-  plot(gp, "../../figures/example6_noutlier_gnu.svg", [predict.transpose[0].min,800], predict.transpose[1].minmax, key="right") do |plot|
+  plot(gp, "../../figures/example6_noutlier_gnu.svg", [predict.transpose[0].min,110], predict.transpose[1].minmax, key="right") do |plot|
   # plot(gp, "../../figures/example6_noutlier_gnu.svg", [100.0, 500], [0.0, 150]) do |plot|
     set_rects(plot, s.to_a)
     plot.data << lines_init(prepare_for_lines_plot(r[0]),
