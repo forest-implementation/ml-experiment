@@ -43,9 +43,10 @@ novelty_point = data.filter { |x| x[2] == "b" }.map { |x| [x[0], x[1]] }
 predict = input + novelty_point
 
 # for noutlier
-ranges = Ml::Service::Isolation::Noutlier.min_max(input)
+# ranges = Ml::Service::Isolation::Noutlier.min_max(input)
 # ranges = input[0].length.times.map { |dim| adjusted_box(input, dim) }
-novelty_service = Ml::Service::Isolation::Noutlier.new(
+ranges = [[0,110],[-5,105]]
+novelty_service = Ml::Service::Isolation::Novelty.new(
   batch_size: input.size,
   max_depth: 10,
   ranges: ranges,
@@ -82,7 +83,7 @@ tree_nodes = tree_nodes.filter {|x| x["borders"][0].size != 0 }
 
 nodes = tree_nodes.map { |node| [node["borders"], { label: label_pretty_print(node) }] }
 
-save_graph(create_graph(nodes, depths_for_tree), "figures/example6_noutlier_tree.svg")
+save_graph(create_graph(nodes, depths_for_tree), "figures/example6_novelty_tree_bt.svg")
 
 Gnuplot.open do |gp|
   s = Enumerator.new do |y|

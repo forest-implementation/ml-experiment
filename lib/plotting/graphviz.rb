@@ -10,9 +10,9 @@ module Plotting
     # Create a new edge
     # input = array of hashed node parent to hashed nodes children
     # example: ["parent", ["child1", "child2"]
-    def create_graph(nodes, edges, rankdir = "LR")
+    def create_graph(nodes, edges, rankdir = "BT")
       g = GraphViz.new(:G, type: :digraph, "rankdir" => rankdir)
-      g.node[:shape] = "polygon"
+      g.node[:shape] = "rectangle"
       nodes.each do |x, label|
         g.add_nodes(x.to_s, { label: hash_to_s(label[:label]) })
       end
