@@ -15,12 +15,12 @@ gem "svg-graph"
 
 gem "rubystats"
 
-# gem "ml-forest", git: "https://github.com/forest-implementation/ml-forest"
-gem "ml-forest",:path => "/home/adamo/source/rubyml/ml-forest"
+gem "ml-forest", git: "https://github.com/forest-implementation/ml-forest"
+# gem "ml-forest",:path => "/home/adamo/source/rubyml/ml-forest"
 
 # gem "ml-service-isolation", git: "https://github.com/forest-implementation/ml-service-isolation"
 
-gem "ml-service-isolation", :path => "/home/adamo/source/rubyml/ml-service-isolation"
+gem "ml-service-isolation", :path => "/home/adamo/scripts/ruby-forest-test/ml-service-isolation"
 
 gem "enumerable-statistics", "~> 2.0"
 

@@ -19,23 +19,23 @@ include Plotting::Graphviz
 
 # TODO: PADA TO HNUSNĚ
 data = [
-100.0,0.0,"a",
-99.0,2.0,"a",
-101.0,2.0,"a",
-98.0,3.0,"a",
-100.0,3.0,"a",
-102.0,3.0,"a",
-0.0,100.0,"a",
-2.0,99.0,"a",
-2.0,101.0,"a",
-3.0,98.0,"a",
-3.0,100.0,"a",
-3.0,102.0,"a",
-100.0,100.0,"b",
+25.0,100.0,"a",
+30.0,90.0,"a",
+20.0,90.0,"a",
+35.0,85.0,"a",
+25.0,85.0,"a",
+15.0,85.0,"a",
+105.0,20.0,"a",
+95.0,25.0,"a",
+95.0,15.0,"a",
+90.0,30.0,"a",
+90.0,20.0,"a",
+90.0,10.0,"a",
+25.0,20.0,"b",
 ].each_slice(3)
 
 
-data = data.map{|triple| [105 - triple[0], 105-triple[1], triple[2]]}
+# data = data.map{|triple| [105 - triple[0], 105-triple[1], triple[2]]}
 pp data
 
 input = data.filter { |x| x[2] == "a" }.map { |x| [x[0], x[1]] }
@@ -44,21 +44,22 @@ predict = input + novelty_point
 
 # for noutlier
 ranges = Ml::Service::Isolation::Noutlier.min_max(input)
-pp ranges
 # ranges = input[0].length.times.map { |dim| adjusted_box(input, dim) }
 novelty_service = Ml::Service::Isolation::Noutlier.new(
   batch_size: input.size,
   max_depth: 10,
   ranges: ranges,
-  random: Random.new(111)
+  random: Random.new(113)
 )
 
 pp "staert"
 forest = Ml::Forest::Tree.new(input, trees_count: 1, forest_helper: novelty_service)
 pp "end"
 
+pp predict
+
 pred_input = predict.map do |point|
-  forest.fit_predict(point, forest_helper: novelty_service)
+  forest.fit_predict(point, novelty_service)
 end
 
 #ranges = novelty_service.ranges

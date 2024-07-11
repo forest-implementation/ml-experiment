@@ -5,18 +5,19 @@ GIT
   specs:
     rinruby (2.1.0)
 
+GIT
+  remote: https://github.com/forest-implementation/ml-forest
+  revision: c6d4a212c3b6b178e223a784ce78417c4b4ecc7d
+  specs:
+    ml-forest (0.1.0)
+
 PATH
   remote: .
   specs:
     ml-experiment (0.1.0)
 
 PATH
-  remote: /home/adamo/source/rubyml/ml-forest
-  specs:
-    ml-forest (0.1.0)
-
-PATH
-  remote: /home/adamo/source/rubyml/ml-service-isolation
+  remote: /home/adamo/scripts/ruby-forest-test/ml-service-isolation
   specs:
     ml-service-isolation (0.1.0)
 
@@ -24,78 +25,81 @@ GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.2)
-    enumerable-statistics (2.0.7)
-    erubi (1.12.0)
+    enumerable-statistics (2.0.8)
+    erubi (1.13.0)
     gnuplot (2.6.2)
-    json (2.7.1)
+    json (2.7.2)
     language_server-protocol (3.17.0.3)
     matrix (0.4.2)
-    minitest (5.20.0)
+    minitest (5.24.1)
     netrc (0.11.0)
-    parallel (1.23.0)
-    parser (3.2.2.4)
+    parallel (1.25.1)
+    parser (3.3.4.0)
       ast (~> 2.4.1)
       racc
-    prettier_print (1.2.1)
-    prism (0.18.0)
-    racc (1.7.3)
+    prism (0.30.0)
+    racc (1.8.0)
     rainbow (3.1.1)
-    rake (13.1.0)
-    rbi (0.1.5)
-      prism (>= 0.18.0, < 0.19)
+    rake (13.2.1)
+    rbi (0.1.13)
+      prism (>= 0.18.0, < 1.0.0)
       sorbet-runtime (>= 0.5.9204)
-    regexp_parser (2.8.3)
-    rexml (3.2.6)
-    rubocop (1.58.0)
+    regexp_parser (2.9.2)
+    rexml (3.3.1)
+      strscan
+    rubocop (1.65.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
-      parser (>= 3.2.2.4)
+      parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
-      regexp_parser (>= 1.8, < 3.0)
+      regexp_parser (>= 2.4, < 3.0)
       rexml (>= 3.2.5, < 4.0)
-      rubocop-ast (>= 1.30.0, < 2.0)
+      rubocop-ast (>= 1.31.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.30.0)
-      parser (>= 3.2.1.0)
+    rubocop-ast (1.31.3)
+      parser (>= 3.3.1.0)
     ruby-graphviz (1.2.5)
       rexml
     ruby-progressbar (1.13.0)
     rubystats (0.4.1)
       matrix
-    sorbet (0.5.11148)
-      sorbet-static (= 0.5.11148)
-    sorbet-runtime (0.5.11148)
-    sorbet-static (0.5.11148-x86_64-linux)
-    sorbet-static-and-runtime (0.5.11148)
-      sorbet (= 0.5.11148)
-      sorbet-runtime (= 0.5.11148)
-    spoom (1.2.4)
+    sorbet (0.5.11480)
+      sorbet-static (= 0.5.11480)
+    sorbet-runtime (0.5.11480)
+    sorbet-static (0.5.11480-aarch64-linux)
+    sorbet-static (0.5.11480-universal-darwin)
+    sorbet-static (0.5.11480-x86_64-linux)
+    sorbet-static-and-runtime (0.5.11480)
+      sorbet (= 0.5.11480)
+      sorbet-runtime (= 0.5.11480)
+    spoom (1.3.3)
       erubi (>= 1.10.0)
+      prism (>= 0.28.0)
       sorbet-static-and-runtime (>= 0.5.10187)
-      syntax_tree (>= 6.1.1)
       thor (>= 0.19.2)
+    strscan (3.1.0)
     svg-graph (2.2.2)
-    syntax_tree (6.2.0)
-      prettier_print (>= 1.2.0)
-    tapioca (0.11.13)
+    tapioca (0.15.1)
       bundler (>= 2.2.25)
       netrc (>= 0.11.0)
       parallel (>= 1.21.0)
       rbi (>= 0.1.4, < 0.2)
-      sorbet-static-and-runtime (>= 0.5.10187)
-      spoom (~> 1.2.0, >= 1.2.0)
+      sorbet-static-and-runtime (>= 0.5.11087)
+      spoom (>= 1.2.0)
       thor (>= 1.2.0)
       yard-sorbet
-    thor (1.3.0)
+    thor (1.3.1)
     unicode-display_width (2.5.0)
-    yard (0.9.34)
-    yard-sorbet (0.8.1)
-      sorbet-runtime (>= 0.5)
-      yard (>= 0.9)
+    yard (0.9.36)
+    yard-sorbet (0.9.0)
+      sorbet-runtime
+      yard
 
 PLATFORMS
+  aarch64-linux
+  universal-darwin
   x86_64-linux
 
 DEPENDENCIES
@@ -116,4 +120,4 @@ DEPENDENCIES
   tapioca
 
 BUNDLED WITH
-   2.4.10
+   2.5.9
