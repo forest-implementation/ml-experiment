@@ -5,14 +5,13 @@ module Plotting
     def plot(gp, path, x_ranges, y_ranges, key = "left", &fun)
       Gnuplot::Plot.new(gp) do |plot|
         plot.terminal "svg"
+        plot.style "function pm3d"
         plot.output File.expand_path(path, __dir__)
         plot.xrange "[#{x_ranges[0]}:#{x_ranges[1]}]"
         plot.yrange "[#{y_ranges[0]}:#{y_ranges[1]}]"
-        plot.notitle
         # plot.xlabel "X"
         # plot.ylabel "Y"
-        plot.key key
-
+        # plot.key key
         fun.call(plot)
       end
     end
@@ -63,8 +62,43 @@ module Plotting
       end
     end
 
+    def hsv2rgb(h, s, v)
+      h_i = (h * 6).to_i
+      f = h * 6 - h_i
+      p = v * (1 - s)
+      q = v * (1 - f * s)
+      t = v * (1 - (1 - f) * s)
+
+      r, g, b = case h_i % 6
+                when 0 then [v, t, p]
+                when 1 then [q, v, p]
+                when 2 then [p, v, t]
+                when 3 then [p, q, v]
+                when 4 then [t, p, v]
+                when 5 then [v, p, q]
+                end
+
+      [(r * 255).to_i, (g * 255).to_i, (b * 255).to_i]
+    end
+
+    # Function to convert RGB to Hexadecimal
+    def rgb2hex(r, g, b)
+      format("#%02X%02X%02X", r, g, b)
+    end
+
+    # Function to convert HSV to Hexadecimal
+    def hsv2hex(h, s, v)
+      r, g, b = hsv2rgb(h, s, v)
+      rgb2hex(r, g, b)
+    end
+
     def set_rects(plot, x1y1x2y2, style: "fc rgb '#BD73BD' fs solid #{1.0 / 10}")
       x1y1x2y2.each do |hash|
+        style = "fc rgb '#BD73BD' fs solid #{1 - 1.1**(hash["depth"] < 1 ? 0 : -hash["depth"] + 1).to_f}"
+        
+        # pp hash["depth"]
+        style = "fc rgb '#{hsv2hex(0, hash["depth"] < 1 ? 0 : (hash["depth"] / 10.0), hash["depth"] < 1 ? 0 : 1.1 - (hash["depth"] / 10.0))}'"
+        # pp style
         # children = get_children(x1y1x2y2.map { |x| x["borders"] }, hash["borders"])
         set_rect(plot, *hash["borders"][0].minmax, *hash["borders"][1].minmax, style: style,
                                                                                label: hash["depth"])

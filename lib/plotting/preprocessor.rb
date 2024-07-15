@@ -25,7 +25,8 @@ module Plotting
       if previous_hash.key?("path_length")
         return {
           borders: pretty_borders(previous_hash["borders"]),
-          path_length: previous_hash["path_length"].round(2),
+          # comment out if you need path length in binary tree picture
+          # path_length: previous_hash["path_length"].round(2),
           depth: previous_hash["depth"]
         }
       end
@@ -62,7 +63,7 @@ module Plotting
     def rectangles_coords_deep(key, tree, &fun)
       return if tree.is_a?(Node::OutNode)
 
-      pp tree.branches.keys
+      # pp tree.branches.keys
       fun.call [nicekey(key), tree.branches.keys.map { |kk| nicekey(kk) }] if tree.is_a?(Node::InNode)
       tree.branches.map do |key, y|
         rectangles_coords_deep(key, y) { |x| fun.call x }
