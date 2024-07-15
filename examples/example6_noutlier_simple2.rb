@@ -104,15 +104,14 @@ Gnuplot.open do |gp|
   plot_regular = input_regular
   plot_novelty = input_novelty
 
-  plot(gp, "../../figures/example66_noutlier_gnu_test.svg", ranges[0].minmax,
-       ranges[1].minmax, key = "right") do |plot|
+  plot(gp, "../../figures/example6_#{service.class.to_s}_gnu.svg", [0, 110], [-5, 105], "off") do |plot|
     # plot(gp, "../../figures/example6_noutlier_gnu.svg", [100.0, 500], [0.0, 150]) do |plot|
     set_rects(plot, s.to_a)
     plot.data << lines_init(prepare_for_lines_plot(r[0]),
                             prepare_for_lines_plot(r[1]))
     set_labels(plot, ["Px"], [novelty_point[0][0] - 1.5], [novelty_point[0][1] - 2.5], "Bold")
     plot.data << points_init(*plot_regular.transpose, "regular", "1", "blue") # regular
-    plot.data << points_init(*plot_novelty.transpose, "anomaly", "2", "red") # novelty
+    plot.data << points_init(*plot_novelty.transpose, "anomaly", "1", "blue") # novelty
     # set_labels(plot, %w[Px B], [15 - 1, 7], [2.5 + 0.1, 7], style = "Bold")
     # set_labels(plot, labels, label_xs, label_ys)
   end

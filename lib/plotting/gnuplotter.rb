@@ -11,7 +11,7 @@ module Plotting
         plot.yrange "[#{y_ranges[0]}:#{y_ranges[1]}]"
         # plot.xlabel "X"
         # plot.ylabel "Y"
-        # plot.key key
+        plot.key key
         fun.call(plot)
       end
     end
@@ -25,7 +25,7 @@ module Plotting
 
     def lines_init(x, y)
       Gnuplot::DataSet.new([x, y]) do |ds|
-        ds.with = "lines lw 1.6 lc rgb '#AE000000'"
+        ds.with = "lines lw 0.5 lc rgb 'red'"
         ds.notitle
       end
     end
@@ -92,13 +92,9 @@ module Plotting
       rgb2hex(r, g, b)
     end
 
-    def set_rects(plot, x1y1x2y2, style: "fc rgb '#BD73BD' fs solid #{1.0 / 10}")
+    def set_rects(plot, x1y1x2y2, style: "fc rgb '#BD73BD' fs solid #{1.0 / 12}")
       x1y1x2y2.each do |hash|
-        style = "fc rgb '#BD73BD' fs solid #{1 - 1.1**(hash["depth"] < 1 ? 0 : -hash["depth"] + 1).to_f}"
-        
-        # pp hash["depth"]
-        style = "fc rgb '#{hsv2hex(0, hash["depth"] < 1 ? 0 : (hash["depth"] / 10.0), hash["depth"] < 1 ? 0 : 1.1 - (hash["depth"] / 10.0))}'"
-        # pp style
+        style = "fc rgb '#{hsv2hex(0, hash["depth"] < 1 ? 0 : (hash["depth"] / 12.0), hash["depth"] < 1 ? 0 : 1.1 - (hash["depth"] / 12.0))}'"
         # children = get_children(x1y1x2y2.map { |x| x["borders"] }, hash["borders"])
         set_rect(plot, *hash["borders"][0].minmax, *hash["borders"][1].minmax, style: style,
                                                                                label: hash["depth"])
