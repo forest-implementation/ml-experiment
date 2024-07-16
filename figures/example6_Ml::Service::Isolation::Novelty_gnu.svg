@@ -351,7 +351,82 @@
 	<g stroke='none' shape-rendering='crispEdges'>
 		<polygon fill = 'rgb(216, 162, 162)' points = '444.75,231.00 574.81,231.00 574.81,18.02 444.75,18.02 '/>
 	</g>
-	<path stroke='black'  d='M444.75,231.00 L444.75,18.02 L574.81,18.02 L574.81,231.00 L444.75,231.00 Z  '/>	<g transform="translate(165.68,360.77)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="start">
+	<path stroke='black'  d='M444.75,231.00 L444.75,18.02 L574.81,18.02 L574.81,231.00 L444.75,231.00 Z  '/>	<g transform="translate(183.66,340.10)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >2</tspan></text>
+	</g>
+	<g transform="translate(86.10,127.11)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >4</tspan></text>
+	</g>
+	<g transform="translate(151.14,180.36)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >5</tspan></text>
+	</g>
+	<g transform="translate(126.75,100.48)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >8</tspan></text>
+	</g>
+	<g transform="translate(143.01,100.48)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >8</tspan></text>
+	</g>
+	<g transform="translate(167.40,100.48)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >7</tspan></text>
+	</g>
+	<g transform="translate(151.14,47.23)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >6</tspan></text>
+	</g>
+	<g transform="translate(216.17,180.36)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >5</tspan></text>
+	</g>
+	<g transform="translate(216.17,113.80)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >7</tspan></text>
+	</g>
+	<g transform="translate(199.92,87.17)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >8</tspan></text>
+	</g>
+	<g transform="translate(232.43,87.17)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >8</tspan></text>
+	</g>
+	<g transform="translate(216.17,47.23)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >6</tspan></text>
+	</g>
+	<g transform="translate(281.21,127.11)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >4</tspan></text>
+	</g>
+	<g transform="translate(378.77,233.60)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >2</tspan></text>
+	</g>
+	<g transform="translate(460.06,393.35)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >6</tspan></text>
+	</g>
+	<g transform="translate(480.38,419.98)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >9</tspan></text>
+	</g>
+	<g transform="translate(480.38,380.04)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >10</tspan></text>
+	</g>
+	<g transform="translate(480.38,353.41)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >10</tspan></text>
+	</g>
+	<g transform="translate(488.51,393.35)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >8</tspan></text>
+	</g>
+	<g transform="translate(500.71,393.35)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >7</tspan></text>
+	</g>
+	<g transform="translate(476.32,326.79)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >7</tspan></text>
+	</g>
+	<g transform="translate(476.32,300.17)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >7</tspan></text>
+	</g>
+	<g transform="translate(476.32,260.23)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >6</tspan></text>
+	</g>
+	<g transform="translate(541.36,340.10)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >4</tspan></text>
+	</g>
+	<g transform="translate(508.84,127.11)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
+		<text><tspan font-family="Arial" >3</tspan></text>
+	</g>
+	<g transform="translate(165.68,360.77)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="start">
 		<text><tspan font-family="Arial"  font-weight="bold" >Px</tspan></text>
 	</g>
 </g>
