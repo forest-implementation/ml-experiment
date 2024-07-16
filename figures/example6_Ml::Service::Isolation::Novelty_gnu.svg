@@ -351,82 +351,7 @@
 	<g stroke='none' shape-rendering='crispEdges'>
 		<polygon fill = 'rgb(216, 162, 162)' points = '444.75,231.00 574.81,231.00 574.81,18.02 444.75,18.02 '/>
 	</g>
-	<path stroke='black'  d='M444.75,231.00 L444.75,18.02 L574.81,18.02 L574.81,231.00 L444.75,231.00 Z  '/>	<g transform="translate(183.66,340.10)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >2</tspan></text>
-	</g>
-	<g transform="translate(86.10,127.11)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >4</tspan></text>
-	</g>
-	<g transform="translate(151.14,180.36)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >5</tspan></text>
-	</g>
-	<g transform="translate(126.75,100.48)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >8</tspan></text>
-	</g>
-	<g transform="translate(143.01,100.48)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >8</tspan></text>
-	</g>
-	<g transform="translate(167.40,100.48)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >7</tspan></text>
-	</g>
-	<g transform="translate(151.14,47.23)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >6</tspan></text>
-	</g>
-	<g transform="translate(216.17,180.36)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >5</tspan></text>
-	</g>
-	<g transform="translate(216.17,113.80)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >7</tspan></text>
-	</g>
-	<g transform="translate(199.92,87.17)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >8</tspan></text>
-	</g>
-	<g transform="translate(232.43,87.17)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >8</tspan></text>
-	</g>
-	<g transform="translate(216.17,47.23)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >6</tspan></text>
-	</g>
-	<g transform="translate(281.21,127.11)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >4</tspan></text>
-	</g>
-	<g transform="translate(378.77,233.60)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >2</tspan></text>
-	</g>
-	<g transform="translate(460.06,393.35)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >6</tspan></text>
-	</g>
-	<g transform="translate(480.38,419.98)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >9</tspan></text>
-	</g>
-	<g transform="translate(480.38,380.04)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >10</tspan></text>
-	</g>
-	<g transform="translate(480.38,353.41)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >10</tspan></text>
-	</g>
-	<g transform="translate(488.51,393.35)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >8</tspan></text>
-	</g>
-	<g transform="translate(500.71,393.35)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >7</tspan></text>
-	</g>
-	<g transform="translate(476.32,326.79)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >7</tspan></text>
-	</g>
-	<g transform="translate(476.32,300.17)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >7</tspan></text>
-	</g>
-	<g transform="translate(476.32,260.23)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >6</tspan></text>
-	</g>
-	<g transform="translate(541.36,340.10)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >4</tspan></text>
-	</g>
-	<g transform="translate(508.84,127.11)" stroke="none" fill="black" font-family="Arial" font-size="8.00"  text-anchor="start">
-		<text><tspan font-family="Arial" >3</tspan></text>
-	</g>
-	<g transform="translate(165.68,360.77)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="start">
+	<path stroke='black'  d='M444.75,231.00 L444.75,18.02 L574.81,18.02 L574.81,231.00 L444.75,231.00 Z  '/>	<g transform="translate(165.68,360.77)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="start">
 		<text><tspan font-family="Arial"  font-weight="bold" >Px</tspan></text>
 	</g>
 </g>
@@ -438,7 +363,7 @@
 <g fill="none" color="white" stroke="black" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="0.50" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(255,   0,   0)'  d='M314.68,435.48 L314.68,26.53 M59.73,231.00 L309.47,231.00 M184.60,226.75 L184.60,22.27 M119.57,226.75 L119.57,22.27
+	<path stroke='rgb( 27,  12,  89)'  d='M314.68,435.48 L314.68,26.53 M59.73,231.00 L309.47,231.00 M184.60,226.75 L184.60,22.27 M119.57,226.75 L119.57,22.27
 		M120.87,124.51 L183.30,124.51 M120.87,71.26 L183.30,71.26 M152.08,123.44 L152.08,72.32 M135.83,123.44 L135.83,72.32
 		M249.64,226.75 L249.64,22.27 M185.90,124.51 L248.34,124.51 M185.90,71.26 L248.34,71.26 M185.90,97.88 L248.34,97.88
 		M217.12,97.35 L217.12,71.79 M444.75,435.48 L444.75,26.53 M447.35,231.00 L572.22,231.00 M509.78,439.74 L509.78,235.26
@@ -447,7 +372,7 @@
 		 '/></g>
 	</g>
 	<g id="gnuplot_plot_2" ><title>regular</title>
-<g fill="none" color="white" stroke="rgb(255,   0,   0)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+<g fill="none" color="white" stroke="rgb( 27,  12,  89)" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<use xlink:href='#gpPt0' transform='translate(172.78,37.37) scale(4.50)' color='rgb(  0,   0, 255)'/>

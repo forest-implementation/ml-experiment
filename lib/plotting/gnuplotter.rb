@@ -25,7 +25,7 @@ module Plotting
 
     def lines_init(x, y)
       Gnuplot::DataSet.new([x, y]) do |ds|
-        ds.with = "lines lw 0.5 lc rgb 'red'"
+        ds.with = "lines lw 0.5 lc rgb '#1b0c59'"
         ds.notitle
       end
     end
@@ -83,17 +83,22 @@ module Plotting
 
     # Function to convert RGB to Hexadecimal
     def rgb2hex(r, g, b)
+      # first two nubmers is transparency (up to 0-FF)
       format("#%02X%02X%02X", r, g, b)
     end
 
     # Function to convert HSV to Hexadecimal
-    def hsv2hex(h, s, v)
+    def hsv2hex(h, s, v, alpha = 0.1)
       r, g, b = hsv2rgb(h, s, v)
-      rgb2hex(r, g, b)
+      rgb2hex( r, g, b)
     end
 
-    def set_rects(plot, x1y1x2y2, style: "fc rgb '#BD73BD' fs solid #{1.0 / 12}")
+    def set_rects(plot, x1y1x2y2, style = "idk")
+
       x1y1x2y2.each do |hash|
+        # FOR NOUTLIER:
+        # style = "fc rgb '#{hsv2hex(0, 1, hash["depth"] < 1 ? 0.7 : (hash["depth"]/8.0))}' fs solid 0.3"
+        # For novelty:
         style = "fc rgb '#{hsv2hex(0, hash["depth"] < 1 ? 0 : (hash["depth"] / 12.0), hash["depth"] < 1 ? 0 : 1.1 - (hash["depth"] / 12.0))}'"
         # children = get_children(x1y1x2y2.map { |x| x["borders"] }, hash["borders"])
         set_rect(plot, *hash["borders"][0].minmax, *hash["borders"][1].minmax, style: style,

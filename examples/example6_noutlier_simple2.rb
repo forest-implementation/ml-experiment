@@ -41,18 +41,18 @@ novelty_point = data.filter { |x| x[2] == "b" }.map { |x| [x[0], x[1]] }
 predict = input + novelty_point
 
 # for noutlier
-ranges = Ml::Service::Isolation::Noutlier.min_max(input)
+# ranges = Ml::Service::Isolation::Noutlier.min_max(input)
 # ranges = input[0].length.times.map { |dim| adjusted_box(input, dim) }
 # for novelty
-# ranges = [[0, 110], [-5, 105]]
+ranges = [[0, 110], [-5, 105]]
 
 # 65 or 103
-# where_to_find = [103] # NOVELTY
-where_to_find = [113] # NOUTLIER
+where_to_find = [103] # NOVELTY
+# where_to_find = [113] # NOUTLIER
 
 for i in where_to_find
 
-  service = Ml::Service::Isolation::Noutlier.new(
+  service = Ml::Service::Isolation::Novelty.new(
     batch_size: input.size,
     max_depth: 10,
     ranges: ranges,
@@ -86,10 +86,9 @@ for i in where_to_find
 
   nodes = tree_nodes.map { |node| [node["borders"], { label: label_pretty_print(node) }] }
 
-  save_graph(create_graph(nodes, depths_for_tree), "figures/example6_#{service.class.to_s}_tree_bt_test.svg")
+  save_graph(create_graph(nodes, depths_for_tree), "figures/example6_#{service.class}_tree_bt_test.svg")
 
 end
-
 
 
 Gnuplot.open do |gp|
@@ -104,7 +103,7 @@ Gnuplot.open do |gp|
   plot_regular = input_regular
   plot_novelty = input_novelty
 
-  plot(gp, "../../figures/example6_#{service.class.to_s}_gnu.svg", [0, 110], [-5, 105], "off") do |plot|
+  plot(gp, "../../figures/example6_#{service.class}_gnu.svg", [0, 110], [-5, 105], "off") do |plot|
     # plot(gp, "../../figures/example6_noutlier_gnu.svg", [100.0, 500], [0.0, 150]) do |plot|
     set_rects(plot, s.to_a)
     plot.data << lines_init(prepare_for_lines_plot(r[0]),
